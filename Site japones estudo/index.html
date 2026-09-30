@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NihonGo Master | 日本語マスター - Aprenda Japonês</title>
+  
+  <!-- Google Fonts: Inter & Noto Sans JP -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Estilos Customizados -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- Favicon com Caractere Japonês -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>日</text></svg>">
+</head>
+<body>
+  <!-- ==========================================
+       BARRA DE NAVEGAÇÃO SUPERIOR
+       ========================================== -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo" data-screen="home" title="NihonGo Master - Início">
+        <div class="logo-emblem-wrap">
+          <div class="logo-emblem">
+            <span class="logo-kanji">日</span>
+            <span class="logo-sun-accent"></span>
+          </div>
+        </div>
+        <div class="logo-text-group">
+          <div class="logo-title-row">
+            <span class="logo-text-nihon">Nihon</span><span class="logo-text-go">Go</span>
+            <span class="logo-badge-master">MASTER</span>
+          </div>
+          <span class="logo-subtext">日本語マスター • APRENDA JAPONÊS</span>
+        </div>
+      </a>
+
+      <!-- Menu Principal Desktop -->
+      <ul class="nav-links">
+        <li class="nav-item active" data-screen="home">
+          <span>🏠 Início</span>
+        </li>
+        <li class="nav-item" data-screen="hiragana">
+          <span>あ Hiragana</span>
+        </li>
+        <li class="nav-item" data-screen="katakana">
+          <span>ア Katakana</span>
+        </li>
+        <li class="nav-item" data-screen="kanji">
+          <span>漢 Kanji N5</span>
+        </li>
+        <li class="nav-item" data-screen="practice">
+          <span>🖌️ Caligrafia</span>
+        </li>
+        <li class="nav-item" data-screen="games">
+          <span>🎮 Desafios</span>
+        </li>
+        <li class="nav-item" data-screen="quiz">
+          <span>🎯 Quiz</span>
+        </li>
+        <li class="nav-item special-nav-item" data-screen="advanced">
+          <span>🎌 Modo Avançado (N5~N1 & Anime)</span>
+        </li>
+      </ul>
+
+      <!-- Ações do Cabeçalho -->
+      <div class="nav-actions">
+        <button id="notebookToggleNavBtn" class="icon-btn toggle-notebook-btn" aria-label="Abrir Caderno de Anotações" title="Meu Caderno de Estudos">
+          📓
+        </button>
+        <button id="settingsToggleNavBtn" class="icon-btn" aria-label="Abrir Configurações e Opções" title="Configurações & Painel de Opções">
+          ⚙️
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       BARRA DE NAVEGAÇÃO MOBILE (INFERIOR)
+       ========================================== -->
+  <nav class="mobile-nav">
+    <div class="mobile-item active" data-screen="home">
+      <span>🏠</span>
+      <span>Início</span>
+    </div>
+    <div class="mobile-item" data-screen="hiragana">
+      <span>あ</span>
+      <span>Hiragana</span>
+    </div>
+    <div class="mobile-item" data-screen="katakana">
+      <span>ア</span>
+      <span>Katakana</span>
+    </div>
+    <div class="mobile-item" data-screen="kanji">
+      <span>漢</span>
+      <span>Kanji</span>
+    </div>
+    <div class="mobile-item" data-screen="practice">
+      <span>🖌️</span>
+      <span>Dojo</span>
+    </div>
+    <div class="mobile-item" data-screen="games">
+      <span>🎮</span>
+      <span>Jogos</span>
+    </div>
+    <div class="mobile-item" data-screen="quiz">
+      <span>🎯</span>
+      <span>Quiz</span>
+    </div>
+    <div class="mobile-item" data-screen="advanced">
+      <span>🎌</span>
+      <span>Anime/JLPT</span>
+    </div>
+  </nav>
+
+  <!-- ==========================================
+       CONTEÚDO PRINCIPAL (TELAS MODULARES)
+       ========================================== -->
+  <main class="main-wrapper">
+
+    <!-- ==========================================
+         TELA 1: DASHBOARD / INÍCIO (HOME)
+         ========================================== -->
+    <section id="screen-home" class="screen-view active">
+      <!-- ==========================================
+           NOVA CAPA MODERNA DO SITE (JAPAN WA-MODERN HERO)
+           ========================================== -->
+      <div class="japan-cover-hero">
+        <!-- Sol Hinomaru e Monte Fuji Artístico de Fundo -->
+        <div class="hero-jp-sun"></div>
+        <div class="hero-fuji-mount">
+          <svg viewBox="0 0 1200 400" preserveAspectRatio="none" class="fuji-svg">
+            <defs>
+              <linearGradient id="fujiGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#1e1b4b" stop-opacity="0.95" />
+                <stop offset="60%" stop-color="#311042" stop-opacity="0.95" />
+                <stop offset="100%" stop-color="#0f172a" stop-opacity="1" />
+              </linearGradient>
+              <linearGradient id="snowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
+                <stop offset="100%" stop-color="#e0e7ff" stop-opacity="0.2" />
+              </linearGradient>
+            </defs>
+            <!-- Silhueta Geométrica do Monte Fuji -->
+            <path d="M 0,400 L 0,340 Q 350,320 520,120 Q 560,70 600,70 Q 640,70 680,120 Q 850,320 1200,340 L 1200,400 Z" fill="url(#fujiGrad)" />
+            <!-- Pico com Neve Eterna -->
+            <path d="M 545,145 Q 570,95 600,70 Q 630,95 655,145 Q 635,160 620,140 Q 600,165 580,140 Q 565,160 545,145 Z" fill="url(#snowGrad)" />
+          </svg>
+        </div>
+
+        <div class="hero-content-wrap">
+          <!-- Selo Oficial Superior -->
+          <div class="hero-top-badge">
+            <span class="htb-icon">⛩️</span>
+            <span class="htb-jp">日本語の道</span>
+            <span class="htb-divider">•</span>
+            <span class="htb-en">NIHONGO MASTER • PORTAL OFICIAL DE IMERSÃO</span>
+          </div>
+
+          <!-- Título Principal com Estética Japonesa & Tipografia Moderna -->
+          <div class="hero-title-group">
+            <h1 class="hero-main-heading">
+              Da Caligrafia Milenar à <span class="gradient-text">Fluência Moderna</span>
+            </h1>
+            <div class="hero-kanji-subcall">
+              <span class="hks-kanji">日本語を極める</span>
+              <span class="hks-tag">A ARTE DE DOMINAR O JAPONÊS</span>
+            </div>
+          </div>
+
+          <p class="hero-lead-text">
+            Explore os alfabetos fonéticos <strong>Hiragana</strong> e <strong>Katakana</strong>, desvende mais de <strong>2.000 ideogramas Kanji</strong>, estude gramáticas do <strong>JLPT N5 ao N1</strong> e treine audição e shadowing com cenas icônicas de anime em um único ambiente.
+          </p>
+
+          <!-- Barra de Ações Rápidas da Capa -->
+          <div class="hero-cta-row">
+            <button class="hero-btn-primary" data-screen="hiragana">
+              <span class="btn-icon">あ</span>
+              <span class="btn-txt">Começar do Zero (Hiragana)</span>
+            </button>
+            <button class="hero-btn-advanced" data-screen="advanced">
+              <span class="btn-icon">🎌</span>
+              <span class="btn-txt">Modo Avançado & Anime (N5~N1)</span>
+              <span class="btn-pill-new">JLPT</span>
+            </button>
+            <button class="hero-btn-secondary" data-screen="practice">
+              <span class="btn-icon">🖌️</span>
+              <span class="btn-txt">Dojo de Caligrafia</span>
+            </button>
+            <button class="hero-btn-notebook toggle-notebook-btn">
+              <span class="btn-icon">📓</span>
+              <span class="btn-txt">Caderno</span>
+            </button>
+          </div>
+
+          <!-- Live Tokyo Hub & Provérbio Cultural do Momento -->
+          <div class="hero-tokyo-cultural-bar">
+            <!-- Horário ao Vivo de Tóquio -->
+            <div class="htc-item tokyo-clock-box">
+              <div class="htc-icon">🗾</div>
+              <div class="htc-info">
+                <span class="htc-label">HORÁRIO DE TÓQUIO (JST)</span>
+                <span id="liveTokyoClock" class="htc-val">🇯🇵 Tóquio: Carregando...</span>
+              </div>
+            </div>
+
+            <!-- Provérbio do Momento -->
+            <div class="htc-item cultural-quote-box" onclick="(window.app || window.japaneseApp).speakJapanese('七転八起')" title="Clique para ouvir a pronúncia">
+              <div class="htc-icon">📜</div>
+              <div class="htc-info">
+                <span class="htc-label">PROVÉRBIO DO MOMENTO (CLIQUE PARA OUVIR)</span>
+                <span class="htc-val quote-jp">「七転八起」 <small>(Cair 7 vezes, levantar 8)</small> 🔊</span>
+              </div>
+            </div>
+
+            <!-- Nível da Jornada -->
+            <div class="htc-item daily-goal-box">
+              <div class="htc-icon">⚡</div>
+              <div class="htc-info">
+                <span class="htc-label">META DIÁRIA</span>
+                <span class="htc-val">Praticar 10 Caracteres e Áudios</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kanjis Flutuantes no Fundo (Arte Clássica Japonesa) -->
+        <div class="hero-kanji-orbit">
+          <span class="hko-item hko-1" title="Harmonia (Wa)">和</span>
+          <span class="hko-item hko-2" title="Caminho (Dō)">道</span>
+          <span class="hko-item hko-3" title="Sonho (Yume)">夢</span>
+          <span class="hko-item hko-4" title="Luz (Hikari)">光</span>
+          <span class="hko-item hko-5" title="Aprendizado (Gaku)">学</span>
+        </div>
+      </div>
+
+      <!-- Seletor Interativo de Nível de Experiência -->
+      <div class="level-selector-box">
+        <div>
+          <h3 style="font-size: 1.15rem; margin-bottom: 0.25rem;">Qual o seu nível hoje?</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Personalizamos as dicas e desafios de acordo com sua bagagem:</p>
+        </div>
+        <div class="level-pills">
+          <button class="level-btn active" data-level="iniciante" onclick="window.app.setUserLevel('iniciante')">
+            🌱 Começando do Zero
+          </button>
+          <button class="level-btn" data-level="intermediario" onclick="window.app.setUserLevel('intermediario')">
+            ⚡ Já sei o básico
+          </button>
+        </div>
+      </div>
+
+      <!-- Banner de Chamada para o Modo Avançado & Anime Studio -->
+      <div class="advanced-hero-banner" onclick="window.app.navigateTo('advanced')">
+        <div class="ah-content">
+          <div class="ah-badge">🎌 NOVO • IMERSÃO AVANÇADA</div>
+          <h2 class="ah-title">Suba de Nível: Do JLPT N5 ao N1 com Falas de Animes</h2>
+          <p class="ah-desc">Aprenda gramáticas formais do exame oficial, kanjis de alto nível e treine sua audição e fala (shadowing) com cenas consagradas de Jujutsu Kaisen, Shingeki no Kyojin, Kimetsu, One Piece e mais!</p>
+          <div class="ah-actions">
+            <button class="btn-primary" onclick="event.stopPropagation(); window.japaneseApp.navigateTo('advanced');">
+              ⚡ Acessar Modo Avançado & Anime (N5~N1)
+            </button>
+            <button class="btn-outline" onclick="event.stopPropagation(); window.japaneseApp.navigateTo('advanced'); window.japaneseAdvanced && window.japaneseAdvanced.switchTab('anime');">
+              🎬 Treinar Shadowing com Falas
+            </button>
+          </div>
+        </div>
+        <div class="ah-visual">
+          <div class="ah-kanji-cloud">
+            <span>域</span><span>燃</span><span>魂</span><span>進</span>
+          </div>
+          <div class="ah-sticker">N5 ➔ N1</div>
+        </div>
+      </div>
+
+      <!-- Trilha 1: Para quem NÃO SABE NADA (Iniciante Absoluto) -->
+      <div id="beginnerContentSection" style="margin-bottom: 2rem;">
+        <div class="stat-card" style="background: linear-gradient(135deg, var(--bg-card), var(--primary-light)); border: 2px solid var(--primary); flex-direction: column; align-items: flex-start; margin-bottom: 1.5rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <span style="font-size: 1.5rem;">🌱</span>
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--primary);">Guia Rápido: Por Onde Começar do Zero?</h3>
+          </div>
+          <p style="font-size: 0.95rem; color: var(--text-main); line-height: 1.6; margin-bottom: 1rem;">
+            Não se assuste com os símbolos! Todo estudante de japonês começa pelo <strong>Hiragana</strong>. Ele tem 46 caracteres que cobrem todos os sons fundamentais. Quando aprender o Hiragana, você já conseguirá ler palavras inteiras!
+          </p>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <button class="btn-primary" data-screen="hiragana">
+              あ Abrir Alfabeto Hiragana
+            </button>
+            <button class="btn-outline" onclick="window.app.navigateTo('games'); window.japaneseGames.startMemoryGame('hiragana');">
+              🎴 Jogar Memória de Hiragana
+            </button>
+          </div>
+        </div>
+
+        <div class="dashboard-grid" id="beginnerGuidesContainer" style="margin-bottom: 2rem;">
+          <!-- Guias pedagógicos renderizados via JS -->
+        </div>
+
+        <!-- Cuidado com os Gêmeos (Caracteres Confusos) -->
+        <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem; color: #ea580c;">
+          👀 Cuidado com os Gêmeos! Caracteres que Mais Confundem Iniciantes
+        </h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+          Muitos caracteres se parecem, mas pequenos detalhes mudam tudo. Aprenda os macetes:
+        </p>
+        <div id="confusingKanaContainer" style="margin-bottom: 2rem;">
+          <!-- Preenchido via app.js -->
+        </div>
+
+        <!-- Primeiras Palavras do Cotidiano -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap;">
+          <h3 style="font-size: 1.25rem; font-weight: 800;">
+            🌟 Primeiras Palavras Essenciais (Clique para ouvir)
+          </h3>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Comidas, Animais, Cores e Lugares</span>
+        </div>
+        <div id="beginnerVocabContainer" class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+          <!-- Preenchido via app.js -->
+        </div>
+      </div>
+
+      <!-- Trilha 2: Para quem JÁ SABE UM POUCO (Intermediário / JLPT N5) -->
+      <div id="intermediateContentSection" style="display: none; margin-bottom: 2rem;">
+        <div class="stat-card" style="background: linear-gradient(135deg, var(--bg-card), #ede9fe); border: 2px solid var(--accent); flex-direction: column; align-items: flex-start; margin-bottom: 1.5rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <span style="font-size: 1.5rem;">⚡</span>
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--accent);">Desafios Avançados & Leitura Rápida</h3>
+          </div>
+          <p style="font-size: 0.95rem; color: var(--text-main); line-height: 1.6; margin-bottom: 1rem;">
+            Já reconhece os alfabetos? Desafie seus reflexos no modo <strong>Contra o Tempo (30s)</strong>, monte frases com partículas reais no <strong>Construtor de Sentenças</strong> ou explore como os <strong>Kanjis se fundem</strong> para formar novas palavras!
+          </p>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <button class="btn-primary" style="background: var(--accent);" onclick="window.app.navigateTo('games'); window.japaneseGames.startSpeedRun('hiragana');">
+              ⏱️ Speed Run (30 Segundos)
+            </button>
+            <button class="btn-outline" onclick="window.app.navigateTo('games'); window.japaneseGames.initSentenceBuilder();">
+              🧩 Montador de Frases N5
+            </button>
+          </div>
+        </div>
+
+        <!-- Vitrine de Kanjis Compostos (Jukugo) -->
+        <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 1rem;">Kanjis Compostos (Jukugo 熟語): Como as ideias se unem</h3>
+        <div id="jukugoContainer" class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-bottom: 2.5rem;">
+          <!-- Renderizado via app.js -->
+        </div>
+
+        <!-- As 4 Formas Verbais Sagradas -->
+        <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem;">
+          📖 As 4 Formas Verbais Essenciais (JLPT N5/N4)
+        </h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+          Conhecer a flexão dos verbos é o divisor de águas entre o iniciante e o falante que se comunica de verdade:
+        </p>
+        <div id="verbFormsContainer" class="verbs-table-wrapper">
+          <!-- Preenchido via app.js -->
+        </div>
+
+        <!-- Contadores Japoneses -->
+        <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem;">
+          🔢 Contadores Japoneses (Joushi 助数詞)
+        </h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+          Em japonês não basta dizer o número; cada formato de objeto tem seu próprio contador especial!
+        </p>
+        <div id="countersContainer" class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-bottom: 2.5rem;">
+          <!-- Preenchido via app.js -->
+        </div>
+
+        <!-- Diálogos Reais -->
+        <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem;">
+          💬 Diálogos Reais em Tóquio (Toque para ouvir as falas)
+        </h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+          Frases autênticas usadas no cotidiano japonês:
+        </p>
+        <div id="dialoguesContainer">
+          <!-- Preenchido via app.js -->
+        </div>
+      </div>
+
+      <!-- Resumo de Estatísticas -->
+      <div class="dashboard-grid">
+        <div class="stat-card">
+          <div class="stat-icon pink">🔥</div>
+          <div>
+            <div id="statStreak" class="stat-value">1 dia</div>
+            <div class="stat-label">Sequência Diária</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon blue">🎧</div>
+          <div>
+            <div id="statPracticed" class="stat-value">0</div>
+            <div class="stat-label">Áudios & Caracteres Praticados</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon purple">🎯</div>
+          <div>
+            <div id="statQuizAccuracy" class="stat-value">--</div>
+            <div class="stat-label">Precisão no Quiz</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon green">⛩️</div>
+          <div>
+            <div id="statKanjiCount" class="stat-value">63</div>
+            <div class="stat-label">Kanji N5 Disponíveis</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kanji do Dia Interativo -->
+      <div class="daily-kanji-card">
+        <div id="dailyKanjiChar" class="kanji-big-display" title="Clique para ouvir a pronúncia">
+          日
+        </div>
+        <div class="kanji-info-body">
+          <h4>🌟 KANJI DO DIA</h4>
+          <h3 id="dailyKanjiMeaning">Dia / Sol / Japão (N5)</h3>
+          <div class="kanji-readings-pill">
+            <span class="pill-item"><strong>On'yomi:</strong> <span id="dailyKanjiOnyomi">ニチ, ジツ</span></span>
+            <span class="pill-item"><strong>Kun'yomi:</strong> <span id="dailyKanjiKunyomi">ひ, -か</span></span>
+          </div>
+          <p style="font-size: 0.95rem; opacity: 0.9;">
+            Exemplo: <strong id="dailyKanjiExample">日本 (にほん) - Japão</strong>
+          </p>
+        </div>
+        <div class="daily-kanji-actions">
+          <button class="btn-primary" onclick="window.app.speakJapanese(document.getElementById('dailyKanjiChar').textContent)">
+            🔊 Ouvir
+          </button>
+          <button class="btn-outline" style="color:white; border-color:rgba(255,255,255,0.3);" onclick="window.app.openPracticeForChar(document.getElementById('dailyKanjiChar').textContent, 'Kanji do Dia')">
+            🖌️ Treinar Traço
+          </button>
+        </div>
+      </div>
+
+      <!-- Atalhos para as Telas de Estudo -->
+      <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 1.25rem;">Por onde começar?</h2>
+      <div class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+        <!-- Card Hiragana -->
+        <div class="stat-card" style="cursor: pointer; flex-direction: column; align-items: flex-start;" data-screen="hiragana">
+          <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+            <span style="font-size: 2.5rem; font-family: var(--font-jp); color: var(--primary);">あ</span>
+            <span class="section-badge">Básico</span>
+          </div>
+          <h3 style="font-size: 1.2rem; margin: 0.5rem 0 0.25rem;">Hiragana (平仮名)</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+            O primeiro e mais essencial alfabeto fonético japonês (46 caracteres + combinações).
+          </p>
+          <span style="color: var(--primary); font-weight: 600; font-size: 0.9rem;">Abrir Tabela &rarr;</span>
+        </div>
+
+        <!-- Card Katakana -->
+        <div class="stat-card" style="cursor: pointer; flex-direction: column; align-items: flex-start;" data-screen="katakana">
+          <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+            <span style="font-size: 2.5rem; font-family: var(--font-jp); color: var(--secondary);">ア</span>
+            <span class="section-badge" style="background:#e0f2fe; color:#0284c7;">Estrangeirismos</span>
+          </div>
+          <h3 style="font-size: 1.2rem; margin: 0.5rem 0 0.25rem;">Katakana (片仮名)</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+            Usado para palavras de origem ocidental, nomes estrangeiros e onomatopeias.
+          </p>
+          <span style="color: var(--secondary); font-weight: 600; font-size: 0.9rem;">Abrir Tabela &rarr;</span>
+        </div>
+
+        <!-- Card Kanji -->
+        <div class="stat-card" style="cursor: pointer; flex-direction: column; align-items: flex-start;" data-screen="kanji">
+          <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+            <span style="font-size: 2.5rem; font-family: var(--font-jp); color: var(--accent);">漢</span>
+            <span class="section-badge" style="background:#ede9fe; color:#7c3aed;">JLPT N5</span>
+          </div>
+          <h3 style="font-size: 1.2rem; margin: 0.5rem 0 0.25rem;">Kanji Explorer (漢字)</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+            Ideogramas com significados, leituras Kun'yomi, On'yomi e vocabulário real.
+          </p>
+          <span style="color: var(--accent); font-weight: 600; font-size: 0.9rem;">Explorar Kanji &rarr;</span>
+        </div>
+
+        <!-- Card Quiz -->
+        <div class="stat-card" style="cursor: pointer; flex-direction: column; align-items: flex-start;" data-screen="quiz">
+          <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+            <span style="font-size: 2.5rem;">🎯</span>
+            <span class="section-badge" style="background:#dcfce7; color:#10b981;">Prática</span>
+          </div>
+          <h3 style="font-size: 1.2rem; margin: 0.5rem 0 0.25rem;">Testes & Quiz</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+            Desafie seu reconhecimento visual e auditivo com perguntas interativas.
+          </p>
+          <span style="color: var(--success); font-weight: 600; font-size: 0.9rem;">Iniciar Quiz &rarr;</span>
+        </div>
+      </div>
+
+      <!-- Frases Úteis do Cotidiano -->
+      <div style="margin-top: 2rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+          <h2 style="font-size: 1.4rem; font-weight: 700;">Frases Essenciais do Dia a Dia</h2>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Clique em qualquer uma para ouvir</span>
+        </div>
+        <div id="phrasesList" class="dashboard-grid">
+          <!-- Gerado dinamicamente via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TELA 2: HIRAGANA (平仮名)
+         ========================================== -->
+    <section id="screen-hiragana" class="screen-view">
+      <div class="section-header">
+        <div class="section-badge">あ い う え お</div>
+        <h1 class="section-title">Hiragana (平仮名)</h1>
+        <p class="section-subtitle">
+          Clique em qualquer caractere para ouvir a pronúncia nativa japonesa. Clique com botão direito ou duplo clique para praticar a caligrafia no Dojo!
+        </p>
+      </div>
+
+      <!-- Barra de Controle e Filtros -->
+      <div class="kana-controls">
+        <div class="tab-pill-group">
+          <button class="tab-pill hiragana-tab-btn active" data-type="basic">Gojūon (Básico - 46)</button>
+          <button class="tab-pill hiragana-tab-btn" data-type="dakuon">Dakuon / Handakuon (濁音 - 25)</button>
+          <button class="tab-pill hiragana-tab-btn" data-type="yoon">Yōon (Combinações - 36)</button>
+        </div>
+        <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+          <button id="hiraganaViewTableBtn" class="btn-primary" style="padding: 0.5rem 0.85rem; font-size: 0.85rem;">📊 Tabela</button>
+          <button id="hiraganaViewCardsBtn" class="btn-outline" style="padding: 0.5rem 0.85rem; font-size: 0.85rem;">🎴 Flashcards</button>
+          <button class="btn-primary" data-quiz-mode="hiragana">🎯 Fazer Quiz</button>
+        </div>
+      </div>
+
+      <!-- Modo Flashcard Hiragana -->
+      <div id="hiraganaFlashcardSection" style="display: none; text-align: center; margin-bottom: 2rem;">
+        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+          Cartão <span id="hiraganaFcCounter">1 / 46</span> • Clique no cartão para virar
+        </div>
+        <div class="flashcard-wrapper" onclick="window.app.flipFlashcard('hiragana')">
+          <div id="hiraganaFlashcardInner" class="flashcard-inner">
+            <div class="flashcard-front">
+              <span style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase;">Hiragana</span>
+              <div id="hiraganaFcChar" style="font-size: 6rem; font-family: var(--font-jp); font-weight: 800; color: var(--primary); margin: 0.5rem 0;">あ</div>
+              <span style="font-size: 0.8rem; color: var(--primary);">Toque para revelar romaji 🔄</span>
+            </div>
+            <div class="flashcard-back">
+              <span style="font-size: 0.85rem; color: var(--text-muted);">Romaji</span>
+              <div id="hiraganaFcRomaji" style="font-size: 3rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.25rem;">a</div>
+              <div id="hiraganaFcExample" style="font-size: 1rem; color: var(--primary); font-weight: 600;">あめ (ame - chuva)</div>
+              <button class="btn-primary" style="margin-top: 1rem; padding: 0.4rem 1rem; font-size: 0.85rem;" onclick="event.stopPropagation(); window.app.speakJapanese(document.getElementById('hiraganaFcChar').textContent)">
+                🔊 Ouvir
+              </button>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: center; gap: 0.75rem;">
+          <button class="btn-outline" onclick="window.app.prevFlashcard('hiragana')">⬅️ Anterior</button>
+          <button class="btn-outline" onclick="window.app.flipFlashcard('hiragana')">🔄 Virar</button>
+          <button class="btn-primary" onclick="window.app.nextFlashcard('hiragana')">Próximo ➡️</button>
+        </div>
+      </div>
+
+      <!-- Tabela Silábica do Hiragana -->
+      <div id="hiraganaGrid" class="kana-grid">
+        <!-- Preenchido via app.js -->
+      </div>
+
+      <!-- Caixa de Dicas Pedagógicas -->
+      <div class="stat-card" style="margin-top: 1.5rem; background: var(--bg-card); border-left: 4px solid var(--primary);">
+        <div>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--primary);">💡 Dica de Mestre: A Ordem das Vogais</h3>
+          <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6;">
+            Ao contrário do português (A, E, I, O, U), o japonês sempre segue a sequência sagrada de 5 sons: <strong>A (あ), I (い), U (う), E (え), O (お)</strong>. Todas as consoantes (K, S, T, N, H, M, Y, R, W) combinam-se com essas 5 vogais.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TELA 3: KATAKANA (片仮名)
+         ========================================== -->
+    <section id="screen-katakana" class="screen-view">
+      <div class="section-header">
+        <div class="section-badge" style="background:#e0f2fe; color:#0284c7;">ア イ ウ エ オ</div>
+        <h1 class="section-title">Katakana (片仮名)</h1>
+        <p class="section-subtitle">
+          Caracteres angulares e diretos utilizados para palavras importadas de outros idiomas (gairaigo), termos científicos e nomes de estrangeiros.
+        </p>
+      </div>
+
+      <!-- Filtros de Katakana -->
+      <div class="kana-controls">
+        <div class="tab-pill-group">
+          <button class="tab-pill katakana-tab-btn active" data-type="basic">Gojūon (Básico - 46)</button>
+          <button class="tab-pill katakana-tab-btn" data-type="dakuon">Dakuon / Handakuon (濁音 - 25)</button>
+          <button class="tab-pill katakana-tab-btn" data-type="yoon">Yōon (Combinações - 36)</button>
+        </div>
+        <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+          <button id="katakanaViewTableBtn" class="btn-primary" style="background: linear-gradient(135deg, #0284c7, #0369a1); padding: 0.5rem 0.85rem; font-size: 0.85rem;">📊 Tabela</button>
+          <button id="katakanaViewCardsBtn" class="btn-outline" style="padding: 0.5rem 0.85rem; font-size: 0.85rem;">🎴 Flashcards</button>
+          <button class="btn-primary" style="background: linear-gradient(135deg, #0284c7, #0369a1);" data-quiz-mode="katakana">
+            🎯 Fazer Quiz
+          </button>
+        </div>
+      </div>
+
+      <!-- Modo Flashcard Katakana -->
+      <div id="katakanaFlashcardSection" style="display: none; text-align: center; margin-bottom: 2rem;">
+        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+          Cartão <span id="katakanaFcCounter">1 / 46</span> • Clique no cartão para virar
+        </div>
+        <div class="flashcard-wrapper" onclick="window.app.flipFlashcard('katakana')">
+          <div id="katakanaFlashcardInner" class="flashcard-inner">
+            <div class="flashcard-front">
+              <span style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase;">Katakana</span>
+              <div id="katakanaFcChar" style="font-size: 6rem; font-family: var(--font-jp); font-weight: 800; color: var(--secondary); margin: 0.5rem 0;">ア</div>
+              <span style="font-size: 0.8rem; color: var(--secondary);">Toque para revelar romaji 🔄</span>
+            </div>
+            <div class="flashcard-back">
+              <span style="font-size: 0.85rem; color: var(--text-muted);">Romaji</span>
+              <div id="katakanaFcRomaji" style="font-size: 3rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.25rem;">a</div>
+              <div id="katakanaFcExample" style="font-size: 1rem; color: var(--secondary); font-weight: 600;">アイス (aisu - sorvete)</div>
+              <button class="btn-primary" style="background: var(--secondary); margin-top: 1rem; padding: 0.4rem 1rem; font-size: 0.85rem;" onclick="event.stopPropagation(); window.app.speakJapanese(document.getElementById('katakanaFcChar').textContent)">
+                🔊 Ouvir
+              </button>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: center; gap: 0.75rem;">
+          <button class="btn-outline" onclick="window.app.prevFlashcard('katakana')">⬅️ Anterior</button>
+          <button class="btn-outline" onclick="window.app.flipFlashcard('katakana')">🔄 Virar</button>
+          <button class="btn-primary" style="background: var(--secondary);" onclick="window.app.nextFlashcard('katakana')">Próximo ➡️</button>
+        </div>
+      </div>
+
+      <!-- Tabela do Katakana -->
+      <div id="katakanaGrid" class="kana-grid">
+        <!-- Preenchido via app.js -->
+      </div>
+
+      <!-- Caixa de Dicas do Katakana -->
+      <div class="stat-card" style="margin-top: 1.5rem; background: var(--bg-card); border-left: 4px solid var(--secondary);">
+        <div>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--secondary);">☕ Palavras Ocidentais no Japão</h3>
+          <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6;">
+            Muitas palavras comuns no Japão vêm do inglês ou do português! Por exemplo: <strong>パン (pan = pão)</strong> foi levado pelos navegadores portugueses no século XVI! <strong>コーヒー (koohii = café)</strong> e <strong>テレビ (terebi = televisão)</strong> são escritas sempre em Katakana.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TELA 4: KANJI EXPLORER (漢字 - JLPT N5)
+         ========================================== -->
+    <section id="screen-kanji" class="screen-view">
+      <div class="section-header">
+        <div class="section-badge" style="background:#ede9fe; color:#7c3aed;">Ideogramas Essenciais N5</div>
+        <h1 class="section-title">Kanji Explorer (漢字)</h1>
+        <p class="section-subtitle">
+          Explore os ideogramas mais fundamentais do idioma japonês com pronúncias On'yomi (chinesa), Kun'yomi (japonesa) e vocabulário contextualizado.
+        </p>
+      </div>
+
+      <!-- Barra de Filtro e Busca -->
+      <div class="kana-controls" style="gap: 1rem;">
+        <div style="display: flex; gap: 0.75rem; flex: 1; flex-wrap: wrap;">
+          <input 
+            type="text" 
+            id="kanjiSearchInput" 
+            placeholder="🔍 Buscar por significado (ex: Sol, Comer), leitura ou kanji..." 
+            style="flex: 1; min-width: 250px; padding: 0.65rem 1rem; border-radius: 12px; border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-main); font-size: 0.95rem; outline: none;"
+          >
+          <select 
+            id="kanjiCategoryFilter" 
+            style="padding: 0.65rem 1rem; border-radius: 12px; border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-main); font-size: 0.95rem; cursor: pointer; outline: none;"
+          >
+            <option value="all">Todas as Categorias</option>
+            <option value="Números">Números & Contagem</option>
+            <option value="Natureza & Tempo">Natureza & Tempo</option>
+            <option value="Pessoas & Sociedade">Pessoas & Família</option>
+            <option value="Ações & Verbos">Ações & Verbos</option>
+            <option value="Educação & Trabalho">Educação & Trabalho</option>
+            <option value="Adjetivos & Espaço">Tamanho, Espaço & Direções</option>
+            <option value="Sociedade & Objetos">Sociedade & Objetos</option>
+          </select>
+        </div>
+        <button class="btn-primary" data-quiz-mode="kanji">
+          🎯 Fazer Quiz de Kanji
+        </button>
+      </div>
+
+      <!-- Grade de Kanji -->
+      <div id="kanjiGridContainer" class="kanji-grid">
+        <!-- Renderizado dinamicamente via app.js -->
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TELA 5: DOJO DE CALIGRAFIA & PRÁTICA (DOJO)
+         ========================================== -->
+    <section id="screen-practice" class="screen-view">
+      <div class="section-header">
+        <div class="section-badge">🖌️ Dojo de Escrita</div>
+        <h1 class="section-title">Prática de Traçado e Caligrafia</h1>
+        <p class="section-subtitle">
+          Treine sua memória muscular desenhando o caractere sobre o quadro tradicional quadriculado (Genkouyoushi).
+        </p>
+      </div>
+
+      <div class="practice-container">
+        <!-- Área do Canvas -->
+        <div class="canvas-wrapper">
+          <div style="margin-bottom: 1rem; text-align: center;">
+            <div style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">CARACTERE EM FOCO:</div>
+            <div id="practiceCharTitle" style="font-size: 2.5rem; font-family: var(--font-jp); font-weight: bold; color: var(--primary);">あ</div>
+            <div id="practiceCharDesc" style="font-size: 0.85rem; color: var(--text-muted);">Hiragana "a" (3 traços)</div>
+          </div>
+
+          <!-- Caixa do Canvas com Linhas Quadriculadas -->
+          <div class="canvas-box canvas-grid-lines">
+            <div id="ghostCharacter" class="canvas-ghost-char">あ</div>
+            <canvas id="strokeCanvas"></canvas>
+          </div>
+
+          <!-- Controles do Dojo -->
+          <div class="canvas-controls">
+            <button id="clearCanvasBtn" class="btn-outline">
+              🗑️ Limpar Traço
+            </button>
+            <button id="toggleGhostBtn" class="btn-outline">
+              👁️ Alternar Guia Fantasma
+            </button>
+            <button class="btn-primary" onclick="window.app.speakJapanese(document.getElementById('practiceCharTitle').textContent)">
+              🔊 Ouvir
+            </button>
+          </div>
+        </div>
+
+        <!-- Seletor Rápido e Instruções -->
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <div class="stat-card" style="flex-direction: column; align-items: flex-start;">
+            <h3 style="font-size: 1.15rem; margin-bottom: 0.75rem; color: var(--text-main);">Escolha um caractere para treinar</h3>
+            <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1rem;">
+              Selecione na lista ou clique em qualquer card das telas de Hiragana, Katakana ou Kanji:
+            </p>
+            <select id="practiceCharSelect" style="width: 100%; padding: 0.75rem; border-radius: 12px; border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-main); font-size: 1rem;">
+              <optgroup label="Hiragana Populares">
+                <option value="あ">あ (a)</option>
+                <option value="い">い (i)</option>
+                <option value="う">う (u)</option>
+                <option value="え">え (e)</option>
+                <option value="お">お (o)</option>
+                <option value="か">か (ka)</option>
+                <option value="さ">さ (sa)</option>
+                <option value="た">た (ta)</option>
+                <option value="な">な (na)</option>
+                <option value="は">は (ha)</option>
+                <option value="ま">ま (ma)</option>
+                <option value="ん">ん (n)</option>
+              </optgroup>
+              <optgroup label="Katakana Populares">
+                <option value="ア">ア (a)</option>
+                <option value="カ">カ (ka)</option>
+                <option value="サ">サ (sa)</option>
+                <option value="タ">タ (ta)</option>
+                <option value="ナ">ナ (na)</option>
+                <option value="ハ">ハ (ha)</option>
+                <option value="マ">マ (ma)</option>
+                <option value="ヤ">ヤ (ya)</option>
+                <option value="ラ">ラ (ra)</option>
+                <option value="ワ">ワ (wa)</option>
+                <option value="ン">ン (n)</option>
+              </optgroup>
+              <optgroup label="Kanji N5">
+                <option value="一">一 (Um)</option>
+                <option value="二">二 (Dois)</option>
+                <option value="三">三 (Três)</option>
+                <option value="日">日 (Dia / Sol)</option>
+                <option value="月">月 (Mês / Lua)</option>
+                <option value="火">火 (Fogo)</option>
+                <option value="水">水 (Água)</option>
+                <option value="木">木 (Árvore)</option>
+                <option value="金">金 (Ouro / Dinheiro)</option>
+                <option value="土">土 (Terra)</option>
+                <option value="人">人 (Pessoa)</option>
+                <option value="山">山 (Montanha)</option>
+                <option value="川">川 (Rio)</option>
+                <option value="食">食 (Comer)</option>
+                <option value="学">学 (Aprender)</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="stat-card" style="flex-direction: column; align-items: flex-start; background: var(--bg-card);">
+            <h4 style="font-size: 1rem; margin-bottom: 0.5rem; color: var(--primary);">📐 Regras Sagradas da Escrita Japonesa:</h4>
+            <ul style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; padding-left: 1.25rem;">
+              <li><strong>De cima para baixo:</strong> Linhas horizontais superiores vêm antes das inferiores.</li>
+              <li><strong>Da esquerda para a direita:</strong> Comece traçando pelo lado esquerdo.</li>
+              <li><strong>O centro primeiro:</strong> Em caracteres simétricos (ex: 水 ou 小), o traço central vem antes das laterais.</li>
+              <li><strong>Fechamento por último:</strong> Quando há caixas ou molduras (ex: 日 ou 四), feche a base no final.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TELA 6: ARCADE & DESAFIOS INTERATIVOS
+         ========================================== -->
+    <section id="screen-games" class="screen-view">
+      <div class="section-header" style="text-align: center;">
+        <div class="section-badge">🎮 Desafios Práticos</div>
+        <h1 class="section-title">Arcade de Desafios Japoneses</h1>
+        <p class="section-subtitle" style="margin: 0 auto;">
+          Escolha um modo de jogo abaixo para treinar memorização visual, velocidade de reflexo ou estrutura de frases reais!
+        </p>
+      </div>
+
+      <!-- Abas dos Mini-Games -->
+      <div style="display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;">
+        <button id="tabGameMemory" class="btn-primary" onclick="window.app.switchGameTab('memory')">
+          🎴 Jogo da Memória
+        </button>
+        <button id="tabGameSpeed" class="btn-outline" onclick="window.app.switchGameTab('speed')">
+          ⏱️ Contra o Tempo (30s)
+        </button>
+        <button id="tabGameSentence" class="btn-outline" onclick="window.app.switchGameTab('sentence')">
+          🧩 Construtor de Frases
+        </button>
+      </div>
+
+      <!-- MINI-GAME 1: JOGO DA MEMÓRIA -->
+      <div id="gameMemorySection" class="quiz-box" style="max-width: 640px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+          <div style="display: flex; gap: 0.35rem;">
+            <button class="tab-pill active memory-mode-btn" data-mode="hiragana" onclick="window.japaneseGames.startMemoryGame('hiragana')">Hiragana</button>
+            <button class="tab-pill memory-mode-btn" data-mode="katakana" onclick="window.japaneseGames.startMemoryGame('katakana')">Katakana</button>
+            <button class="tab-pill memory-mode-btn" data-mode="kanji" onclick="window.japaneseGames.startMemoryGame('kanji')">Kanji</button>
+          </div>
+          <div style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted);">
+            Movimentos: <span id="memoryMovesCounter" style="color: var(--primary); font-weight: 800;">0</span>
+          </div>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center; margin-bottom: 1rem;">
+          Toque nas cartas para encontrar o par correspondente (Caractere japonês ⇄ Romaji/Significado)
+        </p>
+
+        <!-- Grade de Cartas -->
+        <div id="memoryGameGrid" class="memory-grid">
+          <!-- Gerado via games.js -->
+        </div>
+
+        <!-- Tela de Vitória do Jogo da Memória -->
+        <div id="memoryResultBox" style="display: none; text-align: center; padding: 2rem 0;">
+          <div style="font-size: 4rem; margin-bottom: 0.5rem;">🎊</div>
+          <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem;">Parabéns! Você encontrou todos os pares!</h2>
+          <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+            Você completou o jogo em <strong id="memoryFinalMoves" style="color: var(--primary);">0</strong> movimentos!
+          </p>
+          <button class="btn-primary" onclick="window.japaneseGames.startMemoryGame('hiragana')">
+            🔄 Jogar Novamente
+          </button>
+        </div>
+      </div>
+
+      <!-- MINI-GAME 2: SPEED RUN (CONTRA O TEMPO - 30s) -->
+      <div id="gameSpeedSection" class="quiz-box" style="display: none; max-width: 640px;">
+        <!-- Banner Inicial -->
+        <div id="speedStartBanner" style="text-align: center; padding: 1.5rem 0;">
+          <div style="font-size: 3.5rem; margin-bottom: 0.75rem;">⏱️</div>
+          <h2 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 0.5rem;">Desafio Contra o Tempo (30s)</h2>
+          <p style="font-size: 0.95rem; color: var(--text-muted); max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">
+            Acerte o maior número de caracteres possível antes que o cronômetro chegue ao fim! Acertos consecutivos ativam bônus de combo!
+          </p>
+          <div style="display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">
+            <button class="btn-primary" onclick="window.japaneseGames.startSpeedRun('hiragana')">
+              ⚡ Iniciar com Hiragana
+            </button>
+            <button class="btn-outline" onclick="window.japaneseGames.startSpeedRun('katakana')">
+              ⚡ Iniciar com Katakana
+            </button>
+            <button class="btn-outline" onclick="window.japaneseGames.startSpeedRun('kanji')">
+              ⚡ Iniciar com Kanji
+            </button>
+          </div>
+        </div>
+
+        <!-- Área Ativa do Speed Run -->
+        <div id="speedPlayArea" style="display: none;">
+          <div class="speed-timer-container">
+            <div id="speedTimerBar" class="speed-timer-bar"></div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <div>
+              <span style="font-size: 0.85rem; color: var(--text-muted);">Tempo Restante:</span>
+              <span id="speedTimeDisplay" style="font-size: 1.4rem; font-weight: 800; color: var(--primary); margin-left: 0.35rem;">30s</span>
+            </div>
+            <div id="speedComboDisplay" class="speed-combo-badge"></div>
+            <div>
+              <span style="font-size: 0.85rem; color: var(--text-muted);">Pontos:</span>
+              <span id="speedScoreDisplay" style="font-size: 1.4rem; font-weight: 800; color: #10b981; margin-left: 0.35rem;">0</span>
+            </div>
+          </div>
+
+          <div class="quiz-question-box">
+            <div id="speedCharDisplay" class="quiz-question-char" style="font-size: 5rem;">
+              あ
+            </div>
+          </div>
+
+          <div id="speedOptionsGrid" class="quiz-options-grid">
+            <!-- Opções rápidas -->
+          </div>
+        </div>
+
+        <!-- Final do Speed Run -->
+        <div id="speedFinishArea" style="display: none; text-align: center; padding: 2rem 0;">
+          <div style="font-size: 4rem; margin-bottom: 0.5rem;">🏁</div>
+          <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem;">Tempo Esgotado!</h2>
+          <div style="font-size: 3rem; font-weight: 900; color: var(--primary); margin: 0.5rem 0;" id="speedFinalScore">
+            0 pts
+          </div>
+          <p id="speedPraiseText" style="color: var(--text-muted); font-size: 1.05rem; margin-bottom: 1.5rem;">
+            Bom treino!
+          </p>
+          <button class="btn-primary" onclick="document.getElementById('speedFinishArea').style.display='none'; document.getElementById('speedStartBanner').style.display='block';">
+            🔄 Jogar Novamente
+          </button>
+        </div>
+      </div>
+
+      <!-- MINI-GAME 3: CONSTRUTOR DE FRASES (SENTENCE BUILDER) -->
+      <div id="gameSentenceSection" class="quiz-box" style="display: none; max-width: 680px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+          <span class="section-badge" style="margin: 0;">Gramática N5</span>
+          <span id="sbCounter" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">Frase 1 de 6</span>
+        </div>
+
+        <p style="font-size: 0.9rem; color: var(--text-muted); text-align: center; margin-bottom: 0.5rem;">
+          Monte a tradução para a seguinte frase:
+        </p>
+        <h3 id="sbPortuguesePrompt" style="font-size: 1.4rem; font-weight: 800; text-align: center; color: var(--text-main); margin-bottom: 1.5rem;">
+          "Eu estudo japonês."
+        </h3>
+
+        <!-- Área de Destino dos Blocos -->
+        <div id="sbTargetSlots" class="sb-slots-container">
+          <!-- Blocos selecionados -->
+        </div>
+
+        <!-- Banco de Palavras Disponíveis -->
+        <p style="font-size: 0.8rem; color: var(--text-muted); text-align: center; margin-bottom: 0.75rem;">
+          (Toque nos blocos abaixo na ordem correta. Lembre-se: em japonês, o verbo vai no final!)
+        </p>
+        <div id="sbSourceBlocks" class="sb-chips-pool">
+          <!-- Blocos de palavras gerados -->
+        </div>
+
+        <!-- Explicação Gramatical (aparece após verificar) -->
+        <div id="sbGrammarExplanation" style="display: none; background: var(--bg-primary); padding: 1.25rem; border-radius: 14px; margin-bottom: 1.5rem; text-align: left; border-left: 4px solid #10b981;">
+        </div>
+
+        <div style="display: flex; justify-content: center; gap: 0.75rem;">
+          <button id="sbCheckBtn" class="btn-primary">
+            🔍 Verificar Frase
+          </button>
+          <button class="btn-outline" onclick="window.japaneseGames.renderSentence()">
+            🔄 Reiniciar Frase
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TELA 7: QUIZ & TESTES INTERATIVOS
+         ========================================== -->
+    <section id="screen-quiz" class="screen-view">
+      <div class="section-header" style="text-align: center;">
+        <div class="section-badge">🎯 Avaliação & Desafios</div>
+        <h1 class="section-title">Teste seus Conhecimentos</h1>
+        <p class="section-subtitle" style="margin: 0 auto;">
+          Escolha uma modalidade abaixo para testar sua memorização visual e audição.
+        </p>
+      </div>
+
+      <!-- Botões de Seleção de Modo do Quiz -->
+      <div style="display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2rem;">
+        <button class="btn-outline" data-quiz-mode="hiragana">あ Quiz Hiragana</button>
+        <button class="btn-outline" data-quiz-mode="katakana">ア Quiz Katakana</button>
+        <button class="btn-outline" data-quiz-mode="kanji">漢 Quiz Kanji</button>
+        <button class="btn-outline" data-quiz-mode="audio">🎧 Desafio Auditivo</button>
+      </div>
+
+      <!-- Caixa Central do Jogo do Quiz -->
+      <div class="quiz-box">
+        <!-- Barra de Progresso -->
+        <div class="quiz-progress-bar">
+          <div id="quizProgressFill" class="quiz-progress-fill" style="width: 10%;"></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+          <span id="quizProgressText">Pergunta 1 de 10</span>
+          <span>Som 100% Nativo</span>
+        </div>
+
+        <!-- Área de Pergunta e Opções -->
+        <div id="quizPlayArea">
+          <div class="quiz-question-box">
+            <div id="quizPromptText" style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+              Qual a leitura em Romaji de:
+            </div>
+            <div id="quizCharDisplay" class="quiz-question-char" title="Clique para ouvir">
+              あ
+            </div>
+            <div style="font-size: 0.8rem; color: var(--primary); font-weight: 600;">(Clique no caractere para ouvir o som)</div>
+          </div>
+
+          <!-- Alternativas -->
+          <div id="quizOptionsContainer" class="quiz-options-grid">
+            <!-- Gerado via quiz.js -->
+          </div>
+        </div>
+
+        <!-- Tela de Resultado ao Concluir Quiz -->
+        <div id="quizResultBox" style="display: none; text-align: center; padding: 2rem 0;">
+          <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
+          <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem;">Quiz Concluído!</h2>
+          <p id="quizScoreMessage" style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 1.5rem;">
+            Você se saiu muito bem!
+          </p>
+          <div style="font-size: 3rem; font-weight: 900; color: var(--primary); margin-bottom: 2rem;" id="quizFinalScore">
+            10 / 10
+          </div>
+          <div style="display: flex; justify-content: center; gap: 1rem;">
+            <button id="restartQuizBtn" class="btn-primary">
+              🔄 Jogar Novamente
+            </button>
+            <button class="btn-outline" data-screen="home">
+              🏠 Voltar ao Início
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TELA 8: MODO AVANÇADO - JLPT N5~N1 & ANIME STUDIO
+         ========================================== -->
+    <section id="screen-advanced" class="screen-view">
+      <div class="section-header" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <div class="section-badge" style="background: linear-gradient(135deg, rgba(225, 29, 72, 0.15), rgba(139, 92, 246, 0.15)); color: var(--primary);">
+            🎌 MODO AVANÇADO • JLPT N5 AO N1 & ANIME STUDIO
+          </div>
+          <h1 class="section-title">Estudos Avançados & Imersão Anime</h1>
+          <p class="section-subtitle">
+            Domine as estruturas formais do exame JLPT e pratique sua compreensão auditiva e fala (shadowing) com cenas consagradas dos animes mais populares do mundo.
+          </p>
+        </div>
+        <button class="btn-outline" onclick="window.japaneseApp.navigateTo('home')" style="border-radius: 9999px; padding: 0.5rem 1.25rem;">
+          🌱 Voltar ao Modo Básico / Início
+        </button>
+      </div>
+
+      <!-- Abas Principais do Modo Avançado -->
+      <div class="adv-tabs-bar">
+        <button class="adv-tab-btn active" data-tab="anime">
+          <span>🎬 Cenas & Falas de Animes (Shadowing & Vídeos)</span>
+        </button>
+        <button class="adv-tab-btn" data-tab="jlpt">
+          <span>⛩️ Trilha JLPT N5 ao N1 (Gramática & Kanjis)</span>
+        </button>
+        <button class="adv-tab-btn" data-tab="yojijukugo">
+          <span>📜 Provérbios de 4 Kanjis (四字熟語)</span>
+        </button>
+        <button class="adv-tab-btn" data-tab="slang">
+          <span>💡 Gírias de Anime vs Japonês Real</span>
+        </button>
+      </div>
+
+      <!-- PAINEL 1: CENAS E FALAS DE ANIMES (SHADOWING & VÍDEO) -->
+      <div id="adv-tab-anime" class="adv-tab-content" style="display: block;">
+        <!-- Barra de Filtros e Busca -->
+        <div class="anime-filters-bar">
+          <div class="af-select-group">
+            <label for="advAnimeFilterSelect">Anime:</label>
+            <select id="advAnimeFilterSelect" class="af-select">
+              <option value="all">Todos os Animes</option>
+              <option value="Jujutsu Kaisen">Jujutsu Kaisen</option>
+              <option value="Shingeki no Kyojin (Attack on Titan)">Attack on Titan</option>
+              <option value="Kimetsu no Yaiba (Demon Slayer)">Demon Slayer</option>
+              <option value="One Piece">One Piece</option>
+              <option value="Naruto Shippuden">Naruto Shippuden</option>
+              <option value="Sousou no Frieren (Frieren e a Jornada para o Além)">Sousou no Frieren</option>
+              <option value="Fullmetal Alchemist: Brotherhood">Fullmetal Alchemist</option>
+              <option value="Death Note">Death Note</option>
+              <option value="Hunter x Hunter">Hunter x Hunter</option>
+              <option value="Dragon Ball Z">Dragon Ball Z</option>
+              <option value="Vinland Saga">Vinland Saga</option>
+              <option value="Neon Genesis Evangelion">Evangelion</option>
+              <option value="Bleach">Bleach</option>
+            </select>
+          </div>
+
+          <div class="af-select-group">
+            <label for="advLevelFilterSelect">Nível JLPT:</label>
+            <select id="advLevelFilterSelect" class="af-select">
+              <option value="all">Todos os Níveis</option>
+              <option value="n4">JLPT N4</option>
+              <option value="n3">JLPT N3</option>
+              <option value="n2">JLPT N2</option>
+              <option value="n1">JLPT N1</option>
+            </select>
+          </div>
+
+          <div class="af-search-group">
+            <input type="text" id="advAnimeSearchInput" class="af-search-input" placeholder="🔍 Buscar personagem, fala ou anime...">
+          </div>
+
+          <button id="toggleAnimeFuriganaBtn" class="af-toggle-furigana-btn" title="Ocultar Furigana e Tradução para testar seu ouvido">
+            👁️ Furigana & Tradução Visíveis
+          </button>
+        </div>
+
+        <!-- Grid de Cards de Falas de Anime -->
+        <div id="animeScenesGrid" class="anime-scenes-grid">
+          <!-- Renderizado dinamicamente via js/advanced.js -->
+        </div>
+      </div>
+
+      <!-- PAINEL 2: TRILHA JLPT N5 AO N1 -->
+      <div id="adv-tab-jlpt" class="adv-tab-content" style="display: none;">
+        <!-- Seletor de Níveis JLPT -->
+        <div class="jlpt-selector-container">
+          <span class="jlpt-sel-label">Selecione o Nível do Exame JLPT:</span>
+          <div class="jlpt-pills-row">
+            <button class="jlpt-level-pill" data-level="n5">N5 (Iniciante)</button>
+            <button class="jlpt-level-pill" data-level="n4">N4 (Básico)</button>
+            <button class="jlpt-level-pill active" data-level="n3">N3 (Intermediário)</button>
+            <button class="jlpt-level-pill" data-level="n2">N2 (Pré-Avançado)</button>
+            <button class="jlpt-level-pill" data-level="n1">N1 (Avançado / Mestre)</button>
+          </div>
+        </div>
+
+        <!-- Conteúdo Renderizado do Nível JLPT -->
+        <div id="jlptLevelContent">
+          <!-- Renderizado dinamicamente via js/advanced.js -->
+        </div>
+      </div>
+
+      <!-- PAINEL 3: GUIA GÍRIAS DE ANIME VS JAPONÊS REAL -->
+      <div id="adv-tab-slang" class="adv-tab-content" style="display: none;">
+        <div class="slang-alert-box">
+          <div class="sa-icon">⚠️</div>
+          <div>
+            <h4 class="sa-title">Cuidado com o Japonês de Anime na Vida Real!</h4>
+            <p class="sa-desc">
+              Em animes de ação e aventura, os personagens usam pronomes e contrações propositalmente rudes ou informais para demonstrar personalidade forte. Usar termos como <em>"Ore"</em> ou <em>"Kisama"</em> com atendentes ou no trabalho soa como ofensa grave. Confira o guia abaixo para entender os contrastes!
+            </p>
+          </div>
+        </div>
+
+        <div class="slang-sections-wrapper">
+          <div class="slang-sub-section">
+            <h3 class="jlpt-sec-title">👤 Pronomes Pessoais: Anime vs. Vida Real</h3>
+            <div id="slangPronounsContainer" class="slang-cards-list"></div>
+          </div>
+
+          <div class="slang-sub-section" style="margin-top: 2rem;">
+            <h3 class="jlpt-sec-title">⚡ Contrações Coloquiais mais Populares em Animes</h3>
+            <div id="slangContractionsContainer" class="slang-contract-grid"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAINEL 4: PROVÉRBIOS DE 4 KANJIS (YOJIJUKUGO) -->
+      <div id="adv-tab-yojijukugo" class="adv-tab-content" style="display: none;">
+        <div class="jlpt-overview-banner" style="border-left: 5px solid #8b5cf6;">
+          <h2 class="jlpt-level-title">📜 Yojijukugo (四字熟語) • A Alma dos Provérbios Japoneses</h2>
+          <p class="jlpt-level-desc">
+            Expressões idiomáticas milenares formadas exatamente por 4 ideogramas que condensam lições profundas de sabedoria, persistência e filosofia. Constantemente citadas em batalhas de animes, nos jornais e exigidas nas provas do JLPT N2 e N1!
+          </p>
+        </div>
+        <div id="yojijukugoGrid" class="yojijukugo-cards-grid">
+          <!-- Renderizado via advanced.js -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================
+       MODAL DE DETALHES DO KANJI
+       ========================================== -->
+  <div id="kanjiDetailModal" class="modal-overlay">
+    <div class="modal-content">
+      <button id="closeModalBtn" class="modal-close-btn" aria-label="Fechar Modal">&times;</button>
+      
+      <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1.25rem;">
+        <div id="modalKanjiSymbol" style="font-size: 4.5rem; font-family: var(--font-jp); font-weight: 800; color: var(--primary); line-height: 1;">
+          日
+        </div>
+        <div>
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.4rem;">
+            <span id="modalKanjiLevel" class="section-badge" style="margin: 0;">N5</span>
+            <span id="modalKanjiStrokes" class="section-badge" style="background:#e0f2fe; color:#0284c7; margin: 0;">4 traços</span>
+          </div>
+          <h2 id="modalKanjiMeaning" style="font-size: 1.6rem; font-weight: 800; color: var(--text-main);">Dia / Sol</h2>
+          <div id="modalKanjiCategory" style="font-size: 0.85rem; color: var(--text-muted);">Natureza & Tempo</div>
+        </div>
+      </div>
+
+      <!-- Leituras On / Kun -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+        <div style="background: var(--bg-primary); padding: 1rem; border-radius: 12px;">
+          <div style="font-size: 0.8rem; font-weight: 700; color: var(--primary); text-transform: uppercase;">Leitura On'yomi (Chinesa)</div>
+          <div id="modalKanjiOnyomi" style="font-size: 1.1rem; font-family: var(--font-jp); font-weight: 600; margin-top: 0.25rem;">ニチ, ジツ</div>
+        </div>
+        <div style="background: var(--bg-primary); padding: 1rem; border-radius: 12px;">
+          <div style="font-size: 0.8rem; font-weight: 700; color: var(--secondary); text-transform: uppercase;">Leitura Kun'yomi (Japonesa)</div>
+          <div id="modalKanjiKunyomi" style="font-size: 1.1rem; font-family: var(--font-jp); font-weight: 600; margin-top: 0.25rem;">ひ, -か</div>
+        </div>
+      </div>
+
+      <!-- Exemplos de Vocabulário -->
+      <div style="margin-bottom: 1.5rem;">
+        <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-main);">
+          Vocabulário com este Kanji (Clique para ouvir):
+        </h4>
+        <div id="modalKanjiExamples" style="background: var(--bg-primary); border-radius: 12px; overflow: hidden;">
+          <!-- Preenchido via app.js -->
+        </div>
+      </div>
+
+      <!-- Ações do Modal -->
+      <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+        <button id="modalKanjiAudioBtn" class="btn-outline">
+          🔊 Ouvir Caractere
+        </button>
+        <button id="modalPracticeKanjiBtn" class="btn-primary">
+          🖌️ Praticar Caligrafia
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL DE CONQUISTAS E MEDALHAS
+       ========================================== -->
+  <div id="achievementsModal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 550px;">
+      <button id="closeAchModalBtn" class="modal-close-btn" aria-label="Fechar Modal">&times;</button>
+      
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <div style="font-size: 3rem; margin-bottom: 0.25rem;">🏅</div>
+        <h2 style="font-size: 1.6rem; font-weight: 800;">Suas Conquistas</h2>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">
+          Desbloqueie medalhas à medida que explora e estuda japonês!
+        </p>
+      </div>
+
+      <div id="achievementsListContainer" style="display: flex; flex-direction: column; gap: 0.75rem;">
+        <!-- Preenchido via app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Flutuante de Conquista Desbloqueada -->
+  <div id="achievementToast" class="achievement-toast">
+    <div id="toastAchIcon" style="font-size: 2.25rem;">🏆</div>
+    <div>
+      <div style="font-size: 0.75rem; text-transform: uppercase; color: #f59e0b; font-weight: 800;">Nova Conquista Desbloqueada!</div>
+      <div id="toastAchTitle" style="font-weight: 800; font-size: 1.05rem; color: var(--text-main);">Sensei da Perfeição</div>
+      <div id="toastAchDesc" style="font-size: 0.8rem; color: var(--text-muted);">Acertou 100% de um quiz</div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       CADERNO DE ESTUDOS (BARRA LATERAL / SIDEBAR)
+       ========================================== -->
+  <aside id="notebookSidebar" class="notebook-sidebar">
+    <div class="notebook-header">
+      <div style="display: flex; align-items: center; gap: 0.6rem;">
+        <span style="font-size: 1.5rem;">📓</span>
+        <div>
+          <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--text-main);">Caderno de Estudos</h3>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Suas anotações e imagens fixadas</span>
+        </div>
+      </div>
+      <button id="closeNotebookBtn" class="modal-close-btn" aria-label="Fechar Caderno">&times;</button>
+    </div>
+
+    <div class="notebook-body">
+      <!-- Formulário de Nova Anotação -->
+      <form id="newNoteForm" class="note-form-box">
+        <input 
+          type="text" 
+          id="noteTitleInput" 
+          class="note-input" 
+          placeholder="📌 Título da anotação (ex: Regra da partícula は)..."
+        >
+
+        <!-- Barra de Inserção Rápida de Caracteres Japoneses -->
+        <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.35rem;">
+          Inserir caractere rápido no texto:
+        </div>
+        <div class="quick-insert-bar">
+          <button type="button" class="quick-insert-btn" data-char="は">は (wa)</button>
+          <button type="button" class="quick-insert-btn" data-char="を">を (o)</button>
+          <button type="button" class="quick-insert-btn" data-char="が">が (ga)</button>
+          <button type="button" class="quick-insert-btn" data-char="に">に (ni)</button>
+          <button type="button" class="quick-insert-btn" data-char="で">で (de)</button>
+          <button type="button" class="quick-insert-btn" data-char="の">の (no)</button>
+          <button type="button" class="quick-insert-btn" data-char="です">です (desu)</button>
+          <button type="button" class="quick-insert-btn" data-char="ます">ます (masu)</button>
+          <button type="button" class="quick-insert-btn" data-char="桜">桜 (sakura)</button>
+          <button type="button" class="quick-insert-btn" data-char="日本">日本 (nihon)</button>
+        </div>
+
+        <textarea 
+          id="noteContentInput" 
+          class="note-input" 
+          rows="3" 
+          placeholder="Escreva suas anotações, dúvidas, frases ou macetes aqui..."
+          style="resize: vertical; min-height: 80px;"
+        ></textarea>
+
+        <!-- Prévia da Imagem Anexada -->
+        <div id="noteImagePreview" class="image-preview-box">
+          <img id="notePreviewImg" src="" alt="Prévia da imagem">
+          <button type="button" id="removePreviewImgBtn" class="remove-img-btn" title="Remover imagem">&times;</button>
+        </div>
+
+        <!-- Linha de Ações do Formulário -->
+        <div class="note-upload-area">
+          <label class="custom-file-upload">
+            📷 Fixar Imagem
+            <input type="file" id="noteImageUpload" accept="image/*" style="display: none;">
+          </label>
+
+          <select id="noteTagSelect" class="note-input" style="width: auto; margin-bottom: 0; padding: 0.4rem 0.65rem; font-size: 0.85rem;">
+            <option value="Gramática">Gramática</option>
+            <option value="Vocabulário">Vocabulário</option>
+            <option value="Dúvidas">Dúvidas</option>
+            <option value="Dicas">Dicas</option>
+            <option value="Geral">Geral</option>
+          </select>
+
+          <button type="submit" class="btn-primary" style="padding: 0.45rem 1rem; font-size: 0.85rem;">
+            💾 Salvar
+          </button>
+        </div>
+      </form>
+
+      <!-- Filtro de Anotações por Tag -->
+      <div style="display: flex; gap: 0.35rem; overflow-x: auto; padding-bottom: 0.5rem; margin-bottom: 1rem;">
+        <button class="tab-pill active note-filter-pill" data-tag="all">Todas</button>
+        <button class="tab-pill note-filter-pill" data-tag="Gramática">Gramática</button>
+        <button class="tab-pill note-filter-pill" data-tag="Vocabulário">Vocabulário</button>
+        <button class="tab-pill note-filter-pill" data-tag="Dúvidas">Dúvidas</button>
+        <button class="tab-pill note-filter-pill" data-tag="Dicas">Dicas</button>
+      </div>
+
+      <!-- Lista de Anotações e Imagens Salvas -->
+      <div id="notesListContainer">
+        <!-- Renderizado dinamicamente via notebook.js -->
+      </div>
+    </div>
+  </aside>
+
+  <!-- Overlay Escuro da Barra Lateral -->
+  <div id="notebookOverlay" class="notebook-overlay"></div>
+
+  <!-- Modal de Imagem Ampliada -->
+  <div id="notebookImageModal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 800px; text-align: center; position: relative;">
+      <button class="modal-close-btn" onclick="window.japaneseNotebook.closeImageModal()">&times;</button>
+      <img id="modalEnlargedImg" src="" alt="Imagem ampliada" style="max-width: 100%; max-height: 80vh; border-radius: 12px; margin-top: 1rem;">
+    </div>
+  </div>
+
+  <!-- ==========================================
+       BARRA LATERAL DE CONFIGURAÇÕES & OPÇÕES (SETTINGS SIDEBAR)
+       ========================================== -->
+  <aside id="settingsSidebar" class="settings-sidebar">
+    <div class="settings-header">
+      <div style="display: flex; align-items: center; gap: 0.6rem;">
+        <span style="font-size: 1.5rem;">⚙️</span>
+        <div>
+          <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--text-main);">Configurações & Painel</h3>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Ajustes de Áudio, Visualização & Ferramentas</span>
+        </div>
+      </div>
+      <button id="closeSettingsBtn" class="modal-close-btn" aria-label="Fechar Configurações">&times;</button>
+    </div>
+
+    <div class="settings-body">
+      <!-- Atalho Rápido: Conquistas & Medalhas -->
+      <div class="settings-section">
+        <h4 class="settings-sec-title">🏅 Conquistas & Medalhas</h4>
+        <button type="button" id="settingsAchievementsBtn" class="settings-nav-action-btn" title="Ver Conquistas & Medalhas">
+          <span class="snab-icon">🏆</span>
+          <div class="snab-text">
+            <strong>Minhas Conquistas & Medalhas</strong>
+            <span>Ver troféus conquistados e desafios concluídos</span>
+          </div>
+          <span class="snab-badge">Ver ➔</span>
+        </button>
+      </div>
+
+      <!-- Seção 1: Tema & Estilo Visual com Alternador Direto -->
+      <div class="settings-section">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4rem;">
+          <h4 class="settings-sec-title" style="margin-bottom: 0;">🎨 Tema & Aparência</h4>
+          <button type="button" id="settingsThemeToggleBtn" class="settings-theme-quick-btn" title="Mudar entre Modo Claro e Escuro">
+            <span id="settingsThemeIcon">🌙</span>
+            <span id="settingsThemeText">Modo Escuro</span>
+          </button>
+        </div>
+        <div class="theme-picker-grid">
+          <button class="theme-card active" data-set-theme="light">
+            <span class="theme-card-icon">☀️</span>
+            <span class="theme-card-name">Paper Washi</span>
+            <span class="theme-card-sub">Claro & Limpo</span>
+          </button>
+          <button class="theme-card" data-set-theme="dark">
+            <span class="theme-card-icon">🌙</span>
+            <span class="theme-card-name">Cyber Tokyo</span>
+            <span class="theme-card-sub">Escuro Imersivo</span>
+          </button>
+          <button class="theme-card" data-set-theme="kyoto">
+            <span class="theme-card-icon">🏮</span>
+            <span class="theme-card-name">Kyoto Night</span>
+            <span class="theme-card-sub">Indigo Profundo</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Seção 2: Síntese de Voz & Áudio Japonês -->
+      <div class="settings-section">
+        <h4 class="settings-sec-title">🔊 Áudio & Pronúncia Japonesa</h4>
+        <div class="setting-item">
+          <div class="setting-label-row">
+            <span class="setting-name">Velocidade da Fala:</span>
+            <span id="speedValueLabel" class="setting-val-badge">1.0x (Padrão)</span>
+          </div>
+          <input type="range" id="settingVoiceRate" min="0.5" max="1.5" step="0.05" value="1.0" class="settings-range">
+          <div class="range-labels">
+            <span>0.5x (Super Lento)</span>
+            <span>1.0x (Normal)</span>
+            <span>1.5x (Rápido)</span>
+          </div>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-label-row">
+            <span class="setting-name">Tom da Voz (Pitch):</span>
+            <span id="pitchValueLabel" class="setting-val-badge">1.0 (Natural)</span>
+          </div>
+          <input type="range" id="settingVoicePitch" min="0.6" max="1.4" step="0.05" value="1.0" class="settings-range">
+          <div class="range-labels">
+            <span>Grave</span>
+            <span>Natural</span>
+            <span>Agudo</span>
+          </div>
+        </div>
+
+        <div style="margin-top: 0.75rem;">
+          <button type="button" id="testVoiceBtn" class="btn-outline" style="width: 100%; font-size: 0.85rem; padding: 0.5rem;">
+            🔊 Testar Pronúncia: "こんにちは、日本語マスター！"
+          </button>
+        </div>
+      </div>
+
+      <!-- Seção 3: Preferências de Exibição & Estudo -->
+      <div class="settings-section">
+        <h4 class="settings-sec-title">📖 Preferências de Estudo</h4>
+        <div class="setting-toggle-row">
+          <div class="toggle-text">
+            <strong>Exibir Furigana</strong>
+            <span>Mostrar leituras em hiragana sobre Kanjis</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="settingShowFurigana" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-toggle-row">
+          <div class="toggle-text">
+            <strong>Exibir Romaji</strong>
+            <span>Mostrar transcrição em alfabeto latino</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="settingShowRomaji" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-toggle-row">
+          <div class="toggle-text">
+            <strong>Efeitos Sonoros</strong>
+            <span>Sons interativos de acertos no Quiz e Dojo</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="settingSoundEffects" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-item" style="margin-top: 0.75rem;">
+          <label class="setting-name" for="settingDailyGoal" style="display: block; margin-bottom: 0.35rem;">Meta Diária de Prática:</label>
+          <select id="settingDailyGoal" class="note-input" style="width: 100%; margin-bottom: 0;">
+            <option value="10">🌱 10 Caracteres / Áudios (Iniciante)</option>
+            <option value="20" selected>⚡ 20 Caracteres / Áudios (Recomendado)</option>
+            <option value="40">🔥 40 Caracteres / Áudios (Focado)</option>
+            <option value="60">🥋 60 Caracteres / Áudios (Samurai Imersivo)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Seção 4: Ferramentas & Guia Rápido de Partículas -->
+      <div class="settings-section">
+        <h4 class="settings-sec-title">⛩️ Guia Rápido de Partículas (助詞)</h4>
+        <div class="particle-quick-table">
+          <div class="p-row">
+            <span class="p-badge">は (wa)</span>
+            <div class="p-desc">Define o <strong>tópico</strong> da oração ("Quanto a X...").</div>
+          </div>
+          <div class="p-row">
+            <span class="p-badge">が (ga)</span>
+            <div class="p-desc">Define o <strong>sujeito</strong> que executa ou traz foco novo.</div>
+          </div>
+          <div class="p-row">
+            <span class="p-badge">を (o)</span>
+            <div class="p-desc">Indica o <strong>objeto direto</strong> da ação verbal.</div>
+          </div>
+          <div class="p-row">
+            <span class="p-badge">に (ni)</span>
+            <div class="p-desc">Indica <strong>tempo</strong> exato, <strong>alvo</strong> ou destino.</div>
+          </div>
+          <div class="p-row">
+            <span class="p-badge">で (de)</span>
+            <div class="p-desc">Indica <strong>local de ação</strong> ou <strong>meio/ferramenta</strong>.</div>
+          </div>
+          <div class="p-row">
+            <span class="p-badge">へ (e)</span>
+            <div class="p-desc">Indica a <strong>direção</strong> do deslocamento físico.</div>
+          </div>
+          <div class="p-row">
+            <span class="p-badge">と (to)</span>
+            <div class="p-desc">Conjunção "e" (lista exaustiva) ou "junto com".</div>
+          </div>
+          <div class="p-row">
+            <span class="p-badge">も (mo)</span>
+            <div class="p-desc">Significa "também" (substitui は, が ou を).</div>
+          </div>
+          <div class="p-row">
+            <span class="p-badge">から〜まで</span>
+            <div class="p-desc">"De / A partir de [tempo/lugar] até [fim]".</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seção 5: Backup & Gerenciamento de Dados -->
+      <div class="settings-section">
+        <h4 class="settings-sec-title">💾 Backup e Gerenciamento</h4>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <button type="button" id="exportDataBtn" class="btn-primary" style="font-size: 0.85rem; padding: 0.5rem;">
+            📤 Fazer Backup (Exportar Dados em JSON)
+          </button>
+          <button type="button" id="resetDataBtn" class="btn-outline" style="font-size: 0.85rem; padding: 0.5rem; color: #ef4444; border-color: #ef4444;">
+            ⚠️ Resetar Progresso & Limpar Anotações
+          </button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Overlay para Fechar a Barra Lateral de Configurações -->
+  <div id="settingsOverlay" class="settings-overlay"></div>
+
+  <!-- Scripts da Aplicação -->
+  <script src="js/data.js"></script>
+  <script src="js/canvas.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/games.js"></script>
+  <script src="js/notebook.js"></script>
+  <script src="js/advanced.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
