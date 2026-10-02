@@ -4,512 +4,781 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NihonGo Master | 日本語マスター - Aprenda Japonês</title>
-  
+
   <!-- Google Fonts: Inter & Noto Sans JP -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Yuji+Boku&family=Instrument+Serif:ital@0;1&family=Noto+Serif+JP:wght@400;600&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+
   <!-- Estilos Customizados -->
   <link rel="stylesheet" href="css/style.css">
-  
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="preload" as="image" href="assets/images/kyoto-1600.webp" imagesrcset="assets/images/kyoto-800.webp 800w, assets/images/kyoto-1600.webp 1600w" imagesizes="(max-width: 700px) 100vw, 60vw">
+  <meta name="description" content="Uma jornada pelo Japão através da língua. Aprenda hiragana, katakana, kanji e caligrafia; explore o JLPT e pratique japonês com diálogos de anime.">
+
   <!-- Favicon com Caractere Japonês -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>日</text></svg>">
 </head>
 <body>
-  <!-- ==========================================
-       BARRA DE NAVEGAÇÃO SUPERIOR
-       ========================================== -->
-  <header class="navbar">
-    <div class="nav-container">
-      <a href="#home" class="nav-logo" data-screen="home" title="NihonGo Master - Início">
-        <div class="logo-emblem-wrap">
-          <div class="logo-emblem">
-            <span class="logo-kanji">日</span>
-            <span class="logo-sun-accent"></span>
+  <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
+  <header class="editorial-nav">
+    <div class="ed-nav-inner">
+      <a href="#home" class="ed-brand" data-screen="home" aria-label="Nihon Go Master — início"
+        ><span class="brand-sun" aria-hidden="true"></span
+        ><span>NIHON<span class="brand-go">GO</span><small>MASTER</small></span></a
+      >
+      <button
+        class="ed-menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="editorial-menu"
+      >
+        Menu <span aria-hidden="true">＋</span>
+      </button>
+      <nav class="ed-menu" id="editorial-menu" aria-label="Navegação principal">
+        <details class="ed-nav-group">
+          <summary>Aprender <span aria-hidden="true">⌄</span></summary>
+          <div class="ed-dropdown">
+            <a href="#hiragana" data-screen="hiragana">Hiragana <span lang="ja">ひらがな</span></a
+            ><a href="#katakana" data-screen="katakana">Katakana <span lang="ja">カタカナ</span></a
+            ><a href="#advanced" data-screen="advanced" data-advanced-tab="jlpt"
+              >Do N5 ao N1 <span>JLPT</span></a
+            >
           </div>
-        </div>
-        <div class="logo-text-group">
-          <div class="logo-title-row">
-            <span class="logo-text-nihon">Nihon</span><span class="logo-text-go">Go</span>
-            <span class="logo-badge-master">MASTER</span>
+        </details>
+        <a href="#kanji" data-screen="kanji" class="nav-item">Kanji</a>
+        <details class="ed-nav-group">
+          <summary>Treinar <span aria-hidden="true">⌄</span></summary>
+          <div class="ed-dropdown">
+            <a href="#practice" data-screen="practice">Caligrafia <span lang="ja">書道</span></a
+            ><a href="#quiz" data-screen="quiz">Quiz <span lang="ja">練習</span></a
+            ><a href="#games" data-screen="games">Desafios <span lang="ja">挑戦</span></a>
           </div>
-          <span class="logo-subtext">日本語マスター • APRENDA JAPONÊS</span>
-        </div>
-      </a>
-
-      <!-- Menu Principal Desktop -->
-      <ul class="nav-links">
-        <li class="nav-item active" data-screen="home">
-          <span>🏠 Início</span>
-        </li>
-        <li class="nav-item" data-screen="hiragana">
-          <span>あ Hiragana</span>
-        </li>
-        <li class="nav-item" data-screen="katakana">
-          <span>ア Katakana</span>
-        </li>
-        <li class="nav-item" data-screen="kanji">
-          <span>漢 Kanji N5</span>
-        </li>
-        <li class="nav-item" data-screen="practice">
-          <span>🖌️ Caligrafia</span>
-        </li>
-        <li class="nav-item" data-screen="games">
-          <span>🎮 Desafios</span>
-        </li>
-        <li class="nav-item" data-screen="quiz">
-          <span>🎯 Quiz</span>
-        </li>
-        <li class="nav-item special-nav-item" data-screen="advanced">
-          <span>🎌 Modo Avançado (N5~N1 & Anime)</span>
-        </li>
-      </ul>
-
-      <!-- Ações do Cabeçalho -->
-      <div class="nav-actions">
-        <button id="notebookToggleNavBtn" class="icon-btn toggle-notebook-btn" aria-label="Abrir Caderno de Anotações" title="Meu Caderno de Estudos">
-          📓
-        </button>
-        <button id="settingsToggleNavBtn" class="icon-btn" aria-label="Abrir Configurações e Opções" title="Configurações & Painel de Opções">
-          ⚙️
+        </details>
+        <details class="ed-nav-group">
+          <summary>Imersão <span aria-hidden="true">⌄</span></summary>
+          <div class="ed-dropdown">
+            <a href="#advanced" data-screen="advanced" data-advanced-tab="anime">Anime & listening</a
+            ><a href="#advanced" data-screen="advanced" data-advanced-tab="yojijukugo"
+              >Expressões japonesas</a
+            ><a href="#advanced" data-screen="advanced" data-advanced-tab="slang"
+              >Japonês do cotidiano</a
+            >
+          </div>
+        </details>
+      </nav>
+      <div class="ed-nav-actions">
+        <button type="button" id="homeSearchBtn" aria-label="Buscar na plataforma">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            aria-hidden="true"
+          >
+            <circle cx="10.5" cy="10.5" r="6.5" />
+            <path d="m16 16 5 5" /></svg
+          ><span>Buscar</span></button
+        ><button
+          type="button"
+          id="notebookToggleNavBtn"
+          class="toggle-notebook-btn"
+          aria-label="Abrir caderno de estudos"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            aria-hidden="true"
+          >
+            <path d="M5 3h14v18H5zM8 3v18M11 8h5M11 12h5" /></svg
+          ><span>Caderno</span></button
+        ><button
+          type="button"
+          id="settingsToggleNavBtn"
+          aria-label="Abrir configurações"
+          title="Configurações"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            aria-hidden="true"
+          >
+            <path d="M4 7h16M4 17h16" />
+            <circle cx="9" cy="7" r="3" fill="var(--ed-paper)" />
+            <circle cx="15" cy="17" r="3" fill="var(--ed-paper)" />
+          </svg>
         </button>
       </div>
     </div>
   </header>
-
-  <!-- ==========================================
-       BARRA DE NAVEGAÇÃO MOBILE (INFERIOR)
-       ========================================== -->
-  <nav class="mobile-nav">
-    <div class="mobile-item active" data-screen="home">
-      <span>🏠</span>
-      <span>Início</span>
+  <dialog id="home-search" class="ed-search" aria-labelledby="search-title">
+    <div class="ed-search-top">
+      <h2 id="search-title">Qual é o seu próximo passo?</h2>
+      <button type="button" data-close-search aria-label="Fechar busca">×</button>
     </div>
-    <div class="mobile-item" data-screen="hiragana">
-      <span>あ</span>
-      <span>Hiragana</span>
-    </div>
-    <div class="mobile-item" data-screen="katakana">
-      <span>ア</span>
-      <span>Katakana</span>
-    </div>
-    <div class="mobile-item" data-screen="kanji">
-      <span>漢</span>
-      <span>Kanji</span>
-    </div>
-    <div class="mobile-item" data-screen="practice">
-      <span>🖌️</span>
-      <span>Dojo</span>
-    </div>
-    <div class="mobile-item" data-screen="games">
-      <span>🎮</span>
-      <span>Jogos</span>
-    </div>
-    <div class="mobile-item" data-screen="quiz">
-      <span>🎯</span>
-      <span>Quiz</span>
-    </div>
-    <div class="mobile-item" data-screen="advanced">
-      <span>🎌</span>
-      <span>Anime/JLPT</span>
-    </div>
-  </nav>
+    <label for="home-search-input">Busque um módulo, alfabeto ou prática</label
+    ><input
+      id="home-search-input"
+      type="search"
+      placeholder="Experimente “hiragana”"
+      autocomplete="off"
+    />
+    <div id="home-search-results" aria-live="polite"></div>
+  </dialog>
 
   <!-- ==========================================
        CONTEÚDO PRINCIPAL (TELAS MODULARES)
        ========================================== -->
-  <main class="main-wrapper">
+  <main class="main-wrapper" id="main-content" tabindex="-1">
 
     <!-- ==========================================
          TELA 1: DASHBOARD / INÍCIO (HOME)
          ========================================== -->
-    <section id="screen-home" class="screen-view active">
-      <!-- ==========================================
-           NOVA CAPA MODERNA DO SITE (JAPAN WA-MODERN HERO)
-           ========================================== -->
-      <div class="japan-cover-hero">
-        <!-- Sol Hinomaru e Monte Fuji Artístico de Fundo -->
-        <div class="hero-jp-sun"></div>
-        <div class="hero-fuji-mount">
-          <svg viewBox="0 0 1200 400" preserveAspectRatio="none" class="fuji-svg">
-            <defs>
-              <linearGradient id="fujiGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#1e1b4b" stop-opacity="0.95" />
-                <stop offset="60%" stop-color="#311042" stop-opacity="0.95" />
-                <stop offset="100%" stop-color="#0f172a" stop-opacity="1" />
-              </linearGradient>
-              <linearGradient id="snowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
-                <stop offset="100%" stop-color="#e0e7ff" stop-opacity="0.2" />
-              </linearGradient>
-            </defs>
-            <!-- Silhueta Geométrica do Monte Fuji -->
-            <path d="M 0,400 L 0,340 Q 350,320 520,120 Q 560,70 600,70 Q 640,70 680,120 Q 850,320 1200,340 L 1200,400 Z" fill="url(#fujiGrad)" />
-            <!-- Pico com Neve Eterna -->
-            <path d="M 545,145 Q 570,95 600,70 Q 630,95 655,145 Q 635,160 620,140 Q 600,165 580,140 Q 565,160 545,145 Z" fill="url(#snowGrad)" />
-          </svg>
+    <section
+      id="screen-home"
+      class="screen-view active editorial-home"
+      aria-label="Uma jornada pelo Japão através da língua"
+    >
+      <!-- Hero: editorial cover -->
+      <section class="ed-hero" aria-labelledby="home-title">
+        <div class="hero-edition">
+          <span><i></i> UMA JORNADA PELO JAPÃO ATRAVÉS DA LÍNGUA</span><span lang="ja">日本への旅</span>
         </div>
-
-        <div class="hero-content-wrap">
-          <!-- Selo Oficial Superior -->
-          <div class="hero-top-badge">
-            <span class="htb-icon">⛩️</span>
-            <span class="htb-jp">日本語の道</span>
-            <span class="htb-divider">•</span>
-            <span class="htb-en">NIHONGO MASTER • PORTAL OFICIAL DE IMERSÃO</span>
-          </div>
-
-          <!-- Título Principal com Estética Japonesa & Tipografia Moderna -->
-          <div class="hero-title-group">
-            <h1 class="hero-main-heading">
-              Da Caligrafia Milenar à <span class="gradient-text">Fluência Moderna</span>
-            </h1>
-            <div class="hero-kanji-subcall">
-              <span class="hks-kanji">日本語を極める</span>
-              <span class="hks-tag">A ARTE DE DOMINAR O JAPONÊS</span>
+        <div class="hero-layout">
+          <div class="hero-copy">
+            <p class="ed-kicker">A SUA PRÓXIMA DESCOBERTA COMEÇA AQUI</p>
+            <h1 id="home-title">Uma língua.<br />Uma cultura.<br /><em>Uma jornada.</em></h1>
+            <p class="hero-description">
+              Aprenda japonês como quem vive o Japão.<br />Do primeiro <span lang="ja">あ</span> às
+              histórias que você<br class="desktop-break" />
+              sempre quis entender.
+            </p>
+            <a class="ed-button" href="#hiragana" data-screen="hiragana"
+              >Começar jornada <span class="ed-arrow" aria-hidden="true">↗</span></a
+            >
+            <div class="hero-alphabets">
+              <span lang="ja">ひらがな</span><span lang="ja">カタカナ</span><span lang="ja">漢字</span
+              ><small>UM NOVO MUNDO PARA LER.</small>
             </div>
           </div>
-
-          <p class="hero-lead-text">
-            Explore os alfabetos fonéticos <strong>Hiragana</strong> e <strong>Katakana</strong>, desvende mais de <strong>2.000 ideogramas Kanji</strong>, estude gramáticas do <strong>JLPT N5 ao N1</strong> e treine audição e shadowing com cenas icônicas de anime em um único ambiente.
+          <figure class="hero-photo">
+            <img
+              src="assets/images/kyoto-1600.webp"
+              srcset="assets/images/kyoto-800.webp 800w, assets/images/kyoto-1600.webp 1600w"
+              sizes="(max-width: 700px) 100vw, 60vw"
+              width="1600"
+              height="1067"
+              fetchpriority="high"
+              alt="Rua tradicional de Kyoto, com o pagode Yasaka e duas pessoas de quimono"
+            />
+            <div class="hero-photo-shade"></div>
+            <p class="hero-vertical" lang="ja">日本語を学ぶ。</p>
+            <figcaption>
+              <span>京都<small>KYOTO, JAPÃO</small></span
+              ><span>35°00′N 135°46′E</span>
+            </figcaption>
+            <span class="photo-index">01 / 日本</span>
+          </figure>
+          <span class="hero-side-note">APRENDER É UMA FORMA DE VIAJAR.</span>
+        </div>
+        <div class="hero-bottom">
+          <span>IDIOMA. CULTURA. DESCOBERTA.</span
+          ><a href="#journey">Explore o caminho <span aria-hidden="true">↓</span></a
+          ><span class="hero-bottom-jp" lang="ja">一歩ずつ。<small>UM PASSO DE CADA VEZ.</small></span>
+        </div>
+      </section>
+      <!-- LearningPaths: existing screen destinations -->
+      <section class="ed-section journey-section" id="journey" aria-labelledby="journey-title">
+        <div class="section-heading">
+          <p class="ed-kicker">01 — OS PRIMEIROS PASSOS</p>
+          <span lang="ja">はじまり</span>
+        </div>
+        <div class="journey-heading">
+          <h2 id="journey-title">Sua jornada<br />começa <em>aqui.</em></h2>
+          <p>
+            Não é preciso saber por onde ir.<br /> Só ter curiosidade para começar.<br /> O resto, a gente
+            descobre junto.
           </p>
-
-          <!-- Barra de Ações Rápidas da Capa -->
-          <div class="hero-cta-row">
-            <button class="hero-btn-primary" data-screen="hiragana">
-              <span class="btn-icon">あ</span>
-              <span class="btn-txt">Começar do Zero (Hiragana)</span>
-            </button>
-            <button class="hero-btn-advanced" data-screen="advanced">
-              <span class="btn-icon">🎌</span>
-              <span class="btn-txt">Modo Avançado & Anime (N5~N1)</span>
-              <span class="btn-pill-new">JLPT</span>
-            </button>
-            <button class="hero-btn-secondary" data-screen="practice">
-              <span class="btn-icon">🖌️</span>
-              <span class="btn-txt">Dojo de Caligrafia</span>
-            </button>
-            <button class="hero-btn-notebook toggle-notebook-btn">
-              <span class="btn-icon">📓</span>
-              <span class="btn-txt">Caderno</span>
-            </button>
+        </div>
+        <div class="learning-layout">
+          <div class="learning-list">
+            <a class="learning-row" href="#hiragana" data-screen="hiragana" data-preview="street"
+              ><span class="row-number">01</span
+              ><span class="row-title">Hiragana<small>O primeiro passo para ler japonês.</small></span
+              ><span class="row-japanese" lang="ja">ひらがな</span
+              ><span class="ed-arrow" aria-hidden="true">↗</span></a
+            ><a class="learning-row" href="#katakana" data-screen="katakana" data-preview="street"
+              ><span class="row-number">02</span
+              ><span class="row-title">Katakana<small>Novos sons. Um mundo de palavras.</small></span
+              ><span class="row-japanese" lang="ja">カタカナ</span
+              ><span class="ed-arrow" aria-hidden="true">↗</span></a
+            ><a class="learning-row" href="#kanji" data-screen="kanji" data-preview="kyoto"
+              ><span class="row-number">03</span
+              ><span class="row-title">Kanji<small>Cada caractere, uma descoberta.</small></span
+              ><span class="row-japanese" lang="ja">漢字</span
+              ><span class="ed-arrow" aria-hidden="true">↗</span></a
+            ><a class="learning-row" href="#practice" data-screen="practice" data-preview="kyoto"
+              ><span class="row-number">04</span
+              ><span class="row-title">Caligrafia<small>Dê forma ao que você aprende.</small></span
+              ><span class="row-japanese" lang="ja">書道</span
+              ><span class="ed-arrow" aria-hidden="true">↗</span></a
+            ><a class="learning-row" href="#quiz" data-screen="quiz" data-preview="street"
+              ><span class="row-number">05</span
+              ><span class="row-title">Quiz<small>Transforme conhecimento em confiança.</small></span
+              ><span class="row-japanese" lang="ja">練習</span
+              ><span class="ed-arrow" aria-hidden="true">↗</span></a
+            ><a class="learning-row" href="#games" data-screen="games" data-preview="kyoto"
+              ><span class="row-number">06</span
+              ><span class="row-title">Desafios<small>Um pouco de prática. Todos os dias.</small></span
+              ><span class="row-japanese" lang="ja">挑戦</span
+              ><span class="ed-arrow" aria-hidden="true">↗</span></a
+            >
           </div>
-
-          <!-- Live Tokyo Hub & Provérbio Cultural do Momento -->
-          <div class="hero-tokyo-cultural-bar">
-            <!-- Horário ao Vivo de Tóquio -->
-            <div class="htc-item tokyo-clock-box">
-              <div class="htc-icon">🗾</div>
-              <div class="htc-info">
-                <span class="htc-label">HORÁRIO DE TÓQUIO (JST)</span>
-                <span id="liveTokyoClock" class="htc-val">🇯🇵 Tóquio: Carregando...</span>
+          <figure class="learning-photo">
+            <img
+              id="learning-preview"
+              src="assets/images/street-600.webp"
+              width="600"
+              height="800"
+              loading="lazy"
+              decoding="async"
+              alt="Arquitetura e placas em uma rua tranquila de Kyoto"
+            />
+            <figcaption>
+              <span lang="ja">小さな一歩、大きな世界。</span
+              ><small>UM PEQUENO PASSO. UM MUNDO INTEIRO.</small>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+      <!-- Typographic hero: complete composition, independent of page scroll. -->
+      <section class="reading-story" id="reading-story" aria-labelledby="story-title">
+        <div class="story-stage">
+          <div class="section-heading">
+            <p class="ed-kicker">02 — SÍMBOLOS QUE ABREM PORTAS</p>
+            <span>LER É DESCOBRIR</span>
+          </div>
+          <div class="story-main">
+            <div class="story-note" data-depth-x="6" data-depth-y="4">
+              <p class="ed-kicker story-enter story-enter-label">UMA NOVA FORMA DE VER</p>
+              <h2 id="story-title" class="story-enter story-enter-title">Agora você está<br />lendo japonês.</h2>
+              <p class="story-reading story-enter story-enter-title"><span lang="ja">にほんご</span> · nihongo · língua japonesa</p>
+            </div>
+            <div class="story-art" aria-hidden="true" lang="ja">
+              <div class="hero-kanji hero-kanji-primary" data-depth-x="-20" data-depth-y="-12"><span class="story-enter story-enter-primary">日</span></div>
+              <div class="hero-kanji hero-kanji-secondary" data-depth-x="12" data-depth-y="8"><span class="story-enter story-enter-secondary">本</span></div>
+              <div class="hero-kanji hero-kanji-tertiary" data-depth-x="-14" data-depth-y="-9"><span class="story-enter story-enter-tertiary">語</span></div>
+            </div>
+            <div class="story-aside" data-depth-x="-5" data-depth-y="5">
+              <div class="story-enter story-enter-aside">
+                <span lang="ja">読む</span>
+                <p>Um traço.<br />Um significado.<br />Outro horizonte.</p>
               </div>
             </div>
-
-            <!-- Provérbio do Momento -->
-            <div class="htc-item cultural-quote-box" onclick="(window.app || window.japaneseApp).speakJapanese('七転八起')" title="Clique para ouvir a pronúncia">
-              <div class="htc-icon">📜</div>
-              <div class="htc-info">
-                <span class="htc-label">PROVÉRBIO DO MOMENTO (CLIQUE PARA OUVIR)</span>
-                <span class="htc-val quote-jp">「七転八起」 <small>(Cair 7 vezes, levantar 8)</small> 🔊</span>
-              </div>
-            </div>
-
-            <!-- Nível da Jornada -->
-            <div class="htc-item daily-goal-box">
-              <div class="htc-icon">⚡</div>
-              <div class="htc-info">
-                <span class="htc-label">META DIÁRIA</span>
-                <span class="htc-val">Praticar 10 Caracteres e Áudios</span>
-              </div>
-            </div>
+          </div>
+          <div class="story-bottom">
+            <span class="ed-kicker">UM NOVO MUNDO PARA LER.</span>
+            <a href="#kanji" data-screen="kanji" class="ed-text-link"
+              >Explorar kanji <span class="ed-arrow" aria-hidden="true">↗</span></a>
           </div>
         </div>
-
-        <!-- Kanjis Flutuantes no Fundo (Arte Clássica Japonesa) -->
-        <div class="hero-kanji-orbit">
-          <span class="hko-item hko-1" title="Harmonia (Wa)">和</span>
-          <span class="hko-item hko-2" title="Caminho (Dō)">道</span>
-          <span class="hko-item hko-3" title="Sonho (Yume)">夢</span>
-          <span class="hko-item hko-4" title="Luz (Hikari)">光</span>
-          <span class="hko-item hko-5" title="Aprendizado (Gaku)">学</span>
+      </section>
+      <!-- JLPTJourney -->
+      <section class="ed-section jlpt-section" aria-labelledby="jlpt-title">
+        <div class="jlpt-intro">
+          <p class="ed-kicker">03 — O CAMINHO CONTINUA</p>
+          <h2 id="jlpt-title">Do N5 ao N1.<br />No <em>seu tempo.</em></h2>
+          <p>
+            Cada nível, um novo ponto de vista.<br />Construa uma base sólida e vá além,<br />uma
+            descoberta de cada vez.
+          </p>
+          <span class="jlpt-japanese" lang="ja" aria-hidden="true">学びの道</span
+          ><a href="#advanced" data-screen="advanced" data-advanced-tab="jlpt" class="ed-text-link"
+            >Conhecer a trilha JLPT <span class="ed-arrow" aria-hidden="true">↗</span></a
+          >
         </div>
-      </div>
-
-      <!-- Seletor Interativo de Nível de Experiência -->
-      <div class="level-selector-box">
+        <div class="jlpt-path">
+          <span class="ed-kicker">O PRIMEIRO PASSO</span>
+          <div class="jlpt-stops">
+            <a
+              class="jlpt-stop"
+              href="#advanced"
+              data-screen="advanced"
+              data-advanced-tab="jlpt"
+              data-jlpt-level="n5"
+              ><span class="jlpt-marker"></span><span class="jlpt-number">N5</span
+              ><span
+                ><strong>O começo de tudo.</strong
+                ><small
+                  >Leia frases simples, conheça os alfabetos e construa seu primeiro vocabulário.</small
+                ></span
+              ><span class="ed-arrow" aria-hidden="true">↗</span></a
+            ><a
+              class="jlpt-stop"
+              href="#advanced"
+              data-screen="advanced"
+              data-advanced-tab="jlpt"
+              data-jlpt-level="n4"
+              ><span class="jlpt-marker"></span><span class="jlpt-number">N4</span
+              ><span
+                ><strong>O cotidiano ganha voz.</strong
+                ><small>Conecte ideias e compreenda conversas sobre situações familiares.</small></span
+              ><span class="ed-arrow" aria-hidden="true">↗</span></a
+            ><a
+              class="jlpt-stop"
+              href="#advanced"
+              data-screen="advanced"
+              data-advanced-tab="jlpt"
+              data-jlpt-level="n3"
+              ><span class="jlpt-marker"></span><span class="jlpt-number">N3</span
+              ><span
+                ><strong>Novas conexões.</strong
+                ><small>Amplie sua leitura e acompanhe o japonês usado no dia a dia.</small></span
+              ><span class="ed-arrow" aria-hidden="true">↗</span></a
+            ><a
+              class="jlpt-stop"
+              href="#advanced"
+              data-screen="advanced"
+              data-advanced-tab="jlpt"
+              data-jlpt-level="n2"
+              ><span class="jlpt-marker"></span><span class="jlpt-number">N2</span
+              ><span
+                ><strong>Mais contexto. Mais nuance.</strong
+                ><small>Explore textos, argumentos e conversas em diferentes situações.</small></span
+              ><span class="ed-arrow" aria-hidden="true">↗</span></a
+            ><a
+              class="jlpt-stop"
+              href="#advanced"
+              data-screen="advanced"
+              data-advanced-tab="jlpt"
+              data-jlpt-level="n1"
+              ><span class="jlpt-marker"></span><span class="jlpt-number">N1</span
+              ><span
+                ><strong>Aprofunde seu olhar.</strong
+                ><small>Estude estruturas complexas e perceba sutilezas de significado.</small></span
+              ><span class="ed-arrow" aria-hidden="true">↗</span></a
+            >
+          </div>
+          <span class="ed-kicker jlpt-destination">SEMPRE HÁ MAIS PARA DESCOBRIR</span>
+        </div>
+      </section>
+      <!-- JapanImmersion -->
+      <section class="japan-immersion" aria-labelledby="culture-title">
+        <img
+          src="assets/images/street-1200.webp"
+          srcset="assets/images/street-600.webp 600w, assets/images/street-1200.webp 1200w"
+          sizes="100vw"
+          width="1200"
+          height="800"
+          loading="lazy"
+          decoding="async"
+          alt="Uma pessoa caminha entre fachadas e placas japonesas em Kyoto"
+        />
+        <div class="immersion-overlay"></div>
+        <div class="immersion-top">
+          <span class="ed-kicker">04 — DO OUTRO LADO DAS PALAVRAS</span
+          ><span lang="ja">言葉の向こうへ</span>
+        </div>
+        <div class="immersion-copy">
+          <h2 id="culture-title">A língua não existe<br />sem a <em>cultura.</em></h2>
+          <p>
+            Nas ruas, nas conversas, nos pequenos rituais.<br />O japonês acontece muito além dos
+            livros.
+          </p>
+          <a
+            href="#advanced"
+            data-screen="advanced"
+            data-advanced-tab="yojijukugo"
+            class="ed-button ed-button-light"
+            >Explorar cultura japonesa <span class="ed-arrow" aria-hidden="true">↗</span></a
+          >
+        </div>
+        <span class="immersion-caption">CENAS DO COTIDIANO — KYOTO, JAPÃO</span>
+      </section>
+      <!-- AnimeListening -->
+      <section class="anime-listening ed-section" aria-labelledby="anime-title">
         <div>
-          <h3 style="font-size: 1.15rem; margin-bottom: 0.25rem;">Qual o seu nível hoje?</h3>
-          <p style="font-size: 0.85rem; color: var(--text-muted);">Personalizamos as dicas e desafios de acordo com sua bagagem:</p>
+          <p class="ed-kicker">05 — OUÇA. REPITA. SINTA.</p>
+          <h2 id="anime-title">Japonês além<br />dos <em>livros.</em></h2>
+          <p>Treine audição, expressões e shadowing<br />com os diálogos do universo dos animes.</p>
+          <a href="#advanced" data-screen="advanced" data-advanced-tab="anime" class="ed-text-link"
+            >Entrar no modo Anime <span class="ed-arrow" aria-hidden="true">↗</span></a
+          >
         </div>
-        <div class="level-pills">
-          <button class="level-btn active" data-level="iniciante" onclick="window.app.setUserLevel('iniciante')">
-            🌱 Começando do Zero
-          </button>
-          <button class="level-btn" data-level="intermediario" onclick="window.app.setUserLevel('intermediario')">
-            ⚡ Já sei o básico
-          </button>
+        <div class="listening-scene">
+          <div class="scene-meta"><span>LISTENING STUDIO</span><span>音声 / 01</span></div>
+          <span class="scene-jp" lang="ja">聞こえる？</span
+          ><span class="scene-translation">Você consegue ouvir?</span>
+          <div class="scene-timeline" aria-hidden="true"></div>
+          <button type="button" id="home-listen" class="listen-button">
+            <span aria-hidden="true">▷</span> Ouvir e repetir</button
+          ><small id="listening-status" role="status">Uma frase. O começo de uma conversa.</small>
         </div>
-      </div>
-
-      <!-- Banner de Chamada para o Modo Avançado & Anime Studio -->
-      <div class="advanced-hero-banner" onclick="window.app.navigateTo('advanced')">
-        <div class="ah-content">
-          <div class="ah-badge">🎌 NOVO • IMERSÃO AVANÇADA</div>
-          <h2 class="ah-title">Suba de Nível: Do JLPT N5 ao N1 com Falas de Animes</h2>
-          <p class="ah-desc">Aprenda gramáticas formais do exame oficial, kanjis de alto nível e treine sua audição e fala (shadowing) com cenas consagradas de Jujutsu Kaisen, Shingeki no Kyojin, Kimetsu, One Piece e mais!</p>
-          <div class="ah-actions">
-            <button class="btn-primary" onclick="event.stopPropagation(); window.japaneseApp.navigateTo('advanced');">
-              ⚡ Acessar Modo Avançado & Anime (N5~N1)
-            </button>
-            <button class="btn-outline" onclick="event.stopPropagation(); window.japaneseApp.navigateTo('advanced'); window.japaneseAdvanced && window.japaneseAdvanced.switchTab('anime');">
-              🎬 Treinar Shadowing com Falas
-            </button>
-          </div>
+      </section>
+      <!-- CalligraphySection -->
+      <section class="calligraphy-section ed-section" aria-labelledby="calligraphy-title">
+        <div class="calligraphy-art" aria-hidden="true">
+          <span lang="ja">道</span><i lang="ja">書道</i><small>DŌ — O CAMINHO</small>
         </div>
-        <div class="ah-visual">
-          <div class="ah-kanji-cloud">
-            <span>域</span><span>燃</span><span>魂</span><span>進</span>
-          </div>
-          <div class="ah-sticker">N5 ➔ N1</div>
-        </div>
-      </div>
-
-      <!-- Trilha 1: Para quem NÃO SABE NADA (Iniciante Absoluto) -->
-      <div id="beginnerContentSection" style="margin-bottom: 2rem;">
-        <div class="stat-card" style="background: linear-gradient(135deg, var(--bg-card), var(--primary-light)); border: 2px solid var(--primary); flex-direction: column; align-items: flex-start; margin-bottom: 1.5rem;">
-          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-            <span style="font-size: 1.5rem;">🌱</span>
-            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--primary);">Guia Rápido: Por Onde Começar do Zero?</h3>
-          </div>
-          <p style="font-size: 0.95rem; color: var(--text-main); line-height: 1.6; margin-bottom: 1rem;">
-            Não se assuste com os símbolos! Todo estudante de japonês começa pelo <strong>Hiragana</strong>. Ele tem 46 caracteres que cobrem todos os sons fundamentais. Quando aprender o Hiragana, você já conseguirá ler palavras inteiras!
+        <div class="calligraphy-copy">
+          <p class="ed-kicker">06 — O RITMO DOS TRAÇOS</p>
+          <h2 id="calligraphy-title">Aprenda japonês<br />também com<br /><em>as mãos.</em></h2>
+          <p>
+            Desacelere. Observe. Desenhe.<br />Cada caractere é um encontro entre<br />o que você sabe e
+            o que você sente.
           </p>
-          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-            <button class="btn-primary" data-screen="hiragana">
-              あ Abrir Alfabeto Hiragana
-            </button>
-            <button class="btn-outline" onclick="window.app.navigateTo('games'); window.japaneseGames.startMemoryGame('hiragana');">
-              🎴 Jogar Memória de Hiragana
-            </button>
-          </div>
+          <a href="#practice" data-screen="practice" class="ed-text-link"
+            >Entrar no Dojo de Caligrafia <span class="ed-arrow" aria-hidden="true">↗</span></a
+          >
         </div>
-
-        <div class="dashboard-grid" id="beginnerGuidesContainer" style="margin-bottom: 2rem;">
-          <!-- Guias pedagógicos renderizados via JS -->
+      </section>
+      <!-- DailyChallenge: original daily-kanji hooks -->
+      <section class="daily-editorial ed-section" aria-labelledby="daily-title">
+        <div>
+          <p class="ed-kicker">07 — UM ENCONTRO POR DIA</p>
+          <h2 id="daily-title">Um novo dia.<br />Um novo <em>kanji.</em></h2>
+          <p>Reserve um instante para descobrir,<br />ouvir e praticar o caractere de hoje.</p>
+          <a href="#games" data-screen="games" class="ed-text-link"
+            >Experimentar um desafio <span class="ed-arrow" aria-hidden="true">↗</span></a
+          >
         </div>
-
-        <!-- Cuidado com os Gêmeos (Caracteres Confusos) -->
-        <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem; color: #ea580c;">
-          👀 Cuidado com os Gêmeos! Caracteres que Mais Confundem Iniciantes
-        </h3>
-        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem;">
-          Muitos caracteres se parecem, mas pequenos detalhes mudam tudo. Aprenda os macetes:
-        </p>
-        <div id="confusingKanaContainer" style="margin-bottom: 2rem;">
-          <!-- Preenchido via app.js -->
-        </div>
-
-        <!-- Primeiras Palavras do Cotidiano -->
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap;">
-          <h3 style="font-size: 1.25rem; font-weight: 800;">
-            🌟 Primeiras Palavras Essenciais (Clique para ouvir)
-          </h3>
-          <span style="font-size: 0.85rem; color: var(--text-muted);">Comidas, Animais, Cores e Lugares</span>
-        </div>
-        <div id="beginnerVocabContainer" class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
-          <!-- Preenchido via app.js -->
-        </div>
-      </div>
-
-      <!-- Trilha 2: Para quem JÁ SABE UM POUCO (Intermediário / JLPT N5) -->
-      <div id="intermediateContentSection" style="display: none; margin-bottom: 2rem;">
-        <div class="stat-card" style="background: linear-gradient(135deg, var(--bg-card), #ede9fe); border: 2px solid var(--accent); flex-direction: column; align-items: flex-start; margin-bottom: 1.5rem;">
-          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-            <span style="font-size: 1.5rem;">⚡</span>
-            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--accent);">Desafios Avançados & Leitura Rápida</h3>
-          </div>
-          <p style="font-size: 0.95rem; color: var(--text-main); line-height: 1.6; margin-bottom: 1rem;">
-            Já reconhece os alfabetos? Desafie seus reflexos no modo <strong>Contra o Tempo (30s)</strong>, monte frases com partículas reais no <strong>Construtor de Sentenças</strong> ou explore como os <strong>Kanjis se fundem</strong> para formar novas palavras!
-          </p>
-          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-            <button class="btn-primary" style="background: var(--accent);" onclick="window.app.navigateTo('games'); window.japaneseGames.startSpeedRun('hiragana');">
-              ⏱️ Speed Run (30 Segundos)
-            </button>
-            <button class="btn-outline" onclick="window.app.navigateTo('games'); window.japaneseGames.initSentenceBuilder();">
-              🧩 Montador de Frases N5
-            </button>
-          </div>
-        </div>
-
-        <!-- Vitrine de Kanjis Compostos (Jukugo) -->
-        <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 1rem;">Kanjis Compostos (Jukugo 熟語): Como as ideias se unem</h3>
-        <div id="jukugoContainer" class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-bottom: 2.5rem;">
-          <!-- Renderizado via app.js -->
-        </div>
-
-        <!-- As 4 Formas Verbais Sagradas -->
-        <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem;">
-          📖 As 4 Formas Verbais Essenciais (JLPT N5/N4)
-        </h3>
-        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
-          Conhecer a flexão dos verbos é o divisor de águas entre o iniciante e o falante que se comunica de verdade:
-        </p>
-        <div id="verbFormsContainer" class="verbs-table-wrapper">
-          <!-- Preenchido via app.js -->
-        </div>
-
-        <!-- Contadores Japoneses -->
-        <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem;">
-          🔢 Contadores Japoneses (Joushi 助数詞)
-        </h3>
-        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem;">
-          Em japonês não basta dizer o número; cada formato de objeto tem seu próprio contador especial!
-        </p>
-        <div id="countersContainer" class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-bottom: 2.5rem;">
-          <!-- Preenchido via app.js -->
-        </div>
-
-        <!-- Diálogos Reais -->
-        <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem;">
-          💬 Diálogos Reais em Tóquio (Toque para ouvir as falas)
-        </h3>
-        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem;">
-          Frases autênticas usadas no cotidiano japonês:
-        </p>
-        <div id="dialoguesContainer">
-          <!-- Preenchido via app.js -->
-        </div>
-      </div>
-
-      <!-- Resumo de Estatísticas -->
-      <div class="dashboard-grid">
-        <div class="stat-card">
-          <div class="stat-icon pink">🔥</div>
-          <div>
-            <div id="statStreak" class="stat-value">1 dia</div>
-            <div class="stat-label">Sequência Diária</div>
-          </div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon blue">🎧</div>
-          <div>
-            <div id="statPracticed" class="stat-value">0</div>
-            <div class="stat-label">Áudios & Caracteres Praticados</div>
-          </div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon purple">🎯</div>
-          <div>
-            <div id="statQuizAccuracy" class="stat-value">--</div>
-            <div class="stat-label">Precisão no Quiz</div>
-          </div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon green">⛩️</div>
-          <div>
-            <div id="statKanjiCount" class="stat-value">63</div>
-            <div class="stat-label">Kanji N5 Disponíveis</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Kanji do Dia Interativo -->
-      <div class="daily-kanji-card">
-        <div id="dailyKanjiChar" class="kanji-big-display" title="Clique para ouvir a pronúncia">
-          日
-        </div>
-        <div class="kanji-info-body">
-          <h4>🌟 KANJI DO DIA</h4>
-          <h3 id="dailyKanjiMeaning">Dia / Sol / Japão (N5)</h3>
-          <div class="kanji-readings-pill">
-            <span class="pill-item"><strong>On'yomi:</strong> <span id="dailyKanjiOnyomi">ニチ, ジツ</span></span>
-            <span class="pill-item"><strong>Kun'yomi:</strong> <span id="dailyKanjiKunyomi">ひ, -か</span></span>
-          </div>
-          <p style="font-size: 0.95rem; opacity: 0.9;">
-            Exemplo: <strong id="dailyKanjiExample">日本 (にほん) - Japão</strong>
-          </p>
-        </div>
-        <div class="daily-kanji-actions">
-          <button class="btn-primary" onclick="window.app.speakJapanese(document.getElementById('dailyKanjiChar').textContent)">
-            🔊 Ouvir
+        <div class="daily-editorial-kanji">
+          <button type="button" id="dailyKanjiChar" lang="ja" aria-label="Ouvir o kanji do dia">
+            日
           </button>
-          <button class="btn-outline" style="color:white; border-color:rgba(255,255,255,0.3);" onclick="window.app.openPracticeForChar(document.getElementById('dailyKanjiChar').textContent, 'Kanji do Dia')">
-            🖌️ Treinar Traço
+          <div>
+            <span class="ed-kicker">KANJI DO DIA</span>
+            <h3 id="dailyKanjiMeaning">Dia / Sol</h3>
+            <p>
+              <span id="dailyKanjiOnyomi" lang="ja">ニチ</span> ·
+              <span id="dailyKanjiKunyomi" lang="ja">ひ</span>
+            </p>
+            <p id="dailyKanjiExample">日本 — Japão</p>
+            <button type="button" class="ed-text-link" id="daily-practice">
+              Praticar este traço <span class="ed-arrow" aria-hidden="true">↗</span>
+            </button>
+          </div>
+        </div>
+      </section>
+      <!-- Existing study guides remain available without crowding the cover. -->
+      <section
+        class="continue-section ed-section"
+        id="continue-studying"
+        aria-labelledby="continue-title"
+      >
+        <div class="continue-heading">
+          <div>
+            <p class="ed-kicker">A JORNADA É SUA</p>
+            <h2 id="continue-title">Continue <em>descobrindo.</em></h2>
+          </div>
+          <button type="button" class="ed-text-link toggle-notebook-btn">
+            Abrir meu caderno <span class="ed-arrow" aria-hidden="true">↗</span>
           </button>
         </div>
-      </div>
+        <div class="editorial-stats">
+          <div><strong id="statStreak">1 dia</strong><span>DE CONSTÂNCIA</span></div>
+          <div><strong id="statPracticed">0</strong><span>PRÁTICAS REALIZADAS</span></div>
+          <div><strong id="statQuizAccuracy">--</strong><span>DE ACERTOS NO QUIZ</span></div>
+          <div><strong id="statKanjiCount">63</strong><span>KANJI PARA EXPLORAR</span></div>
+        </div>
+        <div class="study-culture-bar">
+          <span id="liveTokyoClock">Tóquio · JST</span
+          ><button type="button" id="home-proverb" title="Ouvir o provérbio em japonês">
+            <span lang="ja">七転八起</span> Cair sete vezes. Levantar oito.
+            <span aria-hidden="true">↗</span>
+          </button>
+        </div>
+        <details class="study-details">
+          <summary>
+            Meus guias, vocabulário e frases essenciais <span aria-hidden="true">＋</span>
+          </summary>
+          <div class="legacy-study-content">
+            <!-- Seletor Interativo de Nível de Experiência -->
+            <div class="level-selector-box">
+              <div>
+                <h3 style="font-size: 1.15rem; margin-bottom: 0.25rem">Qual o seu nível hoje?</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted)">
+                  Personalizamos as dicas e desafios de acordo com sua bagagem:
+                </p>
+              </div>
+              <div class="level-pills">
+                <button
+                  class="level-btn active"
+                  data-level="iniciante"
+                  onclick="window.app.setUserLevel('iniciante')"
+                >
+                  🌱 Começando do Zero
+                </button>
+                <button
+                  class="level-btn"
+                  data-level="intermediario"
+                  onclick="window.app.setUserLevel('intermediario')"
+                >
+                  ⚡ Já sei o básico
+                </button>
+              </div>
+            </div>
 
-      <!-- Atalhos para as Telas de Estudo -->
-      <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 1.25rem;">Por onde começar?</h2>
-      <div class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
-        <!-- Card Hiragana -->
-        <div class="stat-card" style="cursor: pointer; flex-direction: column; align-items: flex-start;" data-screen="hiragana">
-          <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-            <span style="font-size: 2.5rem; font-family: var(--font-jp); color: var(--primary);">あ</span>
-            <span class="section-badge">Básico</span>
+            <!-- Trilha 1: Para quem NÃO SABE NADA (Iniciante Absoluto) -->
+            <div id="beginnerContentSection" style="margin-bottom: 2rem">
+              <div
+                class="stat-card"
+                style="
+                  background: linear-gradient(135deg, var(--bg-card), var(--primary-light));
+                  border: 2px solid var(--primary);
+                  flex-direction: column;
+                  align-items: flex-start;
+                  margin-bottom: 1.5rem;
+                "
+              >
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem">
+                  <span style="font-size: 1.5rem">🌱</span>
+                  <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--primary)">
+                    Guia Rápido: Por Onde Começar do Zero?
+                  </h3>
+                </div>
+                <p
+                  style="
+                    font-size: 0.95rem;
+                    color: var(--text-main);
+                    line-height: 1.6;
+                    margin-bottom: 1rem;
+                  "
+                >
+                  Não se assuste com os símbolos! Todo estudante de japonês começa pelo
+                  <strong>Hiragana</strong>. Ele tem 46 caracteres que cobrem todos os sons
+                  fundamentais. Quando aprender o Hiragana, você já conseguirá ler palavras inteiras!
+                </p>
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap">
+                  <button class="btn-primary" data-screen="hiragana">あ Abrir Alfabeto Hiragana</button>
+                  <button
+                    class="btn-outline"
+                    onclick="
+                      window.app.navigateTo('games');
+                      window.japaneseGames.startMemoryGame('hiragana');
+                    "
+                  >
+                    🎴 Jogar Memória de Hiragana
+                  </button>
+                </div>
+              </div>
+
+              <div class="dashboard-grid" id="beginnerGuidesContainer" style="margin-bottom: 2rem">
+                <!-- Guias pedagógicos renderizados via JS -->
+              </div>
+
+              <!-- Cuidado com os Gêmeos (Caracteres Confusos) -->
+              <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem; color: #ea580c">
+                👀 Cuidado com os Gêmeos! Caracteres que Mais Confundem Iniciantes
+              </h3>
+              <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem">
+                Muitos caracteres se parecem, mas pequenos detalhes mudam tudo. Aprenda os macetes:
+              </p>
+              <div id="confusingKanaContainer" style="margin-bottom: 2rem">
+                <!-- Preenchido via app.js -->
+              </div>
+
+              <!-- Primeiras Palavras do Cotidiano -->
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin-bottom: 1rem;
+                  flex-wrap: wrap;
+                "
+              >
+                <h3 style="font-size: 1.25rem; font-weight: 800">
+                  🌟 Primeiras Palavras Essenciais (Clique para ouvir)
+                </h3>
+                <span style="font-size: 0.85rem; color: var(--text-muted)"
+                  >Comidas, Animais, Cores e Lugares</span
+                >
+              </div>
+              <div
+                id="beginnerVocabContainer"
+                class="dashboard-grid"
+                style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr))"
+              >
+                <!-- Preenchido via app.js -->
+              </div>
+            </div>
+
+            <!-- Trilha 2: Para quem JÁ SABE UM POUCO (Intermediário / JLPT N5) -->
+            <div id="intermediateContentSection" style="display: none; margin-bottom: 2rem">
+              <div
+                class="stat-card"
+                style="
+                  background: linear-gradient(135deg, var(--bg-card), #ede9fe);
+                  border: 2px solid var(--accent);
+                  flex-direction: column;
+                  align-items: flex-start;
+                  margin-bottom: 1.5rem;
+                "
+              >
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem">
+                  <span style="font-size: 1.5rem">⚡</span>
+                  <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--accent)">
+                    Desafios Avançados & Leitura Rápida
+                  </h3>
+                </div>
+                <p
+                  style="
+                    font-size: 0.95rem;
+                    color: var(--text-main);
+                    line-height: 1.6;
+                    margin-bottom: 1rem;
+                  "
+                >
+                  Já reconhece os alfabetos? Desafie seus reflexos no modo
+                  <strong>Contra o Tempo (30s)</strong>, monte frases com partículas reais no
+                  <strong>Construtor de Sentenças</strong> ou explore como os
+                  <strong>Kanjis se fundem</strong> para formar novas palavras!
+                </p>
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap">
+                  <button
+                    class="btn-primary"
+                    style="background: var(--accent)"
+                    onclick="
+                      window.app.navigateTo('games');
+                      window.japaneseGames.startSpeedRun('hiragana');
+                    "
+                  >
+                    ⏱️ Speed Run (30 Segundos)
+                  </button>
+                  <button
+                    class="btn-outline"
+                    onclick="
+                      window.app.navigateTo('games');
+                      window.japaneseGames.initSentenceBuilder();
+                    "
+                  >
+                    🧩 Montador de Frases N5
+                  </button>
+                </div>
+              </div>
+
+              <!-- Vitrine de Kanjis Compostos (Jukugo) -->
+              <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 1rem">
+                Kanjis Compostos (Jukugo 熟語): Como as ideias se unem
+              </h3>
+              <div
+                id="jukugoContainer"
+                class="dashboard-grid"
+                style="
+                  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                  margin-bottom: 2.5rem;
+                "
+              >
+                <!-- Renderizado via app.js -->
+              </div>
+
+              <!-- As 4 Formas Verbais Sagradas -->
+              <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem">
+                📖 As 4 Formas Verbais Essenciais (JLPT N5/N4)
+              </h3>
+              <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem">
+                Conhecer a flexão dos verbos é o divisor de águas entre o iniciante e o falante que se
+                comunica de verdade:
+              </p>
+              <div id="verbFormsContainer" class="verbs-table-wrapper">
+                <!-- Preenchido via app.js -->
+              </div>
+
+              <!-- Contadores Japoneses -->
+              <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem">
+                🔢 Contadores Japoneses (Joushi 助数詞)
+              </h3>
+              <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem">
+                Em japonês não basta dizer o número; cada formato de objeto tem seu próprio contador
+                especial!
+              </p>
+              <div
+                id="countersContainer"
+                class="dashboard-grid"
+                style="
+                  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                  margin-bottom: 2.5rem;
+                "
+              >
+                <!-- Preenchido via app.js -->
+              </div>
+
+              <!-- Diálogos Reais -->
+              <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem">
+                💬 Diálogos Reais em Tóquio (Toque para ouvir as falas)
+              </h3>
+              <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem">
+                Frases autênticas usadas no cotidiano japonês:
+              </p>
+              <div id="dialoguesContainer">
+                <!-- Preenchido via app.js -->
+              </div>
+            </div>
+
+            <!-- Frases Úteis do Cotidiano -->
+            <div style="margin-top: 2rem">
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  margin-bottom: 1rem;
+                "
+              >
+                <h2 style="font-size: 1.4rem; font-weight: 700">Frases Essenciais do Dia a Dia</h2>
+                <span style="font-size: 0.85rem; color: var(--text-muted)"
+                  >Clique em qualquer uma para ouvir</span
+                >
+              </div>
+              <div id="phrasesList" class="dashboard-grid">
+                <!-- Gerado dinamicamente via JS -->
+              </div>
+            </div>
           </div>
-          <h3 style="font-size: 1.2rem; margin: 0.5rem 0 0.25rem;">Hiragana (平仮名)</h3>
-          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-            O primeiro e mais essencial alfabeto fonético japonês (46 caracteres + combinações).
-          </p>
-          <span style="color: var(--primary); font-weight: 600; font-size: 0.9rem;">Abrir Tabela &rarr;</span>
+        </details>
+      </section>
+      <footer class="editorial-footer">
+        <div class="footer-top">
+          <a href="#home" data-screen="home" class="footer-brand">NIHON<span>GO MASTER</span></a>
+          <p lang="ja">日本語を学ぼう。<small>UM MUNDO NOVO, PALAVRA POR PALAVRA.</small></p>
+          <a href="#home" data-screen="home" class="footer-up" aria-label="Voltar ao início">↑</a>
         </div>
-
-        <!-- Card Katakana -->
-        <div class="stat-card" style="cursor: pointer; flex-direction: column; align-items: flex-start;" data-screen="katakana">
-          <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-            <span style="font-size: 2.5rem; font-family: var(--font-jp); color: var(--secondary);">ア</span>
-            <span class="section-badge" style="background:#e0f2fe; color:#0284c7;">Estrangeirismos</span>
+        <div class="footer-links">
+          <div>
+            <span>APRENDA</span><a href="#hiragana" data-screen="hiragana">Hiragana</a
+            ><a href="#katakana" data-screen="katakana">Katakana</a
+            ><a href="#kanji" data-screen="kanji">Kanji</a>
           </div>
-          <h3 style="font-size: 1.2rem; margin: 0.5rem 0 0.25rem;">Katakana (片仮名)</h3>
-          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-            Usado para palavras de origem ocidental, nomes estrangeiros e onomatopeias.
-          </p>
-          <span style="color: var(--secondary); font-weight: 600; font-size: 0.9rem;">Abrir Tabela &rarr;</span>
-        </div>
-
-        <!-- Card Kanji -->
-        <div class="stat-card" style="cursor: pointer; flex-direction: column; align-items: flex-start;" data-screen="kanji">
-          <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-            <span style="font-size: 2.5rem; font-family: var(--font-jp); color: var(--accent);">漢</span>
-            <span class="section-badge" style="background:#ede9fe; color:#7c3aed;">JLPT N5</span>
+          <div>
+            <span>PRATIQUE</span><a href="#practice" data-screen="practice">Caligrafia</a
+            ><a href="#quiz" data-screen="quiz">Quiz</a
+            ><a href="#games" data-screen="games">Desafios</a>
           </div>
-          <h3 style="font-size: 1.2rem; margin: 0.5rem 0 0.25rem;">Kanji Explorer (漢字)</h3>
-          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-            Ideogramas com significados, leituras Kun'yomi, On'yomi e vocabulário real.
-          </p>
-          <span style="color: var(--accent); font-weight: 600; font-size: 0.9rem;">Explorar Kanji &rarr;</span>
-        </div>
-
-        <!-- Card Quiz -->
-        <div class="stat-card" style="cursor: pointer; flex-direction: column; align-items: flex-start;" data-screen="quiz">
-          <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-            <span style="font-size: 2.5rem;">🎯</span>
-            <span class="section-badge" style="background:#dcfce7; color:#10b981;">Prática</span>
+          <div>
+            <span>EXPLORE</span
+            ><a href="#advanced" data-screen="advanced" data-advanced-tab="jlpt">Do N5 ao N1</a
+            ><a href="#advanced" data-screen="advanced" data-advanced-tab="anime">Anime & listening</a
+            ><button type="button" class="toggle-notebook-btn">Caderno de estudos</button>
           </div>
-          <h3 style="font-size: 1.2rem; margin: 0.5rem 0 0.25rem;">Testes & Quiz</h3>
-          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-            Desafie seu reconhecimento visual e auditivo com perguntas interativas.
-          </p>
-          <span style="color: var(--success); font-weight: 600; font-size: 0.9rem;">Iniciar Quiz &rarr;</span>
+          <div>
+            <span>SOBRE A JORNADA</span>
+            <p>
+              Feito para quem acredita<br />que aprender uma língua<br />é descobrir outra forma de ver.
+            </p>
+            <a href="imageSources.md">Créditos das fotografias ↗</a>
+          </div>
         </div>
-      </div>
-
-      <!-- Frases Úteis do Cotidiano -->
-      <div style="margin-top: 2rem;">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
-          <h2 style="font-size: 1.4rem; font-weight: 700;">Frases Essenciais do Dia a Dia</h2>
-          <span style="font-size: 0.85rem; color: var(--text-muted);">Clique em qualquer uma para ouvir</span>
+        <div class="footer-japanese" lang="ja" aria-hidden="true">日本語</div>
+        <div class="footer-bottom">
+          <span>© <span id="footer-year">2026</span> NIHON GO MASTER</span
+          ><span>日本 <i></i> BRASIL</span><span>FEITO DE CURIOSIDADE.</span>
         </div>
-        <div id="phrasesList" class="dashboard-grid">
-          <!-- Gerado dinamicamente via JS -->
-        </div>
-      </div>
+      </footer>
     </section>
 
     <!-- ==========================================
@@ -1597,5 +1866,6 @@
   <script src="js/notebook.js"></script>
   <script src="js/advanced.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/home.js"></script>
 </body>
 </html>

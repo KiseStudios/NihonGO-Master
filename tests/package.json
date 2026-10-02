@@ -1,0 +1,12 @@
+{
+  "name": "nihongo-editorial-smoke-tests",
+  "private": true,
+  "scripts": {
+    "test": "node home-smoke.cjs",
+    "test:hero": "node hero-interaction.cjs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "playwright": "1.63.0"
+  }
+}

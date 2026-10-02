@@ -141,6 +141,7 @@ class JapaneseApp {
 
   /* Gerenciador de Telas (Navegação SPA) */
   navigateTo(screenId) {
+    if (!document.getElementById(`screen-${screenId}`)) return;
     const screens = document.querySelectorAll(".screen-view");
     screens.forEach(screen => screen.classList.remove("active"));
 
@@ -148,7 +149,12 @@ class JapaneseApp {
     if (target) {
       target.classList.add("active");
       this.currentScreen = screenId;
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: "instant" });
+      const heading = target.querySelector("h1, h2");
+      if (heading) {
+        heading.setAttribute("tabindex", "-1");
+        heading.focus({ preventScroll: true });
+      }
 
       if (screenId === "quiz" && window.japaneseQuiz && (!window.japaneseQuiz.questions || window.japaneseQuiz.questions.length === 0)) {
         window.japaneseQuiz.startQuiz("hiragana", 10);
@@ -167,6 +173,8 @@ class JapaneseApp {
     document.querySelectorAll(".mobile-item").forEach(item => {
       item.classList.toggle("active", item.getAttribute("data-screen") === screenId);
     });
+
+    document.dispatchEvent(new CustomEvent("nihongo:screenchange", { detail: { screenId } }));
   }
 
   /* Modo Claro / Escuro */
@@ -1185,7 +1193,8 @@ class JapaneseApp {
   attachEventListeners() {
     // Links de navegação
     document.querySelectorAll("[data-screen]").forEach(link => {
-      link.addEventListener("click", () => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
         const target = link.getAttribute("data-screen");
         this.navigateTo(target);
       });
@@ -1283,15 +1292,7 @@ class JapaneseApp {
       });
     }
 
-    // Botão de Caderno na Barra Principal
-    const noteNavBtn = document.getElementById("notebookToggleNavBtn");
-    if (noteNavBtn) {
-      noteNavBtn.addEventListener("click", () => {
-        if (window.japaneseNotebook) {
-          window.japaneseNotebook.toggleSidebar();
-        }
-      });
-    }
+    // Os botões do caderno são registrados uma única vez em notebook.js.
 
     // Modal de Conquistas
     const achBtn = document.getElementById("achievementsBtn");
