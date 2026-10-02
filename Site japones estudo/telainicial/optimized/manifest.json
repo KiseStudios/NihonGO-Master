@@ -1,0 +1,30 @@
+{
+  "format": "webp",
+  "frameCount": 240,
+  "filenamePattern": "frame_{index:03d}.webp",
+  "source": {
+    "width": 1920,
+    "height": 1080,
+    "totalBytes": 445951015
+  },
+  "variants": [
+    {
+      "directory": "1280",
+      "width": 1280,
+      "height": 720,
+      "quality": 80,
+      "method": 4,
+      "frameCount": 240,
+      "totalBytes": 10548748
+    },
+    {
+      "directory": "1920",
+      "width": 1920,
+      "height": 1080,
+      "quality": 82,
+      "method": 4,
+      "frameCount": 240,
+      "totalBytes": 18187720
+    }
+  ]
+}

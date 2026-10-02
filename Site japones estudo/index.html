@@ -12,8 +12,8 @@
 
   <!-- Estilos Customizados -->
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/home.css">
-  <link rel="preload" as="image" href="assets/images/kyoto-1600.webp" imagesrcset="assets/images/kyoto-800.webp 800w, assets/images/kyoto-1600.webp 1600w" imagesizes="(max-width: 700px) 100vw, 60vw">
+  <link rel="stylesheet" href="css/home.css?v=hero-2">
+  <link rel="preload" as="image" href="telainicial/optimized/1280/frame_001.webp" fetchpriority="high">
   <meta name="description" content="Uma jornada pelo Japão através da língua. Aprenda hiragana, katakana, kanji e caligrafia; explore o JLPT e pratique japonês com diálogos de anime.">
 
   <!-- Favicon com Caractere Japonês -->
@@ -143,52 +143,85 @@
       class="screen-view active editorial-home"
       aria-label="Uma jornada pelo Japão através da língua"
     >
-      <!-- Hero: editorial cover -->
-      <section class="ed-hero" aria-labelledby="home-title">
-        <div class="hero-edition">
-          <span><i></i> UMA JORNADA PELO JAPÃO ATRAVÉS DA LÍNGUA</span><span lang="ja">日本への旅</span>
-        </div>
-        <div class="hero-layout">
-          <div class="hero-copy">
-            <p class="ed-kicker">A SUA PRÓXIMA DESCOBERTA COMEÇA AQUI</p>
-            <h1 id="home-title">Uma língua.<br />Uma cultura.<br /><em>Uma jornada.</em></h1>
-            <p class="hero-description">
-              Aprenda japonês como quem vive o Japão.<br />Do primeiro <span lang="ja">あ</span> às
-              histórias que você<br class="desktop-break" />
-              sempre quis entender.
-            </p>
-            <a class="ed-button" href="#hiragana" data-screen="hiragana"
-              >Começar jornada <span class="ed-arrow" aria-hidden="true">↗</span></a
-            >
-            <div class="hero-alphabets">
-              <span lang="ja">ひらがな</span><span lang="ja">カタカナ</span><span lang="ja">漢字</span
-              ><small>UM NOVO MUNDO PARA LER.</small>
+      <!-- Canvas sequence: 240 optimized frames from the original PNGs; only this section is scroll-driven. -->
+      <section class="scroll-hero" aria-labelledby="home-title">
+        <div class="scroll-hero-sticky">
+          <img class="hero-sequence-poster" src="telainicial/optimized/1280/frame_001.webp" width="1280" height="720" fetchpriority="high" decoding="async" alt="" aria-hidden="true" />
+          <canvas id="heroSequenceCanvas" aria-hidden="true"></canvas>
+          <div class="hero-sequence-overlay" aria-hidden="true"></div>
+          <div class="hero-sequence-handoff" aria-hidden="true"></div>
+          <div class="hero-sequence-edition" aria-hidden="true">
+            <span><i></i> NIHONGO MASTER · UMA JORNADA PELA LÍNGUA</span>
+            <span lang="ja">一筆、一歩。</span>
+          </div>
+          <div class="hero-story">
+            <div class="hero-story-stage hero-story-intro is-current" data-start="0" data-end="0.15">
+              <div class="hero-story-content">
+                <p class="hero-chapter"><span>01</span> / O INÍCIO</p>
+                <p class="hero-japanese-label" lang="ja">日本語を学ぶ</p>
+                <h1 id="home-title" class="hero-story-title">Japonês não se decora.<br /><em>Se vive.</em></h1>
+                <p class="hero-story-description">Uma jornada pela escrita, som e cultura japonesa.</p>
+                <div class="hero-story-actions">
+                  <a class="hero-sequence-link" href="#hiragana" data-screen="hiragana">Começar jornada <span aria-hidden="true">↗</span></a>
+                </div>
+              </div>
+            </div>
+            <div class="hero-story-stage" data-start="0.18" data-end="0.35" inert aria-hidden="true">
+              <div class="hero-story-content">
+                <p class="hero-chapter"><span>02</span> / OS PRIMEIROS SONS</p>
+                <span class="hero-glyph" lang="ja" aria-hidden="true">あ</span>
+                <h2 class="hero-alphabet">HIRAGANA</h2>
+                <p class="hero-story-description">Comece pelos sons que dão vida ao idioma.</p>
+                <p class="hero-story-detail">46 caracteres fundamentais</p>
+              </div>
+            </div>
+            <div class="hero-story-stage" data-start="0.38" data-end="0.52" inert aria-hidden="true">
+              <div class="hero-story-content">
+                <p class="hero-chapter"><span>03</span> / PALAVRAS EM VIAGEM</p>
+                <span class="hero-glyph" lang="ja" aria-hidden="true">ア</span>
+                <h2 class="hero-alphabet">KATAKANA</h2>
+                <p class="hero-story-description">O alfabeto das palavras que viajaram até o Japão.</p>
+                <p class="hero-story-detail" lang="ja">外来語</p>
+              </div>
+            </div>
+            <div class="hero-story-stage" data-start="0.55" data-end="0.72" inert aria-hidden="true">
+              <div class="hero-story-content">
+                <p class="hero-chapter"><span>04</span> / UM TRAÇO, UMA HISTÓRIA</p>
+                <span class="hero-glyph" lang="ja" aria-hidden="true">漢</span>
+                <h2 class="hero-alphabet">KANJI</h2>
+                <p class="hero-story-description">Cada símbolo carrega uma ideia, uma história e uma forma de enxergar o mundo.</p>
+                <p class="hero-story-detail" lang="ja">意味 • 読み方 • 書き順</p>
+              </div>
+            </div>
+            <div class="hero-story-stage hero-story-journey" data-start="0.75" data-end="0.88" inert aria-hidden="true">
+              <div class="hero-story-content">
+                <p class="hero-chapter"><span>05</span> / TUDO SE CONECTA</p>
+                <h2 class="hero-story-title">Do primeiro <span lang="ja">あ</span><br />à compreensão <em>real.</em></h2>
+                <p class="hero-story-description">Hiragana, Katakana, Kanji, gramática, audição e prática em uma única jornada.</p>
+              </div>
+            </div>
+            <div class="hero-story-stage hero-story-final" data-start="0.9" data-end="1">
+              <div class="hero-story-content">
+                <p class="hero-chapter"><span>06</span> / A SUA JORNADA</p>
+                <h2 class="hero-master-title">NIHONGO<br /><em>MASTER</em></h2>
+                <p class="hero-japanese-label" lang="ja">日本語マスター</p>
+                <p class="hero-story-description">Seu caminho para dominar o japonês começa aqui.</p>
+                <div class="hero-story-actions">
+                  <a class="hero-sequence-button" href="#journey">Entrar no NihonGO Master <span aria-hidden="true">↓</span></a>
+                  <a class="hero-sequence-button is-secondary" href="#hiragana" data-screen="hiragana">Explorar Hiragana <span aria-hidden="true">↗</span></a>
+                </div>
+              </div>
             </div>
           </div>
-          <figure class="hero-photo">
-            <img
-              src="assets/images/kyoto-1600.webp"
-              srcset="assets/images/kyoto-800.webp 800w, assets/images/kyoto-1600.webp 1600w"
-              sizes="(max-width: 700px) 100vw, 60vw"
-              width="1600"
-              height="1067"
-              fetchpriority="high"
-              alt="Rua tradicional de Kyoto, com o pagode Yasaka e duas pessoas de quimono"
-            />
-            <div class="hero-photo-shade"></div>
-            <p class="hero-vertical" lang="ja">日本語を学ぶ。</p>
-            <figcaption>
-              <span>京都<small>KYOTO, JAPÃO</small></span
-              ><span>35°00′N 135°46′E</span>
-            </figcaption>
-            <span class="photo-index">01 / 日本</span>
-          </figure>
-          <span class="hero-side-note">APRENDER É UMA FORMA DE VIAJAR.</span>
-        </div>
-        <div class="hero-bottom">
-          <span>IDIOMA. CULTURA. DESCOBERTA.</span
-          ><a href="#journey">Explore o caminho <span aria-hidden="true">↓</span></a
-          ><span class="hero-bottom-jp" lang="ja">一歩ずつ。<small>UM PASSO DE CADA VEZ.</small></span>
+          <div class="hero-scroll-indicator" aria-hidden="true"><span>SCROLL TO EXPLORE</span><span>↓</span></div>
+          <a class="hero-sequence-skip" href="#journey">Pular apresentação <span aria-hidden="true">↘</span></a>
+          <div class="hero-sequence-progress" aria-hidden="true">
+            <span class="hero-progress-chapter">01</span>
+            <div class="hero-progress-track"></div>
+            <span class="hero-progress-percent">00%</span>
+            <small>/ 06</small>
+          </div>
+          <div class="hero-sequence-bottom" aria-hidden="true"><span>ESCRITA. SOM. CULTURA.</span><span lang="ja">小さな一歩、大きな世界。</span></div>
         </div>
       </section>
       <!-- LearningPaths: existing screen destinations -->
@@ -1866,6 +1899,6 @@
   <script src="js/notebook.js"></script>
   <script src="js/advanced.js"></script>
   <script src="js/app.js"></script>
-  <script src="js/home.js"></script>
+  <script src="js/home.js?v=hero-2"></script>
 </body>
 </html>
