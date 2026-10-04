@@ -2176,8 +2176,9 @@ button:hover .ed-arrow {
   --hero-white: #f7f4eb;
   --hero-soft-white: #e4dfd3;
   position: relative;
-  height: 600vh;
-  height: 600svh;
+  /* 120 frames over four viewport heights of actual sticky travel. */
+  height: 500vh;
+  height: 500svh;
   margin-top: -92px;
   color: var(--hero-white);
   background: #201b16;
@@ -2286,6 +2287,7 @@ button:hover .ed-arrow {
   pointer-events: none;
 }
 .scroll-hero .hero-story-stage.is-current { visibility: visible; }
+.scroll-hero.is-enhanced .hero-story-stage.is-current { will-change: opacity; }
 .scroll-hero .hero-story-stage:first-child { --stage-opacity: 1; }
 .scroll-hero .hero-story-content {
   width: 100%;
@@ -2295,7 +2297,7 @@ button:hover .ed-arrow {
   filter: none;
 }
 .scroll-hero.is-enhanced .hero-story-stage.is-current .hero-story-content {
-  will-change: transform, opacity;
+  will-change: transform;
 }
 .scroll-hero .hero-chapter {
   display: flex;
@@ -2586,8 +2588,8 @@ button:hover .ed-arrow {
 @media (max-width: 700px) {
   .scroll-hero {
     --hero-top: 99px;
-    height: 400vh;
-    height: 400svh;
+    height: 360vh;
+    height: 360svh;
   }
   .scroll-hero .hero-sequence-overlay {
     background:
@@ -2673,24 +2675,11 @@ button:hover .ed-arrow {
   .scroll-hero:is(:not(.is-enhanced), .is-static) .hero-story { padding-top: 124px; padding-bottom: 80px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .scroll-hero { height: auto; min-height: 100vh; min-height: 100svh; }
-  .scroll-hero .scroll-hero-sticky { position: relative; height: auto; min-height: 100vh; min-height: 100svh; }
-  .scroll-hero .hero-story {
-    position: relative;
-    min-height: 100vh;
-    min-height: 100svh;
-    padding: calc(var(--hero-top) + 68px) var(--hero-gutter) 118px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  .scroll-hero .hero-story-stage { will-change: auto !important; }
+  .scroll-hero .hero-story-content {
+    transform: none !important;
+    will-change: auto !important;
   }
-  .scroll-hero .hero-story-stage { display: none; position: relative; inset: auto; opacity: 1; visibility: visible; }
-  .scroll-hero .hero-story-stage:first-child,
-  .scroll-hero .hero-story-final { display: block; }
-  .scroll-hero .hero-story-content { transform: none !important; filter: none; will-change: auto !important; }
-  .scroll-hero .hero-story-final :is(.hero-chapter, .hero-story-title, .hero-master-title, .hero-japanese-label, .hero-story-description) { display: none; }
-  .scroll-hero :is(.hero-scroll-indicator, .hero-sequence-progress) { display: none; }
-  .scroll-hero .hero-sequence-handoff { opacity: .4; }
 }
 
 /* Keep the skip link readable over the light transition into the next section. */
@@ -2699,4 +2688,16 @@ button:hover .ed-arrow {
 }
 .scroll-hero.is-ending .hero-sequence-bottom {
   border-top-color: var(--ed-line);
+}
+.scroll-hero .hero-debug {
+  position: absolute;
+  z-index: 8;
+  top: 96px;
+  right: 12px;
+  max-width: calc(100% - 24px);
+  padding: 6px 10px;
+  background: #000d;
+  color: #fff;
+  font: 11px/1.5 monospace;
+  pointer-events: none;
 }
