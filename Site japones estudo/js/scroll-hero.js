@@ -1,351 +1,363 @@
-/** Paused native video and editorial storytelling share one scroll timeline. */
+/** Two photographs, one native-scroll timeline. No media sequence renderer. */
 (() => {
   "use strict";
-  const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
-  const mapRange = (value, start, end, from = 0, to = 1) =>
-    from + clamp((value - start) / (end - start)) * (to - from);
-  const SEEK_THRESHOLD = 0.015;
-  const DEBUG_HERO = new URLSearchParams(location.search).get("heroDebug") === "1";
-  const POINTER_AXES = ["x", "y"];
+  const clamp = (value, min = 0, max = 1) => Math.max(min, Math.min(max, value));
+  const initialState = () => ({
+    japanScale: 1.04, japanX: 0, japanY: 0,
+    originScale: 1.12, originX: 3, originY: 2,
+    clipLeft: 100, clipRight: 100,
+    introOpacity: 1, introY: 12, introDetailOpacity: 1, introCtaOpacity: .12,
+    originOpacity: 0, originCopyY: 28, originCtaOpacity: 0,
+    shadeOpacity: .1, hintOpacity: 1, exitY: 0,
+  });
+  const properties = {
+    japanScale: ["japan-scale", ""], japanX: ["japan-x", "px"], japanY: ["japan-y", "px"],
+    originScale: ["origin-scale", ""], originX: ["origin-x", "vw"], originY: ["origin-y", "svh"],
+    clipLeft: ["clip-left", "%"], clipRight: ["clip-right", "%"],
+    introOpacity: ["intro-opacity", ""], introY: ["intro-y", "px"],
+    introDetailOpacity: ["intro-detail-opacity", ""], introCtaOpacity: ["intro-cta-opacity", ""],
+    originOpacity: ["origin-opacity", ""], originCopyY: ["origin-copy-y", "px"],
+    originCtaOpacity: ["origin-cta-opacity", ""], shadeOpacity: ["shade-opacity", ""],
+    hintOpacity: ["hint-opacity", ""], exitY: ["exit-y", "svh"],
+  };
 
-  class ScrollVideoHero {
-    constructor(home, hero) {
-      this.home = home;
-      this.hero = hero;
-      this.sticky = hero.querySelector(".scroll-hero-sticky");
-      this.video = hero.querySelector("#heroScrollVideo");
+  class LayeredHero {
+    constructor(root) {
+      this.root = root;
+      this.stage = root.querySelector(".hero-stage");
+      this.home = root.closest(".screen-view");
       this.nav = document.querySelector(".editorial-nav");
-      this.title = document.querySelector("#home-title");
-      this.percent = hero.querySelector(".hero-progress-percent");
-      this.chapter = hero.querySelector(".hero-progress-chapter");
-      this.stageStates = [...hero.querySelectorAll(".hero-story-stage")].map(element => ({
-        element, style: element.style,
-        start: Number(element.dataset.start), end: Number(element.dataset.end),
-        visible: null, inert: null, opacity: null, y: null, parallax: null,
-      }));
+      this.intro = root.querySelector(".hero-copy--intro");
+      this.origin = root.querySelector(".hero-copy--origin");
+      this.currentChapter = root.querySelector(".hero-progress-current");
+      this.percent = root.querySelector(".hero-progress-percent");
       this.reduced = matchMedia("(prefers-reduced-motion: reduce)");
-      this.mobile = matchMedia("(max-width: 700px)");
+      this.mobile = matchMedia("(max-width: 700px), (max-width: 1100px) and (orientation: portrait)");
       this.pointer = matchMedia("(hover: hover) and (pointer: fine) and (min-width: 701px)");
-      this.scrollRoot = document.scrollingElement;
-      this.scrollPosition = window.scrollY;
-      this.progress = this.targetProgress = this.desiredTime = this.duration = 0;
-      this.direction = 1;
-      this.targetChangedAt = 0;
-      this.lastStoryProgress = -1;
+      this.debug = new URLSearchParams(location.search).has("heroDebug");
+      this.state = initialState();
+      this.target = { x: 0, y: 0, cursorX: 0, cursorY: 0, presence: 0, scale: 1 };
+      this.current = { ...this.target };
+      this.cache = new Map();
+      this.bounds = { left: 0, top: 0, width: innerWidth, height: innerHeight };
       this.frame = this.lastTime = null;
-      this.geometryDirty = this.forceSync = true;
-      this.inView = this.observedVisible = true;
-      this.seeking = this.mediaFailed = this.hasData = false;
-      this.currentPointer = { x: 0, y: 0 };
-      this.targetPointer = { x: 0, y: 0 };
+      this.frames = 0;
+      this.inView = false;
+      this.assetsReady = false;
+      this.assetsFailed = false;
+      this.active = this.home.classList.contains("active");
+      this.scroller = this.findScroller();
+      root.dataset.engine = "gsap-layered-v1";
+      root.dataset.state = "loading";
+      root.dataset.progress = "0.0000";
+      root.dataset.phase = "discover";
+      if (this.debug) root.dataset.rafCount = "0";
+      document.body.classList.add("has-hero-experience");
       this.tick = this.tick.bind(this);
-      this.hero.dataset.engine = "scroll-video-v1";
-      this.hero.dataset.mediaState = "loading";
-      this.hero.classList.add("is-enhanced");
-      this.debug = DEBUG_HERO ? { rafs: 0, seeks: 0, lastSeekMs: 0, maxSeekMs: 0, maxMs: 0, lastUpdate: 0 } : null;
-      if (this.debug) {
-        this.debugOutput = document.createElement("output");
-        this.debugOutput.className = "hero-debug";
-        this.debugOutput.setAttribute("aria-hidden", "true");
-        this.sticky.append(this.debugOutput);
-      }
-      // No autoplay: native seeks are serialized, coalescing to the latest input.
-      this.video.addEventListener("play", () => this.video.pause());
-      this.video.addEventListener("loadedmetadata", () => this.metadata());
-      this.video.addEventListener("durationchange", () => this.metadata());
-      this.video.addEventListener("loadeddata", () => this.mediaReady());
-      this.video.addEventListener("canplay", () => this.mediaReady());
-      this.video.addEventListener("seeked", () => {
-        this.seeking = false;
-        if (this.debug && this.seekStartedAt !== undefined) {
-          this.debug.lastSeekMs = performance.now() - this.seekStartedAt;
-          this.debug.maxSeekMs = Math.max(this.debug.maxSeekMs, this.debug.lastSeekMs);
-        }
-        this.mediaReady();
-      });
-      this.video.addEventListener("error", () => this.mediaError());
-      this.video.querySelector("source")?.addEventListener("error", () => this.mediaError());
-      this.motionMode();
-      const onScroll = (event) => {
-        const source = event.target;
-        if (source instanceof Element) {
-          if (!source.contains(this.hero)) return;
-          if (this.scrollRoot !== source) { this.scrollRoot = source; this.geometryDirty = true; }
-        } else if (source === document && this.scrollRoot !== document.scrollingElement) {
-          this.scrollRoot = document.scrollingElement;
-          this.geometryDirty = true;
-        }
-        this.scrollPosition = this.readScroll();
-        // Only cached geometry and targets here; video writes happen in RAF.
-        if (!this.geometryDirty) this.captureTarget(performance.now());
-        this.schedule();
-      };
-      document.addEventListener("scroll", onScroll, { passive: true, capture: true });
-      window.visualViewport?.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("resize", () => this.resize(), { passive: true });
-      window.visualViewport?.addEventListener("resize", () => this.resize(), { passive: true });
-      this.mobile.addEventListener("change", () => this.resize());
-      this.reduced.addEventListener("change", () => this.motionMode());
-      this.pointer.addEventListener("change", () => this.resetPointer());
-      this.sticky.addEventListener("pointermove", event => this.movePointer(event), { passive: true });
-      this.sticky.addEventListener("pointerleave", () => this.resetPointer(), { passive: true });
-      this.sticky.addEventListener("pointercancel", () => this.resetPointer(), { passive: true });
+      if (!this.reduced.matches && window.gsap && window.ScrollTrigger) this.expose(this.origin, false);
+
+      // Pointer handlers update targets only; geometry is cached elsewhere.
+      this.stage.addEventListener("pointerenter", event => this.move(event), { passive: true });
+      this.stage.addEventListener("pointermove", event => this.move(event), { passive: true });
+      this.stage.addEventListener("pointerleave", () => this.center(), { passive: true });
+      this.stage.addEventListener("pointercancel", () => this.center(), { passive: true });
       window.addEventListener("blur", () => this.resetPointer());
-      document.addEventListener("visibilitychange", () => this.lifecycle());
-      document.addEventListener("nihongo:screenchange", () => this.lifecycle());
-      window.addEventListener("pagehide", () => this.pause());
-      window.addEventListener("pageshow", () => this.lifecycle());
-      this.resizeObserver = new ResizeObserver(() => this.resize());
-      this.resizeObserver.observe(this.hero);
-      this.resizeObserver.observe(this.sticky);
-      this.resizeObserver.observe(this.nav);
-      this.intersectionObserver = new IntersectionObserver(entries => {
-        this.observedVisible = entries[0].isIntersecting;
-        if (!this.observedVisible) this.pause();
-        else { this.forceSync = true; this.resize(); }
+      window.addEventListener("pagehide", () => this.resetPointer());
+      document.addEventListener("visibilitychange", () => {
+        this.resetPointer();
+        if (!document.hidden && this.timeline && this.active) {
+          this.timeline.scrollTrigger.update();
+          this.schedule();
+        }
       });
-      this.intersectionObserver.observe(this.hero);
-      document.fonts?.ready.then(() => this.resize());
-      if (this.video.readyState >= 1) this.metadata();
-      if (this.video.readyState >= 2) this.mediaReady();
-      // A <source> can fail before DOMContentLoaded without setting video.error.
-      if (this.video.error || this.video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE)
-        this.mediaError();
-      this.resize();
+      document.addEventListener("nihongo:screenchange", event => this.screenChanged(event));
+      this.reduced.addEventListener("change", () => this.configure());
+      this.mobile.addEventListener("change", () => this.configure());
+      this.pointer.addEventListener("change", () => this.resetPointer());
+      (this.scroller || window).addEventListener("scroll", () => {
+        if (!this.timeline) this.header();
+      }, { passive: true });
+      window.addEventListener("resize", () => {
+        this.geometryDirty = true;
+        this.schedule();
+      }, { passive: true });
+      this.observer = new ResizeObserver(() => {
+        this.geometryDirty = true;
+        this.schedule();
+      });
+      this.observer.observe(this.stage);
+      this.root.querySelector(".hero-discover").addEventListener("click", event => {
+        if (!this.timeline) return;
+        event.preventDefault();
+        const trigger = this.timeline.scrollTrigger;
+        const top = trigger.start + (trigger.end - trigger.start) * .91;
+        (this.scroller || window).scrollTo({ top, behavior: "smooth" });
+      });
+      this.header();
+      this.loadAssets();
     }
-    get active() { return this.home.classList.contains("active") && !document.hidden; }
-    metadata() {
-      if (!Number.isFinite(this.video.duration) || this.video.duration <= 0) return;
-      this.duration = this.video.duration;
-      this.video.pause();
-      this.hero.dataset.duration = String(this.duration);
-      this.schedule();
+
+    findScroller() {
+      for (let node = this.root.parentElement; node && node !== document.body; node = node.parentElement) {
+        if (/(auto|scroll)/.test(getComputedStyle(node).overflowY) && node.scrollHeight > node.clientHeight) return node;
+      }
+      return null;
     }
-    mediaReady() {
-      if (this.mediaFailed || this.video.readyState < 2) return;
-      if (!this.reduced.matches && this.video.readyState === 4 && this.duration &&
-          (!this.video.seekable.length || this.video.seekable.end(this.video.seekable.length - 1) === 0)) {
-        this.mediaError("unseekable");
+
+    async loadAssets() {
+      const loaded = [...this.root.querySelectorAll(".hero-image")].map(image => new Promise(resolve => {
+        const finish = () => resolve(image.naturalWidth > 0);
+        if (image.complete) finish();
+        else {
+          image.addEventListener("load", finish, { once: true });
+          image.addEventListener("error", finish, { once: true });
+        }
+      }));
+      // Reduced motion must not wait for networking to enter normal flow.
+      if (this.reduced.matches || !window.gsap || !window.ScrollTrigger) this.configure();
+      this.assetsFailed = (await Promise.all(loaded)).some(success => !success);
+      this.assetsReady = true;
+      this.configure();
+      document.fonts?.ready.then(() => {
+        if (this.timeline && this.active) this.timeline.scrollTrigger.refresh();
+      });
+    }
+
+    configure() {
+      const previousProgress = this.timeline?.progress() || 0;
+      this.destroyTimeline();
+      this.root.classList.remove("is-static", "is-enhanced", "has-origin");
+      this.root.removeAttribute("style");
+      this.cache.clear();
+      this.state = initialState();
+      if (this.reduced.matches || this.assetsFailed || !window.gsap || !window.ScrollTrigger) {
+        this.root.classList.add("is-static");
+        this.root.dataset.state = this.reduced.matches ? "reduced-motion" : "fallback";
+        this.expose(this.intro, true);
+        this.expose(this.origin, true);
+        this.intro.querySelector(".hero-actions").inert = false;
+        this.origin.querySelector(".hero-actions").inert = false;
+        this.header();
         return;
       }
-      this.hasData = true;
-      this.hero.dataset.mediaState = this.reduced.matches ? "reduced-motion" : "ready";
-      this.hero.classList.toggle("has-video-frame", !this.reduced.matches);
+      if (!this.assetsReady) return;
+      gsap.registerPlugin(ScrollTrigger);
+      this.root.classList.add("is-enhanced");
+      this.root.dataset.state = "ready";
+      this.geometryDirty = true;
+      this.measure();
+      const timeline = gsap.timeline({
+        defaults: { ease: "none" },
+        onUpdate: () => this.schedule(),
+        scrollTrigger: {
+          id: "kise-layered-hero", trigger: this.root, scroller: this.scroller || undefined,
+          start: "top top", end: () => `+=${Math.max(1, this.root.offsetHeight - this.stage.offsetHeight)}`,
+          pin: this.stage, pinSpacing: false, anticipatePin: 1,
+          scrub: this.mobile.matches ? .18 : .25,
+          onToggle: trigger => {
+            this.inView = trigger.isActive;
+            if (!trigger.isActive) this.center();
+            this.schedule();
+          },
+          onRefresh: () => { this.geometryDirty = true; this.schedule(); },
+        },
+      });
+      // One 100-unit choreography animates scalar state. CSS composes scroll
+      // transforms with pointer transforms instead of either overwriting the other.
+      timeline
+        .to(this.state, { introY: 0, duration: 15 }, 0)
+        .to(this.state, { japanScale: 1.10, japanX: -6, japanY: -4, duration: 30 }, 0)
+        .to(this.state, { introCtaOpacity: 1, duration: 15 }, 15)
+        .to(this.state, { introY: -32, introDetailOpacity: 0, introCtaOpacity: 0, shadeOpacity: .23, duration: 12 }, 30)
+        .to(this.state, { introOpacity: 0, introY: -62, shadeOpacity: .28, duration: 10 }, 42)
+        .to(this.state, { clipLeft: 0, duration: 24 }, 52)
+        .to(this.state, { clipRight: 0, duration: 26 }, 52)
+        .to(this.state, { originScale: 1.02, originX: .4, originY: .3, shadeOpacity: .12, duration: 26 }, 52)
+        .to(this.state, { originScale: 1, originX: 0, originY: 0, shadeOpacity: .08, duration: 12 }, 78)
+        .to(this.state, { originOpacity: 1, originCopyY: 0, hintOpacity: 0, duration: 10 }, 78)
+        .to(this.state, { originCtaOpacity: 1, duration: 6 }, 84)
+        .to(this.state, { exitY: -7, duration: 5 }, 95);
+      this.timeline = timeline;
+      timeline.progress(previousProgress);
+      if (!this.active) timeline.scrollTrigger.disable(true);
+      else timeline.scrollTrigger.refresh();
       this.schedule();
     }
-    mediaError(reason = "error") {
-      this.mediaFailed = true;
-      this.seeking = false;
-      this.video.pause();
-      this.hero.classList.remove("has-video-frame");
-      this.hero.classList.add("is-media-fallback");
-      this.hero.dataset.mediaState = "error";
-      this.hero.dataset.mediaFailure = reason;
-      // A failed video keeps the poster and complete scroll narrative usable.
-      this.schedule();
-    }
-    motionMode() {
-      this.video.pause();
-      this.video.preload = this.reduced.matches ? "none" : "auto";
-      this.hero.classList.toggle("is-reduced-motion", this.reduced.matches);
-      this.hero.classList.toggle("has-video-frame", this.hasData && !this.mediaFailed && !this.reduced.matches);
-      if (!this.mediaFailed) this.hero.dataset.mediaState = this.reduced.matches ? "reduced-motion" : this.hasData ? "ready" : "loading";
-      this.forceSync = true;
-      this.lastStoryProgress = -1;
+
+    destroyTimeline() {
+      if (this.timeline) {
+        this.timeline.scrollTrigger.kill(true);
+        this.timeline.kill();
+        this.timeline = null;
+      }
       this.resetPointer();
-      this.resize();
+      this.inView = false;
     }
-    pause() {
+
+    screenChanged(event) {
+      this.active = this.home.classList.contains("active");
+      this.resetPointer();
+      const focusOpening = this.active && event?.detail?.screenId === "home";
+      const navigationFocus = document.activeElement;
+      if (this.timeline) {
+        if (this.active) {
+          this.timeline.scrollTrigger.enable(true, true);
+          // App navigation resets scroll and attempts focus before this event.
+          // Refresh the restored layout before settling its formerly inert copy.
+          requestAnimationFrame(() => {
+            if (!this.active || !this.timeline) return;
+            const heading = this.intro.querySelector("#home-title");
+            const currentFocus = document.activeElement;
+            const restoreFocus = (currentFocus === navigationFocus ||
+              (navigationFocus === heading && currentFocus === document.body)) && !document.querySelector("dialog[open]");
+            const trigger = this.timeline.scrollTrigger;
+            trigger.refresh();
+            trigger.update();
+            if (focusOpening && (this.scroller?.scrollTop ?? window.scrollY) < 10) {
+              trigger.getTween()?.progress(1);
+              this.timeline.progress(trigger.progress);
+              this.render();
+              // Keep a newer user action, such as opening search, in control of focus.
+              if (restoreFocus) heading?.focus({ preventScroll: true });
+            }
+            this.schedule();
+          });
+        } else {
+          this.timeline.scrollTrigger.disable(true);
+          // app.navigateTo focuses the home heading before its screenchange
+          // event, so leave that future focus target outside an inert subtree.
+          this.expose(this.intro, true);
+        }
+      }
+      this.header();
+    }
+
+    measure() {
+      const rect = this.stage.getBoundingClientRect();
+      this.bounds = { left: rect.left, top: this.timeline?.scrollTrigger.isActive ? 0 : rect.top, width: rect.width, height: rect.height };
+      this.geometryDirty = false;
+    }
+
+    move(event) {
+      if (!this.timeline || !this.pointer.matches || event.pointerType !== "mouse" || !this.active || document.hidden) return;
+      const bounds = this.bounds;
+      if (!bounds.width || !bounds.height) return;
+      this.inView = true;
+      this.target.x = clamp((event.clientX - bounds.left) / bounds.width * 2 - 1, -1, 1);
+      this.target.y = clamp((event.clientY - bounds.top) / bounds.height * 2 - 1, -1, 1);
+      this.target.cursorX = event.clientX;
+      this.target.cursorY = event.clientY;
+      this.target.presence = 1;
+      const overLink = Boolean(event.target.closest("a, button, summary"));
+      this.target.scale = overLink ? 2.5 : 1;
+      this.root.classList.toggle("is-cursor-over-link", overLink);
+      this.schedule();
+    }
+
+    center() {
+      this.target.x = this.target.y = this.target.presence = 0;
+      this.target.scale = 1;
+      this.root.classList.remove("is-cursor-over-link");
+      this.schedule();
+    }
+
+    resetPointer() {
       if (this.frame !== null) cancelAnimationFrame(this.frame);
       this.frame = this.lastTime = null;
-      this.forceSync = true;
-      this.video.pause();
-      this.currentPointer.x = this.currentPointer.y = 0;
-      this.targetPointer.x = this.targetPointer.y = 0;
-      this.hero.style.removeProperty("--pointer-x");
-      this.hero.style.removeProperty("--pointer-y");
+      this.target.x = this.target.y = this.target.presence = 0;
+      this.target.scale = 1;
+      Object.assign(this.current, this.target);
+      this.root.classList.remove("is-moving", "is-cursor-over-link");
+      for (const key of ["mouse-image-x", "mouse-image-y", "mouse-copy-x", "mouse-copy-y"]) this.write(key, "0px");
+      for (const key of ["light-opacity", "warm-light-opacity", "cursor-opacity"]) this.write(key, "0");
     }
-    lifecycle() {
-      if (!this.active) {
-        this.pause();
-        // Existing navigation focuses this heading before announcing its route.
-        if (!this.home.classList.contains("active")) {
-          const intro = this.stageStates[0].element;
-          intro.inert = false;
-          intro.setAttribute("aria-hidden", "false");
-          intro.classList.add("is-current");
-        }
-        return;
-      }
-      this.lastStoryProgress = -1;
-      for (const state of this.stageStates) state.visible = state.inert = null;
-      this.forceSync = true;
-      this.resize();
-      if (window.app?.currentScreen === "home" && window.scrollY < 10)
-        this.title.focus({ preventScroll: true });
-    }
-    resize() { this.geometryDirty = true; this.schedule(); }
-    readScroll() {
-      return this.scrollRoot === document.scrollingElement ? window.scrollY : this.scrollRoot.scrollTop;
-    }
-    measureGeometry(time) {
-      const heroRect = this.hero.getBoundingClientRect();
-      const stickyRect = this.sticky.getBoundingClientRect();
-      const documentScroll = this.scrollRoot === document.scrollingElement;
-      const origin = documentScroll ? 0 : this.scrollRoot.getBoundingClientRect().top + this.scrollRoot.clientTop;
-      this.scrollPosition = this.readScroll();
-      this.start = heroRect.top - origin + this.scrollPosition;
-      this.heroHeight = heroRect.height;
-      this.viewportHeight = documentScroll ? innerHeight : this.scrollRoot.clientHeight;
-      this.travel = Math.max(1, heroRect.height - stickyRect.height);
-      this.geometryDirty = false;
-      this.captureTarget(time);
-    }
-    captureTarget(time) {
-      const top = this.start - this.scrollPosition;
-      this.inView = top + this.heroHeight > 0 && top < this.viewportHeight;
-      const progress = top >= -1 ? 0 : this.travel + top <= 1 ? 1 : clamp(-top / this.travel);
-      if (progress === this.targetProgress) return;
-      const direction = Math.sign(progress - this.targetProgress);
-      if (direction !== this.direction) this.forceSync = true;
-      this.direction = direction;
-      this.targetProgress = progress;
-      this.targetChangedAt = time;
-    }
+
     schedule() {
-      if (this.frame !== null || !this.active || !this.observedVisible || !this.inView && !this.geometryDirty) return;
+      if (this.frame !== null || !this.active || document.hidden) return;
       this.frame = requestAnimationFrame(this.tick);
     }
-    seek() {
-      if (this.mediaFailed || this.reduced.matches || !this.duration ||
-          this.video.readyState < 2 || this.seeking || this.video.seeking ||
-          !this.video.seekable.length || this.video.seekable.end(this.video.seekable.length - 1) === 0) return;
-      const threshold = this.progress === 0 || this.progress === 1 ? 0.001 : SEEK_THRESHOLD;
-      if (Math.abs(this.video.currentTime - this.desiredTime) <= threshold) return;
-      try {
-        this.seeking = true;
-        if (this.debug) this.seekStartedAt = performance.now();
-        this.video.currentTime = this.desiredTime;
-        if (this.debug) this.debug.seeks++;
-      } catch { this.mediaError(); }
-    }
-    story() {
-      if (this.lastStoryProgress === this.progress) return;
-      const progress = this.progress;
-      let chapter = 1;
-      for (let index = 0; index < this.stageStates.length; index++) {
-        const state = this.stageStates[index];
-        if (progress >= state.start) chapter = index + 1;
-        const incoming = index === 0 ? 1 : mapRange(progress, state.start, state.start + 0.025);
-        const outgoing = index === this.stageStates.length - 1 ? 0 : mapRange(progress, state.end - 0.025, state.end);
-        const opacity = incoming * (1 - outgoing);
-        const visible = opacity > 0.001;
-        const inert = opacity < 0.45;
-        if (state.visible !== visible) {
-          state.element.classList.toggle("is-current", visible);
-          state.element.setAttribute("aria-hidden", String(!visible));
-          state.visible = visible;
-        }
-        if (state.inert !== inert) { state.element.inert = inert; state.inert = inert; }
-        if (!visible && state.opacity === "0.000") continue;
-        const value = opacity.toFixed(3);
-        const y = visible && !this.reduced.matches ? `${((1 - incoming) * 40 - outgoing * 30).toFixed(2)}px` : "0px";
-        const parallax = visible && !this.reduced.matches ? `${mapRange(progress, state.start, state.end, 6, -6).toFixed(2)}px` : "0px";
-        if (state.opacity !== value) { state.style.setProperty("--stage-opacity", value); state.opacity = value; }
-        if (state.y !== y) { state.style.setProperty("--stage-y", y); state.y = y; }
-        if (state.parallax !== parallax) { state.style.setProperty("--stage-parallax", parallax); state.parallax = parallax; }
-      }
-      const label = String(chapter).padStart(2, "0");
-      if (this.chapter.textContent !== label) this.chapter.textContent = label;
-      const percentage = `${String(Math.round(progress * 100)).padStart(2, "0")}%`;
-      if (this.percent.textContent !== percentage) this.percent.textContent = percentage;
-      this.hero.classList.toggle("is-ending", progress >= 0.98);
-      const value = progress.toFixed(4);
-      const hint = (1 - mapRange(progress, 0, 0.09)).toFixed(3);
-      const handoff = mapRange(progress, 0.94, 1).toFixed(3);
-      if (this.progressValue !== value) {
-        this.hero.style.setProperty("--sequence-progress", value);
-        this.hero.dataset.progress = value;
-        this.progressValue = value;
-      }
-      if (this.hintValue !== hint) {
-        this.hero.style.setProperty("--scroll-hint-opacity", hint);
-        this.hintValue = hint;
-      }
-      if (this.handoffValue !== handoff) {
-        this.hero.style.setProperty("--handoff-opacity", handoff);
-        this.handoffValue = handoff;
-      }
-      this.lastStoryProgress = progress;
-    }
-    movePointer(event) {
-      if (!this.active || !this.inView || this.reduced.matches || !this.pointer.matches || event.pointerType !== "mouse") return;
-      this.targetPointer.x = clamp((event.clientX / innerWidth - 0.5) * 10, -5, 5);
-      this.targetPointer.y = clamp((event.clientY / innerHeight - 0.5) * 8, -4, 4);
-      this.schedule();
-    }
-    resetPointer() {
-      this.targetPointer.x = this.targetPointer.y = 0;
-      if (this.reduced.matches || !this.pointer.matches) {
-        this.currentPointer.x = this.currentPointer.y = 0;
-        this.hero.style.removeProperty("--pointer-x");
-        this.hero.style.removeProperty("--pointer-y");
-      } else this.schedule();
-    }
+
     tick(time) {
-      const started = DEBUG_HERO ? performance.now() : 0;
       this.frame = null;
-      if (!this.active) { this.pause(); return; }
-      if (this.geometryDirty) this.measureGeometry(time);
-      if (!this.inView || !this.observedVisible) { this.pause(); return; }
-      const elapsed = this.lastTime === null ? 1000 / 60 : Math.min(time - this.lastTime, 50);
+      if (!this.active || document.hidden) return;
+      if (this.geometryDirty) this.measure(); // Read before any style writes.
+      const elapsed = this.lastTime === null ? 1000 / 60 : Math.min(50, time - this.lastTime);
       this.lastTime = time;
-      const difference = this.targetProgress - this.progress;
-      // Fine input/reversals/jumps are direct. Wheel filtering lasts <=48ms.
-      if (this.forceSync || this.reduced.matches || Math.abs(difference) < 0.002 ||
-          Math.abs(difference) > 0.08 || time - this.targetChangedAt >= 48 ||
-          this.targetProgress === 0 || this.targetProgress === 1) {
-        this.progress = this.targetProgress;
-      } else this.progress += difference * (1 - Math.exp(-elapsed / (this.mobile.matches ? 8 : 12)));
-      this.forceSync = false;
-      this.desiredTime = this.duration ? Math.min(this.progress * this.duration, Math.max(0, this.duration - 0.01)) : 0;
-      const targetTime = this.desiredTime.toFixed(4);
-      if (this.hero.dataset.targetTime !== targetTime) this.hero.dataset.targetTime = targetTime;
-      this.seek();
-      const easing = 1 - Math.pow(0.88, elapsed / (1000 / 60));
-      let pointerMoving = false;
-      for (const axis of POINTER_AXES) {
-        const delta = this.targetPointer[axis] - this.currentPointer[axis];
-        if (Math.abs(delta) > 0.01) {
-          this.currentPointer[axis] += delta * easing;
-          pointerMoving = true;
-          this.hero.style.setProperty(`--pointer-${axis}`, `${this.currentPointer[axis].toFixed(2)}px`);
-        }
+      const alpha = 1 - Math.pow(.92, elapsed / (1000 / 60));
+      let moving = false;
+      for (const key of Object.keys(this.current)) {
+        const distance = this.target[key] - this.current[key];
+        const epsilon = key.startsWith("cursor") ? .05 : .0005;
+        if (Math.abs(distance) <= epsilon) this.current[key] = this.target[key];
+        else { this.current[key] += distance * alpha; moving = true; }
       }
-      this.story();
-      if (this.debug) {
-        this.debug.rafs++;
-        this.debug.maxMs = Math.max(this.debug.maxMs, performance.now() - started);
-        if (time - this.debug.lastUpdate >= 250) {
-          this.debug.lastUpdate = time;
-          this.debugOutput.textContent = `alvo ${this.desiredTime.toFixed(2)}s / ${this.duration.toFixed(2)}s · seek ${this.debug.lastSeekMs.toFixed(1)}ms · RAF ${this.debug.maxMs.toFixed(2)}ms · seeks ${this.debug.seeks}`;
-          this.hero.dataset.rafCount = String(this.debug.rafs);
-          this.hero.dataset.seekCount = String(this.debug.seeks);
-          this.hero.dataset.maxSeekMs = this.debug.maxSeekMs.toFixed(2);
-          this.hero.dataset.maxRafMs = this.debug.maxMs.toFixed(2);
-        }
-      }
-      if (this.progress !== this.targetProgress || pointerMoving) this.schedule();
+      this.render();
+      if (this.debug) this.root.dataset.rafCount = String(++this.frames);
+      const scrollMoving = Boolean(this.timeline?.scrollTrigger.getTween()?.isActive());
+      this.root.classList.toggle("is-moving", moving || scrollMoving);
+      if (this.timeline && (scrollMoving || (moving && this.pointer.matches))) this.schedule();
       else this.lastTime = null;
     }
+
+    write(key, value) {
+      if (this.cache.get(key) === value) return;
+      this.root.style.setProperty(`--${key}`, value);
+      this.cache.set(key, value);
+    }
+
+    expose(element, visible) {
+      element.inert = !visible;
+      if (visible) element.removeAttribute("aria-hidden");
+      else element.setAttribute("aria-hidden", "true");
+    }
+
+    render() {
+      if (!this.timeline) return;
+      for (const [key, [property, unit]] of Object.entries(properties)) this.write(property, this.state[key].toFixed(4) + unit);
+      const progress = this.timeline.progress();
+      const presence = this.pointer.matches && this.inView ? this.current.presence : 0;
+      const originLight = clamp((progress - .52) / .26);
+      const reveal = clamp((progress - .45) / .07) * (1 - clamp((progress - .78) / .12));
+      const intensity = (1 - reveal * .6) * (progress >= .78 ? .8 : 1);
+      this.write("progress", progress.toFixed(5));
+      this.write("origin-reveal", clamp((progress - .52) / .26).toFixed(4));
+      this.write("mouse-image-x", (this.current.x * 12 * intensity).toFixed(3) + "px");
+      this.write("mouse-image-y", (this.current.y * 8 * intensity).toFixed(3) + "px");
+      this.write("mouse-copy-x", (this.current.x * -3 * intensity).toFixed(3) + "px");
+      this.write("mouse-copy-y", (this.current.y * -2 * intensity).toFixed(3) + "px");
+      this.write("mouse-light-x", (50 + this.current.x * 45).toFixed(3) + "%");
+      this.write("mouse-light-y", (50 + this.current.y * 45).toFixed(3) + "%");
+      this.write("light-opacity", (presence * (1 - originLight)).toFixed(3));
+      this.write("warm-light-opacity", (presence * originLight).toFixed(3));
+      this.write("cursor-x", this.current.cursorX.toFixed(2) + "px");
+      this.write("cursor-y", this.current.cursorY.toFixed(2) + "px");
+      this.write("cursor-opacity", presence.toFixed(3));
+      this.write("cursor-scale", this.current.scale.toFixed(3));
+      this.root.dataset.progress = progress.toFixed(4);
+      const phase = progress < .52 ? "discover" : progress < .78 ? "reveal" : "origin";
+      if (this.root.dataset.phase !== phase) this.root.dataset.phase = phase;
+      this.root.classList.toggle("has-origin", progress >= .78);
+      this.currentChapter.textContent = progress < .78 ? "01" : "02";
+      this.percent.textContent = `${Math.round(progress * 100).toString().padStart(2, "0")}%`;
+      this.expose(this.intro, this.state.introOpacity > .45);
+      this.expose(this.origin, this.state.originOpacity > .45);
+      this.intro.querySelector(".hero-actions").inert = this.state.introCtaOpacity < .45;
+      this.origin.querySelector(".hero-actions").inert = this.state.originCtaOpacity < .45;
+      this.header();
+    }
+
+    header() {
+      const scroll = this.scroller?.scrollTop ?? window.scrollY;
+      const clear = this.active && (this.timeline ? this.timeline.progress() < .12 : scroll < 40);
+      this.nav.classList.toggle("is-hero-clear", clear);
+      this.nav.classList.toggle("is-hero-solid", !clear);
+    }
   }
-  function startVideoHero() {
-    const home = document.querySelector("#screen-home");
-    const hero = home?.querySelector(".scroll-hero");
-    if (!hero?.querySelector("#heroScrollVideo")) return;
-    new ScrollVideoHero(home, hero);
-  }
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", startVideoHero, { once: true });
-  } else startVideoHero();
+
+  const start = () => {
+    const root = document.querySelector(".hero-experience");
+    if (root) new LayeredHero(root);
+  };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start, { once: true });
+  else start();
 })();

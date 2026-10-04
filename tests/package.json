@@ -4,11 +4,9 @@
   "scripts": {
     "test": "node home-smoke.cjs",
     "test:hero": "node hero-interaction.cjs",
-    "test:video": "node scroll-video.cjs all",
-    "test:sequence": "node scroll-video.cjs core",
-    "test:hero-input": "node scroll-video.cjs input",
-    "test:hero-recovery": "node scroll-video.cjs recovery",
-    "bench:hero": "node scroll-video.cjs benchmark"
+    "test:intro": "node intro-experience.cjs all",
+    "test:hero-input": "node intro-experience.cjs input",
+    "test:hero-recovery": "node intro-experience.cjs recovery"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kise Japan | Plataforma de Estudo de Japonês</title>
+  <script>document.documentElement.classList.add("js");</script>
 
   <!-- Google Fonts: Inter & Noto Sans JP -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,8 +13,9 @@
 
   <!-- Estilos Customizados -->
   <link rel="stylesheet" href="css/style.css?v=kise-japan-1">
-  <link rel="stylesheet" href="css/home.css?v=video-1">
-  <link rel="preload" as="image" href="telainicial/video-poster.webp" fetchpriority="high">
+  <link rel="stylesheet" href="css/home.css?v=layered-2">
+  <link rel="preload" as="image" href="telainicial2/optimized/kiseinitialjapan.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="telainicial2/optimized/kisejapansequence.webp">
   <meta name="description" content="Kise Japan: uma jornada pelo Japão através da língua. Aprenda hiragana, katakana, kanji e caligrafia; explore o JLPT e pratique japonês com diálogos de anime.">
 
   <!-- Símbolo rosa da Kise Japan -->
@@ -145,87 +147,51 @@
       class="screen-view active editorial-home"
       aria-label="Uma jornada pelo Japão através da língua"
     >
-      <!-- Native video stays paused; the hero scroll controls its timeline. -->
-      <section class="scroll-hero" aria-labelledby="home-title">
-        <div class="scroll-hero-sticky">
-          <img class="hero-sequence-poster" src="telainicial/video-poster.webp" width="1920" height="1080" fetchpriority="high" decoding="async" alt="" aria-hidden="true" />
-          <video id="heroScrollVideo" class="hero-scroll-video" muted playsinline preload="auto" disablepictureinpicture poster="telainicial/video-poster.webp" aria-hidden="true" tabindex="-1">
-            <source src="telainicial/videocapainicial-scrub.mp4" type="video/mp4">
-          </video>
-          <div class="hero-sequence-overlay" aria-hidden="true"></div>
-          <div class="hero-sequence-handoff" aria-hidden="true"></div>
-          <div class="hero-sequence-edition" aria-hidden="true">
-            <span><i></i> KISE JAPAN · UMA JORNADA PELA LÍNGUA</span>
-            <span lang="ja">一筆、一歩。</span>
+      <!-- Both photographs occupy one pinned stage; without JS they remain readable in flow. -->
+      <section class="hero-experience" aria-labelledby="home-title">
+        <div class="hero-stage">
+          <div class="hero-visual">
+            <div class="hero-layer hero-layer--japan">
+              <img class="hero-image" src="telainicial2/optimized/kiseinitialjapan.webp" width="1672" height="941" fetchpriority="high" decoding="async" alt="Sakuras, Monte Fuji e uma casa tradicional japonesa à luz do fim da tarde">
+            </div>
+            <div class="hero-layer hero-layer--origin">
+              <img class="hero-image" src="telainicial2/optimized/kisejapansequence.webp" width="1672" height="941" decoding="async" alt="Mural com círculo vermelho, MADE IN JAPAN e KISE STUDIOS em uma fachada japonesa com banco de madeira">
+            </div>
+            <div class="hero-light" aria-hidden="true"></div>
+            <div class="hero-shade" aria-hidden="true"></div>
           </div>
-          <div class="hero-story">
-            <div class="hero-story-stage hero-story-intro is-current" data-start="0" data-end="0.15">
-              <div class="hero-story-content">
-                <p class="hero-chapter"><span>01</span> / O INÍCIO</p>
-                <p class="hero-japanese-label" lang="ja">日本語を学ぶ</p>
-                <h1 id="home-title" class="hero-story-title">Japonês não se decora.<br /><em>Se vive.</em></h1>
-                <p class="hero-story-description">Uma jornada pela escrita, som e cultura japonesa.</p>
-                <div class="hero-story-actions">
-                  <a class="hero-sequence-link" href="#hiragana" data-screen="hiragana">Começar jornada <span aria-hidden="true">↗</span></a>
-                </div>
-              </div>
-            </div>
-            <div class="hero-story-stage" data-start="0.18" data-end="0.35" inert aria-hidden="true">
-              <div class="hero-story-content">
-                <p class="hero-chapter"><span>02</span> / OS PRIMEIROS SONS</p>
-                <span class="hero-glyph" lang="ja" aria-hidden="true">あ</span>
-                <h2 class="hero-alphabet">HIRAGANA</h2>
-                <p class="hero-story-description">Comece pelos sons que dão vida ao idioma.</p>
-                <p class="hero-story-detail">46 caracteres fundamentais</p>
-              </div>
-            </div>
-            <div class="hero-story-stage" data-start="0.38" data-end="0.52" inert aria-hidden="true">
-              <div class="hero-story-content">
-                <p class="hero-chapter"><span>03</span> / PALAVRAS EM VIAGEM</p>
-                <span class="hero-glyph" lang="ja" aria-hidden="true">ア</span>
-                <h2 class="hero-alphabet">KATAKANA</h2>
-                <p class="hero-story-description">O alfabeto das palavras que viajaram até o Japão.</p>
-                <p class="hero-story-detail" lang="ja">外来語</p>
-              </div>
-            </div>
-            <div class="hero-story-stage" data-start="0.55" data-end="0.72" inert aria-hidden="true">
-              <div class="hero-story-content">
-                <p class="hero-chapter"><span>04</span> / UM TRAÇO, UMA HISTÓRIA</p>
-                <span class="hero-glyph" lang="ja" aria-hidden="true">漢</span>
-                <h2 class="hero-alphabet">KANJI</h2>
-                <p class="hero-story-description">Cada símbolo carrega uma ideia, uma história e uma forma de enxergar o mundo.</p>
-                <p class="hero-story-detail" lang="ja">意味 • 読み方 • 書き順</p>
-              </div>
-            </div>
-            <div class="hero-story-stage hero-story-journey" data-start="0.75" data-end="0.88" inert aria-hidden="true">
-              <div class="hero-story-content">
-                <p class="hero-chapter"><span>05</span> / TUDO SE CONECTA</p>
-                <h2 class="hero-story-title">Do primeiro <span lang="ja">あ</span><br />à compreensão <em>real.</em></h2>
-                <p class="hero-story-description">Hiragana, Katakana, Kanji, gramática, audição e prática em uma única jornada.</p>
-              </div>
-            </div>
-            <div class="hero-story-stage hero-story-final" data-start="0.9" data-end="1">
-              <div class="hero-story-content">
-                <p class="hero-chapter"><span>06</span> / A SUA JORNADA</p>
-                <h2 class="hero-master-title">Kise<br /><em>Japan</em></h2>
-                <p class="hero-japanese-label" lang="ja">日本語マスター</p>
-                <p class="hero-story-description">Seu caminho para dominar o japonês começa aqui.</p>
-                <div class="hero-story-actions">
-                  <a class="hero-sequence-button" href="#journey">Explorar a Kise Japan <span aria-hidden="true">↓</span></a>
-                  <a class="hero-sequence-button is-secondary" href="#hiragana" data-screen="hiragana">Explorar Hiragana <span aria-hidden="true">↗</span></a>
-                </div>
+          <div class="hero-copy hero-copy--intro" id="intro-discover-scene">
+            <div class="hero-copy-content">
+              <p class="hero-eyebrow">KISE JAPAN <span>01 / DISCOVER</span></p>
+              <p class="hero-japanese" lang="ja">日本語を学ぶ</p>
+              <h1 id="home-title" class="hero-headline">Aprender uma língua<br>é entrar em<br><em>uma cultura.</em></h1>
+              <p class="hero-description">Escrita, som, memória<br>e cotidiano japonês.</p>
+              <div class="hero-actions">
+                <a class="hero-cta hero-discover" href="#intro-origin"><span class="hero-cta-label">DESCUBRA</span><span class="hero-cta-arrow" aria-hidden="true">↓</span></a>
               </div>
             </div>
           </div>
-          <div class="hero-scroll-indicator" aria-hidden="true"><span>SCROLL TO EXPLORE</span><span>↓</span></div>
-          <a class="hero-sequence-skip" href="#journey">Pular apresentação <span aria-hidden="true">↘</span></a>
-          <div class="hero-sequence-progress" aria-hidden="true">
-            <span class="hero-progress-chapter">01</span>
-            <div class="hero-progress-track"></div>
-            <span class="hero-progress-percent">00%</span>
-            <small>/ 06</small>
+          <div class="hero-copy hero-copy--origin" id="intro-origin" aria-labelledby="intro-origin-title">
+            <div class="hero-copy-content">
+              <p class="hero-kicker">02 / ORIGIN <span>KISE JAPAN</span></p>
+              <h2 id="intro-origin-title" class="hero-headline">Do Japão,<br>para a sua <em>jornada.</em></h2>
+              <p class="hero-description">Uma plataforma construída para transformar<br>estudo em experiência.</p>
+              <div class="hero-actions">
+                <a class="hero-cta" href="#journey"><span class="hero-cta-label">ENTRAR NO KISE JAPAN</span><span class="hero-cta-arrow" aria-hidden="true">→</span></a>
+              </div>
+            </div>
           </div>
-          <div class="hero-sequence-bottom" aria-hidden="true"><span>ESCRITA. SOM. CULTURA.</span><span lang="ja">小さな一歩、大きな世界。</span></div>
+          <div class="hero-edition" aria-hidden="true">
+            <span><i></i> KISE JAPAN <small>ESCRITA. SOM. CULTURA.</small></span>
+            <span lang="ja">小さな一歩、大きな世界。</span>
+          </div>
+          <a class="hero-skip" href="#journey">Pular apresentação <span aria-hidden="true">↘</span></a>
+          <div class="hero-progress" aria-hidden="true">
+            <span>01</span><div class="hero-progress-track"></div><span>02</span>
+            <span class="hero-progress-current">01</span><small class="hero-progress-percent">00%</small>
+          </div>
+          <div class="hero-cursor" aria-hidden="true"><span>EXPLORE</span></div>
+          <div class="hero-footer" aria-hidden="true"><span>UMA LÍNGUA. OUTRO HORIZONTE.</span><span>DESDE O PRIMEIRO TRAÇO.</span></div>
         </div>
       </section>
       <!-- LearningPaths: existing screen destinations -->
@@ -1906,7 +1872,9 @@
   <script src="js/notebook.js"></script>
   <script src="js/advanced.js"></script>
   <script src="js/app.js"></script>
-  <script src="js/scroll-hero.js?v=video-1"></script>
-  <script src="js/home.js?v=scroll-6"></script>
+  <script src="js/vendor/gsap/gsap.min.js"></script>
+  <script src="js/vendor/gsap/ScrollTrigger.min.js"></script>
+  <script src="js/scroll-hero.js?v=layered-2"></script>
+  <script src="js/home.js?v=layered-1"></script>
 </body>
 </html>

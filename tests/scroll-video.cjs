@@ -219,7 +219,7 @@ async function ready(page, { media = true } = {}) {
     "The comparison fixture selects the requested MP4 without editing the application");
   assert.equal(configuration.muted, true);
   assert.equal(configuration.inline, true);
-  assert.equal(configuration.preload, await page.evaluate(() => matchMedia("(prefers-reduced-motion: reduce)").matches) ? "none" : "auto");
+  assert.equal(configuration.preload, "auto");
   assert.equal(configuration.autoplay, false);
   assert.equal(configuration.loop, false);
   assert.equal(configuration.controls, false);
@@ -683,26 +683,74 @@ async function recovery(browser) {
       reducedMotion: "reduce", ...(mobile ? { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true } : {}),
     });
     try {
-      await ready(reduced.page, { media: false });
+      await ready(reduced.page);
+      await jump(reduced.page, 0);
+      const firstPixels = await pixels(reduced.page);
       const before = await reduced.page.locator(".hero-story-content").evaluateAll((elements) => elements.map((el) => getComputedStyle(el).transform));
       await reduced.page.mouse.move(950, 400);
       await reduced.page.locator(".scroll-hero-sticky").dispatchEvent("pointermove", { pointerType: "mouse", clientX: 900, clientY: 400 });
       await reduced.page.waitForTimeout(150);
       assert.deepEqual(await reduced.page.locator(".hero-story-content").evaluateAll((elements) => elements.map((el) => getComputedStyle(el).transform)), before,
         "Reduced motion disables pointer parallax");
+      let previousTime = 0;
+      let previousPixels = firstPixels;
+      const hashes = new Set();
       for (const [index, progress] of chapters.entries()) {
-        await jump(reduced.page, progress, { media: false });
+        const result = await jump(reduced.page, progress);
         await chapter(reduced.page, index);
+        assert.ok(result.currentTime > previousTime, "Reduced motion preserves forward scroll scrubbing");
+        assert.ok(Math.abs(result.currentTime - result.targetTime) <= timeTolerance,
+          "Reduced motion keeps the decoded timeline aligned with the selected scroll time");
+        assert.equal(result.paused, true, "Scroll-selected video remains paused in reduced motion");
+        const rendered = await pixels(reduced.page);
+        assert.notEqual(rendered.hash, previousPixels.hash, "Reduced motion renders a different video frame at each chapter");
+        hashes.add(rendered.hash);
+        previousTime = result.currentTime;
+        previousPixels = rendered;
       }
-      assert.equal(await reduced.page.evaluate(() => window.__videoChecks.seeks.length), 0, "Reduced motion never scroll-seeks native video");
-      assert.equal(await reduced.page.locator(".hero-sequence-poster").evaluate((poster) => getComputedStyle(poster).opacity), "1",
-        "Reduced motion keeps the static poster visible throughout the narrative");
-      assert.equal(await reduced.page.locator("#heroScrollVideo").evaluate((video) => getComputedStyle(video).opacity), "0",
-        "The static poster is not covered by the native media layer");
-      assert.equal(await reduced.page.evaluate(() => window.__videoChecks.playCalls), 0);
+      assert.equal(hashes.size, chapters.length, "All six reduced-motion chapters present distinct decoded pixels");
+      assert.equal(await reduced.page.locator("#heroScrollVideo").evaluate((video) => getComputedStyle(video).opacity), "1",
+        "Reduced motion keeps the scroll-controlled video visible");
       await screenshot(reduced.page, `reduced-${mobile ? "mobile" : "desktop"}-final`);
+      for (const progress of [...chapters].reverse().slice(1)) {
+        const result = await jump(reduced.page, progress);
+        assert.ok(result.currentTime < previousTime, "Reduced motion preserves reverse scroll scrubbing");
+        previousTime = result.currentTime;
+      }
+      await jump(reduced.page, 0);
+      assert.deepEqual(await pixels(reduced.page), firstPixels, "Reduced motion reverse scroll restores the opening pixels");
+      await pausedLifecycle(reduced.page, "reduced-motion scroll stopped");
+
+      for (const [preference, progress] of [["no-preference", .45], ["reduce", .26]]) {
+        const beforeToggle = await state(reduced.page);
+        const pixelsBeforeToggle = await pixels(reduced.page);
+        await reduced.page.emulateMedia({ reducedMotion: preference });
+        await reduced.page.waitForFunction((isReduced) =>
+          document.querySelector(".scroll-hero").classList.contains("is-reduced-motion") === isReduced,
+        preference === "reduce", { timeout: 5000, polling: 50 });
+        await settled(reduced.page);
+        const afterToggle = await state(reduced.page);
+        assert.ok(Math.abs(afterToggle.currentTime - beforeToggle.currentTime) <= timeTolerance,
+          "Changing the motion preference preserves the scroll-selected video time");
+        assert.deepEqual(await pixels(reduced.page), pixelsBeforeToggle,
+          "Changing the motion preference preserves the rendered video frame");
+        assert.equal(await reduced.page.locator("#heroScrollVideo").evaluate((video) => getComputedStyle(video).opacity), "1",
+          "The video stays visible when the motion preference changes");
+        const result = await jump(reduced.page, progress);
+        assert.ok(Math.abs(result.currentTime - result.targetTime) <= timeTolerance,
+          "Scrubbing stays synchronized after the motion preference changes");
+        assert.ok(Math.sign(result.currentTime - afterToggle.currentTime) === Math.sign(progress - afterToggle.progress),
+          "Scrubbing follows forward and reverse input after the motion preference changes");
+        assert.notEqual((await pixels(reduced.page)).hash, pixelsBeforeToggle.hash,
+          "Scrubbing still changes decoded pixels after the motion preference changes");
+        assert.equal(result.paused, true);
+      }
+      assert.deepEqual(await reduced.page.locator(".hero-story-content").evaluateAll((elements) => elements.map((el) => getComputedStyle(el).transform)), before,
+        "Restoring reduced motion keeps additional transforms disabled");
+      await pausedLifecycle(reduced.page, "motion preference changed back to reduce");
+      await verifyScheduling(reduced.page);
       reduced.check();
-      console.log(`PASS reduced motion ${mobile ? "mobile" : "desktop"}: static media with all six scroll chapters`);
+      console.log(`PASS reduced motion ${mobile ? "mobile" : "desktop"}: six decoded chapters, reverse scrubbing and live preference changes`);
     } finally { await reduced.context.close(); }
   }
 

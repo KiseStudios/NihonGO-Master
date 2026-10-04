@@ -16,6 +16,11 @@ const baseUrl = (process.env.TEST_BASE_URL || "http://127.0.0.1:4173").replace(
   await page.goto(baseUrl);
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(2200);
+  assert.equal(await page.locator(".hero-experience").count(), 1, "The home starts with one layered hero experience");
+  assert.equal((await page.locator(".hero-copy--intro #home-title").innerText()).replace(/\s+/g, " ").trim(),
+    "Aprender uma língua é entrar em uma cultura.", "The opening retains its semantic editorial heading");
+  assert.equal(await page.locator(".hero-experience video, .hero-experience canvas").count(), 0,
+    "The opening uses layered native images");
   const axe = await new AxeBuilder({ page })
     .include(".editorial-nav")
     .include("#screen-home")
@@ -37,7 +42,8 @@ const baseUrl = (process.env.TEST_BASE_URL || "http://127.0.0.1:4173").replace(
     ),
   );
   assert.deepEqual(axe.violations, [], "Desktop home accessibility");
-  await page.locator('.hero-story-intro [data-screen="hiragana"]').click();
+  await page.locator(".ed-nav-group summary").filter({ hasText: "Aprender" }).click();
+  await page.locator('.ed-menu [data-screen="hiragana"]').first().click();
   assert.equal(await page.evaluate(() => app.currentScreen), "hiragana");
   assert.ok((await page.locator("#hiraganaGrid .kana-card").count()) > 40);
   await page.locator(".ed-brand").click();
@@ -100,6 +106,13 @@ const baseUrl = (process.env.TEST_BASE_URL || "http://127.0.0.1:4173").replace(
   await page.locator("#settingsThemeToggleBtn").click();
   assert.equal(await page.locator("html").getAttribute("data-theme"), "dark");
   await page.locator("#closeSettingsBtn").click();
+  // Audit the finished theme: CSS color transitions briefly retain the light
+  // foreground while the dark background is already applied.
+  await page.evaluate(async () => {
+    await Promise.all(document.getAnimations()
+      .filter(animation => animation instanceof CSSTransition)
+      .map(animation => animation.finished.catch(() => {})));
+  });
   const darkAxe = await new AxeBuilder({ page })
     .include(".editorial-nav")
     .include("#screen-home")
