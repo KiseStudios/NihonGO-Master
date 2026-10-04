@@ -37,7 +37,7 @@ const baseUrl = (process.env.TEST_BASE_URL || "http://127.0.0.1:4173").replace(
     ),
   );
   assert.deepEqual(axe.violations, [], "Desktop home accessibility");
-  await page.locator('.hero-copy [data-screen="hiragana"]').click();
+  await page.locator('.hero-story-intro [data-screen="hiragana"]').click();
   assert.equal(await page.evaluate(() => app.currentScreen), "hiragana");
   assert.ok((await page.locator("#hiraganaGrid .kana-card").count()) > 40);
   await page.locator(".ed-brand").click();

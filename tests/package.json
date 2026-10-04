@@ -3,7 +3,11 @@
   "private": true,
   "scripts": {
     "test": "node home-smoke.cjs",
-    "test:hero": "node hero-interaction.cjs"
+    "test:hero": "node hero-interaction.cjs",
+    "test:sequence": "node scroll-hero.cjs",
+    "test:hero-input": "node hero-input.cjs",
+    "test:hero-recovery": "node hero-frame-recovery.cjs",
+    "bench:hero": "node hero-performance.cjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",
