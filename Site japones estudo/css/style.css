@@ -1,9 +1,14 @@
 /* ==========================================================================
-   ESTILOS PRINCIPAIS - NIHONGO MASTER (日本語マスター)
+   ESTILOS PRINCIPAIS - KISE JAPAN (日本語マスター)
    Design Japonês Moderno com Tema Sakura & Indigo
    ========================================================================== */
 
 :root {
+  /* Identidade Kise Japan: preserva o rosa das logos em ambos os temas. */
+  --brand-pink: #e62f5e;
+  --brand-pink-soft: #ff7394;
+  --brand-logo-surface: #f7f4ee;
+
   /* Cores Principais - Tema Claro */
   --bg-primary: #f8fafc;
   --bg-secondary: #ffffff;

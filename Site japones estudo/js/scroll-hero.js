@@ -1,327 +1,71 @@
-/** Scroll-controlled opening: independently initialized from the study application. */
+/** Paused native video and editorial storytelling share one scroll timeline. */
 (() => {
   "use strict";
-  const $ = (selector) => document.querySelector(selector);
-  const clamp = (value, min = 0, max = 1) =>
-    Math.min(max, Math.max(min, value));
-
+  const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
   const mapRange = (value, start, end, from = 0, to = 1) =>
     from + clamp((value - start) / (end - start)) * (to - from);
-
-  // Sample the existing optimized files, without re-encoding or deleting sources.
-  // Inclusive endpoints: logical 1 -> source 1, logical 120 -> source 240.
-  const HERO_SOURCE_COUNT = 240;
-  const HERO_FRAME_COUNT = 120;
-  const HERO_FIRST_BATCH = 16;
-  const HERO_SOURCES = Array.from({ length: HERO_FRAME_COUNT }, (_, index) =>
-    Math.round(index * (HERO_SOURCE_COUNT - 1) / (HERO_FRAME_COUNT - 1)) + 1);
-  const heroFrameURL = (index, width) =>
-    `telainicial/optimized/${width}/frame_${String(HERO_SOURCES[index]).padStart(3, "0")}.webp`;
+  const SEEK_THRESHOLD = 0.015;
   const DEBUG_HERO = new URLSearchParams(location.search).get("heroDebug") === "1";
   const POINTER_AXES = ["x", "y"];
 
-  function drawImageCover(context, image, width, height) {
-    const imageWidth = image.naturalWidth || image.width;
-    const imageHeight = image.naturalHeight || image.height;
-    const scale = Math.max(width / imageWidth, height / imageHeight);
-    const drawWidth = imageWidth * scale;
-    const drawHeight = imageHeight * scale;
-    // Opaque images cover every pixel. No clearRect between frames = no white flash.
-    context.drawImage(image, (width - drawWidth) / 2, (height - drawHeight) / 2,
-      drawWidth, drawHeight);
-  }
-
-  class HeroFrameStore {
-    constructor(hero) {
-      this.hero = hero;
-      this.images = new Map();
-      this.blobs = new Map();
-      this.rawRequests = new Map();
-      this.decoding = new Set();
-      this.failed = new Set();
-      this.loaded = new Set();
-      this.blobBytes = this.decodedBytes = 0;
-      this.decodeActive = this.backgroundActive = 0;
-      this.priority = new Int16Array(24);
-      this.priorityCount = 0;
-      this.current = this.target = -1;
-      this.direction = 1;
-      this.preloadIndex = 0;
-      this.timer = null;
-      this.wakeAt = 0;
-      this.configure();
-    }
-    configure() {
-      const width = this.hero.assetWidth;
-      this.budget = (this.hero.mobile.matches ? 40 : this.hero.lowPower ? 48 : 96) * 1024 * 1024;
-      this.blobBudget = (this.hero.mobile.matches ? 16 : 32) * 1024 * 1024;
-      this.limit = Math.max(6, Math.min(24, Math.floor(this.budget / (width * width * 9 / 16 * 4))));
-      if (this.variant !== width) {
-        this.variant = width;
-        this.preloadIndex = 0;
-        this.loaded.clear();
-        for (let index = 0; index < HERO_FRAME_COUNT; index++) {
-          if (this.blobs.has(`${width}/${index}`)) this.loaded.add(index);
-        }
-        this.hero.hero.dataset.loadedFrames = String(this.loaded.size);
-      }
-      this.current = -1;
-      this.trim();
-    }
-    rank(index) {
-      for (let rank = 0; rank < this.priorityCount; rank++) {
-        if (this.priority[rank] === index) return rank;
-      }
-      return 100 + Math.abs(index - this.hero.currentFrame);
-    }
-    addPriority(index) {
-      if (index < 0 || index >= HERO_FRAME_COUNT || this.priorityCount >= this.limit - 1) return;
-      for (let i = 0; i < this.priorityCount; i++) if (this.priority[i] === index) return;
-      this.priority[this.priorityCount++] = index;
-    }
-    aim(current, target, direction) {
-      if (current === this.current && target === this.target && direction === this.direction) return;
-      this.current = current;
-      this.target = target;
-      this.direction = direction;
-      this.priorityCount = 0;
-      this.addPriority(current);
-      this.addPriority(target);
-      // Reserve roughly 3/4 of the window for frames ahead of the movement.
-      const ahead = Math.max(4, Math.floor((this.limit - 2) * 0.75));
-      for (let offset = 1; offset <= ahead; offset++) this.addPriority(current + direction * offset);
-      for (let offset = 1; offset < this.limit && this.priorityCount < this.limit - 1; offset++) {
-        this.addPriority(current - direction * offset);
-        this.addPriority(current + direction * (ahead + offset));
-      }
-      this.wake();
-    }
-    async raw(index, width = this.variant, urgent = false) {
-      const key = `${width}/${index}`;
-      if (this.blobs.has(key)) return this.blobs.get(key);
-      if (this.rawRequests.has(key)) return this.rawRequests.get(key);
-      const request = (async () => {
-        const attempts = urgent ? 3 : 2;
-        let blob;
-        for (let attempt = 0; attempt < attempts; attempt++) {
-          try {
-            const response = await fetch(heroFrameURL(index, width), {
-              cache: attempt === 0 ? "force-cache" : "reload",
-              priority: urgent || index < HERO_FIRST_BATCH ? "high" : "low",
-            });
-            if (!response.ok) throw new Error(`Frame ${index + 1}: HTTP ${response.status}`);
-            blob = await response.blob();
-            break;
-          } catch (error) {
-            if (attempt === attempts - 1) throw error;
-            await new Promise(resolve => setTimeout(resolve, attempt === 0 ? 150 : 400));
-          }
-        }
-        this.blobs.set(key, blob);
-        this.blobBytes += blob.size;
-        if (width === this.variant) this.loaded.add(index);
-        for (const [oldKey, oldBlob] of this.blobs) {
-          if (this.blobBytes <= this.blobBudget) break;
-          this.blobs.delete(oldKey);
-          this.blobBytes -= oldBlob.size;
-        }
-        this.hero.hero.dataset.loadedFrames = String(this.loaded.size);
-        this.hero.hero.dataset.compressedBytes = String(this.blobBytes);
-        return blob;
-      })();
-      this.rawRequests.set(key, request);
-      try { return await request; }
-      finally { this.rawRequests.delete(key); }
-    }
-    async decode(index, width) {
-      // Only ready compressed files enter the decoder. Slow downloads must not
-      // occupy its slots, and stale windows must not spend time decoding.
-      const blob = this.blobs.get(`${width}/${index}`);
-      if (!blob || width !== this.variant || this.rank(index) >= 100) return;
-      let image;
-      if (typeof window.createImageBitmap === "function") {
-        try { image = await createImageBitmap(blob); }
-        catch { /* Fall back to native Image decoding. */ }
-      }
-      if (!image) {
-        const url = URL.createObjectURL(blob);
-        try {
-          image = await new Promise((resolve, reject) => {
-            const fallback = new Image();
-            fallback.decoding = "async";
-            fallback.onload = () => resolve(fallback);
-            fallback.onerror = reject;
-            fallback.src = url;
-          });
-          // onload alone does not guarantee a decoded image in every browser.
-          await image.decode();
-        } finally { URL.revokeObjectURL(url); }
-      }
-      // Old requests may finish after a reversal or a resolution change.
-      if (width !== this.variant || this.rank(index) >= 100 && index !== this.hero.lastDrawn) {
-        image.close?.();
-        return;
-      }
-      const previous = this.images.get(index);
-      if (previous) { previous.image.close?.(); this.decodedBytes -= previous.bytes; }
-      const bytes = (image.naturalWidth || image.width) * (image.naturalHeight || image.height) * 4;
-      this.images.set(index, { image, resolution: width, bytes });
-      this.decodedBytes += bytes;
-      this.trim();
-      // Neighbor decoding must not start redundant animation frames.
-      if (index === this.hero.currentFrame || this.hero.drawDirty) this.hero.schedule();
-    }
-    trim() {
-      while (this.images.size > this.limit || this.decodedBytes > this.budget) {
-        let victim = -1;
-        let worst = -1;
-        for (const [index] of this.images) {
-          if (index === this.hero.lastDrawn || index === this.hero.currentFrame || index === this.hero.targetFrame) continue;
-          const rank = this.rank(index);
-          if (rank > worst) { worst = rank; victim = index; }
-        }
-        if (victim < 0) break;
-        const entry = this.images.get(victim);
-        entry.image.close?.();
-        this.decodedBytes -= entry.bytes;
-        this.images.delete(victim);
-      }
-      this.hero.hero.dataset.cachedFrames = String(this.images.size);
-      this.hero.hero.dataset.decodedBytes = String(this.decodedBytes);
-    }
-    get(index) { return this.images.get(index)?.image; }
-    nextDecode() {
-      for (let i = 0; i < this.priorityCount; i++) {
-        const index = this.priority[i];
-        const key = `${this.variant}/${index}`;
-        const entry = this.images.get(index);
-        if (this.blobs.has(key) && (!entry || entry.resolution !== this.variant) &&
-            !this.decoding.has(key) && !this.failed.has(key)) return index;
-      }
-      return -1;
-    }
-    nextPreload() {
-      // Warm the opening batch first, then visit every remaining compressed file.
-      while (this.preloadIndex < HERO_FRAME_COUNT) {
-        const index = this.preloadIndex++;
-        const key = `${this.variant}/${index}`;
-        if (!this.blobs.has(key) && !this.rawRequests.has(key) && !this.failed.has(key)) return index;
-      }
-      return -1;
-    }
-    markFailed(key) {
-      this.failed.add(key);
-      this.hero.hero.dataset.failedFrames = String(this.failed.size);
-      // A missing frame must not disable the rest of an otherwise valid sequence.
-      if (this.failed.size === 1) console.warn("NihonGO: frame indisponível; preservando a última imagem válida.");
-    }
-    wake(delay = 0) {
-      const at = performance.now() + delay;
-      if (this.timer !== null && this.wakeAt <= at) return;
-      clearTimeout(this.timer);
-      this.wakeAt = at;
-      this.timer = setTimeout(() => { this.timer = null; this.pump(); }, delay);
-    }
-    request(index, urgent = false, background = false) {
-      const width = this.variant;
-      const key = `${width}/${index}`;
-      if (index < 0 || this.blobs.has(key) || this.rawRequests.has(key) || this.failed.has(key)) return;
-      if (background) this.backgroundActive++;
-      this.raw(index, width, urgent).catch(() => this.markFailed(key)).finally(() => {
-        if (background) this.backgroundActive--;
-        this.wake();
-      });
-    }
-    pump() {
-      if (!this.hero.canLoad()) return;
-      const concurrency = this.hero.mobile.matches || this.hero.lowPower ? 2 : 3;
-      const fetchLimit = concurrency + 2;
-      // Reserve one extra network slot for the exact frame after a jump or
-      // reversal. Neighbor downloads never block the actual decoder.
-      if (this.hero.inView && this.rawRequests.size < fetchLimit + 1) this.request(this.current, true);
-      while (this.hero.inView && this.decodeActive < concurrency) {
-        const index = this.nextDecode();
-        if (index < 0) break;
-        const width = this.variant;
-        const key = `${width}/${index}`;
-        this.decodeActive++;
-        this.decoding.add(key);
-        this.decode(index, width).catch(() => this.markFailed(key)).finally(() => {
-          this.decodeActive--;
-          this.decoding.delete(key);
-          this.wake();
-        });
-      }
-      // Keep at least one background slot alive, including outside the hero.
-      // Only decoded neighbors pause there; compressed preload finishes all 120.
-      const backgroundSlots = this.hero.isScrolling ? 1 : 2;
-      while (this.backgroundActive < backgroundSlots && this.rawRequests.size < fetchLimit) {
-        const index = this.nextPreload();
-        if (index < 0) break;
-        this.request(index, false, true);
-      }
-      if (this.hero.inView) {
-        for (let rank = 0; rank < this.priorityCount && this.rawRequests.size < fetchLimit; rank++) {
-          this.request(this.priority[rank], true);
-        }
-      }
-    }
-    pause() { clearTimeout(this.timer); this.timer = null; }
-  }
-
-  class ScrollSequenceHero {
-    constructor(home) {
+  class ScrollVideoHero {
+    constructor(home, hero) {
       this.home = home;
-      this.hero = $(".scroll-hero");
-      this.sticky = this.hero.querySelector(".scroll-hero-sticky");
-      this.canvas = $("#heroSequenceCanvas");
-      this.context = this.canvas.getContext("2d", { alpha: false });
-      this.stages = [...this.hero.querySelectorAll(".hero-story-stage")];
-      this.stageStates = this.stages.map(element => ({
+      this.hero = hero;
+      this.sticky = hero.querySelector(".scroll-hero-sticky");
+      this.video = hero.querySelector("#heroScrollVideo");
+      this.nav = document.querySelector(".editorial-nav");
+      this.title = document.querySelector("#home-title");
+      this.percent = hero.querySelector(".hero-progress-percent");
+      this.chapter = hero.querySelector(".hero-progress-chapter");
+      this.stageStates = [...hero.querySelectorAll(".hero-story-stage")].map(element => ({
         element, style: element.style,
         start: Number(element.dataset.start), end: Number(element.dataset.end),
         visible: null, inert: null, opacity: null, y: null, parallax: null,
       }));
-      this.nav = $(".editorial-nav");
-      this.title = $("#home-title");
-      this.percent = this.hero.querySelector(".hero-progress-percent");
-      this.chapter = this.hero.querySelector(".hero-progress-chapter");
       this.reduced = matchMedia("(prefers-reduced-motion: reduce)");
       this.mobile = matchMedia("(max-width: 700px)");
       this.pointer = matchMedia("(hover: hover) and (pointer: fine) and (min-width: 701px)");
-      const memory = navigator.deviceMemory || 8;
-      const cores = navigator.hardwareConcurrency || 4;
-      this.lowPower = memory <= 4 || cores <= 4 || Boolean(navigator.connection?.saveData);
-      this.hero.dataset.quality = this.lowPower ? "balanced" : "high";
-      this.hero.dataset.engine = "scroll-v6";
-      this.hero.dataset.frameCount = String(HERO_FRAME_COUNT);
-      this.lastScrollAt = -Infinity;
-      this.requestedFrame = -1;
-      this.currentFrame = this.targetFrame = 0;
-      this.scrollDirection = 1;
-      this.progress = this.targetProgress = 0;
-      this.targetChangedAt = 0;
       this.scrollRoot = document.scrollingElement;
       this.scrollPosition = window.scrollY;
-      this.geometryDirty = this.sizeDirty = this.forceSync = true;
-      this.lastDrawn = -1;
+      this.progress = this.targetProgress = this.desiredTime = this.duration = 0;
+      this.direction = 1;
+      this.targetChangedAt = 0;
       this.lastStoryProgress = -1;
       this.frame = this.lastTime = null;
-      this.dirty = this.drawDirty = true;
+      this.geometryDirty = this.forceSync = true;
+      this.inView = this.observedVisible = true;
+      this.seeking = this.mediaFailed = this.hasData = false;
       this.currentPointer = { x: 0, y: 0 };
       this.targetPointer = { x: 0, y: 0 };
-      this.store = new HeroFrameStore(this);
       this.tick = this.tick.bind(this);
-      this.failed = !this.context;
-      this.debug = DEBUG_HERO ? { rafs: 0, misses: 0, draws: 0, maxMs: 0, lastUpdate: 0 } : null;
+      this.hero.dataset.engine = "scroll-video-v1";
+      this.hero.dataset.mediaState = "loading";
+      this.hero.classList.add("is-enhanced");
+      this.debug = DEBUG_HERO ? { rafs: 0, seeks: 0, lastSeekMs: 0, maxSeekMs: 0, maxMs: 0, lastUpdate: 0 } : null;
       if (this.debug) {
         this.debugOutput = document.createElement("output");
         this.debugOutput.className = "hero-debug";
         this.debugOutput.setAttribute("aria-hidden", "true");
         this.sticky.append(this.debugOutput);
       }
-      this.setMode();
-      if (!this.context) return;
+      // No autoplay: native seeks are serialized, coalescing to the latest input.
+      this.video.addEventListener("play", () => this.video.pause());
+      this.video.addEventListener("loadedmetadata", () => this.metadata());
+      this.video.addEventListener("durationchange", () => this.metadata());
+      this.video.addEventListener("loadeddata", () => this.mediaReady());
+      this.video.addEventListener("canplay", () => this.mediaReady());
+      this.video.addEventListener("seeked", () => {
+        this.seeking = false;
+        if (this.debug && this.seekStartedAt !== undefined) {
+          this.debug.lastSeekMs = performance.now() - this.seekStartedAt;
+          this.debug.maxSeekMs = Math.max(this.debug.maxSeekMs, this.debug.lastSeekMs);
+        }
+        this.mediaReady();
+      });
+      this.video.addEventListener("error", () => this.mediaError());
+      this.video.querySelector("source")?.addEventListener("error", () => this.mediaError());
+      this.motionMode();
       const onScroll = (event) => {
         const source = event.target;
         if (source instanceof Element) {
@@ -332,77 +76,104 @@
           this.geometryDirty = true;
         }
         this.scrollPosition = this.readScroll();
-        this.lastScrollAt = performance.now();
-        this.dirty = true;
+        // Only cached geometry and targets here; video writes happen in RAF.
+        if (!this.geometryDirty) this.captureTarget(performance.now());
         this.schedule();
       };
-      // Capture also observes scrolling inside an ancestor container or preview.
       document.addEventListener("scroll", onScroll, { passive: true, capture: true });
       window.visualViewport?.addEventListener("scroll", onScroll, { passive: true });
       window.addEventListener("resize", () => this.resize(), { passive: true });
       window.visualViewport?.addEventListener("resize", () => this.resize(), { passive: true });
-      this.reduced.addEventListener("change", () => {
-        this.resetPointer();
-        this.lastStoryProgress = -1;
-        this.schedule();
-      });
       this.mobile.addEventListener("change", () => this.resize());
+      this.reduced.addEventListener("change", () => this.motionMode());
       this.pointer.addEventListener("change", () => this.resetPointer());
-      this.sticky.addEventListener("pointermove", (event) => this.movePointer(event), { passive: true });
+      this.sticky.addEventListener("pointermove", event => this.movePointer(event), { passive: true });
       this.sticky.addEventListener("pointerleave", () => this.resetPointer(), { passive: true });
+      this.sticky.addEventListener("pointercancel", () => this.resetPointer(), { passive: true });
       window.addEventListener("blur", () => this.resetPointer());
       document.addEventListener("visibilitychange", () => this.lifecycle());
       document.addEventListener("nihongo:screenchange", () => this.lifecycle());
       window.addEventListener("pagehide", () => this.pause());
       window.addEventListener("pageshow", () => this.lifecycle());
       this.resizeObserver = new ResizeObserver(() => this.resize());
-      this.resizeObserver.observe(this.sticky);
       this.resizeObserver.observe(this.hero);
+      this.resizeObserver.observe(this.sticky);
       this.resizeObserver.observe(this.nav);
+      this.intersectionObserver = new IntersectionObserver(entries => {
+        this.observedVisible = entries[0].isIntersecting;
+        if (!this.observedVisible) this.pause();
+        else { this.forceSync = true; this.resize(); }
+      });
+      this.intersectionObserver.observe(this.hero);
       document.fonts?.ready.then(() => this.resize());
+      if (this.video.readyState >= 1) this.metadata();
+      if (this.video.readyState >= 2) this.mediaReady();
+      // A <source> can fail before DOMContentLoaded without setting video.error.
+      if (this.video.error || this.video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE)
+        this.mediaError();
       this.resize();
-      // Opening/reloading below the hero still warms its compressed sequence.
-      this.store.wake();
     }
-    get assetWidth() { return this.mobile.matches || this.lowPower ? 1280 : 1920; }
-    get isScrolling() { return performance.now() - this.lastScrollAt < 180; }
-    // Scrolling always controls the sequence. Reduced motion only removes the
-    // extra pointer/parallax movement; it must not freeze the requested effect.
-    get isStatic() { return this.failed; }
-    canLoad() {
-      return !this.failed && this.home.classList.contains("active") && !document.hidden;
+    get active() { return this.home.classList.contains("active") && !document.hidden; }
+    metadata() {
+      if (!Number.isFinite(this.video.duration) || this.video.duration <= 0) return;
+      this.duration = this.video.duration;
+      this.video.pause();
+      this.hero.dataset.duration = String(this.duration);
+      this.schedule();
     }
-    setMode() {
-      this.hero.classList.toggle("is-static", this.isStatic);
-      this.hero.classList.remove("is-ending");
-      this.hero.classList.toggle("is-enhanced", !this.isStatic);
-      this.lastStoryProgress = -1;
-      for (const state of this.stageStates) state.visible = state.inert = null;
-      if (this.isStatic) {
-        this.stages.forEach((stage, index) => {
-          const visible = index === 0 || index === this.stages.length - 1;
-          stage.inert = !visible;
-          stage.setAttribute("aria-hidden", String(!visible));
-          stage.classList.toggle("is-current", visible);
-          stage.style.cssText = "";
-        });
-        this.resetPointer();
+    mediaReady() {
+      if (this.mediaFailed || this.video.readyState < 2) return;
+      if (!this.reduced.matches && this.video.readyState === 4 && this.duration &&
+          (!this.video.seekable.length || this.video.seekable.end(this.video.seekable.length - 1) === 0)) {
+        this.mediaError("unseekable");
+        return;
       }
+      this.hasData = true;
+      this.hero.dataset.mediaState = this.reduced.matches ? "reduced-motion" : "ready";
+      this.hero.classList.toggle("has-video-frame", !this.reduced.matches);
+      this.schedule();
+    }
+    mediaError(reason = "error") {
+      this.mediaFailed = true;
+      this.seeking = false;
+      this.video.pause();
+      this.hero.classList.remove("has-video-frame");
+      this.hero.classList.add("is-media-fallback");
+      this.hero.dataset.mediaState = "error";
+      this.hero.dataset.mediaFailure = reason;
+      // A failed video keeps the poster and complete scroll narrative usable.
+      this.schedule();
+    }
+    motionMode() {
+      this.video.pause();
+      this.video.preload = this.reduced.matches ? "none" : "auto";
+      this.hero.classList.toggle("is-reduced-motion", this.reduced.matches);
+      this.hero.classList.toggle("has-video-frame", this.hasData && !this.mediaFailed && !this.reduced.matches);
+      if (!this.mediaFailed) this.hero.dataset.mediaState = this.reduced.matches ? "reduced-motion" : this.hasData ? "ready" : "loading";
+      this.forceSync = true;
+      this.lastStoryProgress = -1;
+      this.resetPointer();
+      this.resize();
     }
     pause() {
       if (this.frame !== null) cancelAnimationFrame(this.frame);
       this.frame = this.lastTime = null;
-      this.store.pause();
+      this.forceSync = true;
+      this.video.pause();
+      this.currentPointer.x = this.currentPointer.y = 0;
       this.targetPointer.x = this.targetPointer.y = 0;
+      this.hero.style.removeProperty("--pointer-x");
+      this.hero.style.removeProperty("--pointer-y");
     }
     lifecycle() {
-      if (!this.home.classList.contains("active") || document.hidden) {
+      if (!this.active) {
         this.pause();
-        // The app focuses #home-title before announcing a return to this screen.
+        // Existing navigation focuses this heading before announcing its route.
         if (!this.home.classList.contains("active")) {
-          this.stages[0].inert = false;
-          this.stages[0].setAttribute("aria-hidden", "false");
-          this.stages[0].classList.add("is-current");
+          const intro = this.stageStates[0].element;
+          intro.inert = false;
+          intro.setAttribute("aria-hidden", "false");
+          intro.classList.add("is-current");
         }
         return;
       }
@@ -410,103 +181,56 @@
       for (const state of this.stageStates) state.visible = state.inert = null;
       this.forceSync = true;
       this.resize();
-      // The render RAF may return immediately outside the scene. Resume the
-      // compressed preload independently when the home/visible tab returns.
-      this.store.wake();
       if (window.app?.currentScreen === "home" && window.scrollY < 10)
         this.title.focus({ preventScroll: true });
     }
-    resize() {
-      this.geometryDirty = this.sizeDirty = this.dirty = true;
-      this.schedule();
-    }
+    resize() { this.geometryDirty = true; this.schedule(); }
     readScroll() {
       return this.scrollRoot === document.scrollingElement ? window.scrollY : this.scrollRoot.scrollTop;
     }
-    measureGeometry() {
-      if (!this.home.classList.contains("active") || !this.context) return;
+    measureGeometry(time) {
       const heroRect = this.hero.getBoundingClientRect();
-      const rect = this.sticky.getBoundingClientRect();
-      if (!rect.width || !rect.height) return;
+      const stickyRect = this.sticky.getBoundingClientRect();
       const documentScroll = this.scrollRoot === document.scrollingElement;
       const origin = documentScroll ? 0 : this.scrollRoot.getBoundingClientRect().top + this.scrollRoot.clientTop;
       this.scrollPosition = this.readScroll();
       this.start = heroRect.top - origin + this.scrollPosition;
       this.heroHeight = heroRect.height;
       this.viewportHeight = documentScroll ? innerHeight : this.scrollRoot.clientHeight;
-      this.travel = Math.max(1, heroRect.height - rect.height);
-      const dpr = Math.min(window.devicePixelRatio || 1, this.mobile.matches ? 2 : 1.5);
-      const pixelBudget = this.lowPower || this.mobile.matches ? 2_100_000 : 4_200_000;
-      // Cover crops the source; drawing more pixels than that source supplies
-      // only adds CPU/raster work. Let the compositor scale the finished canvas,
-      // while the HTML text keeps the device's full resolution.
-      const sourceRatio = Math.min(this.assetWidth / rect.width, (this.assetWidth * 9 / 16) / rect.height);
-      const pixelRatio = Math.min(dpr, sourceRatio, Math.sqrt(pixelBudget / (rect.width * rect.height)));
-      const width = Math.round(rect.width * pixelRatio);
-      const height = Math.round(rect.height * pixelRatio);
-      if (this.canvas.width !== width || this.canvas.height !== height) {
-        // This method runs only inside RAF; resize and redraw share one paint.
-        this.canvas.width = width;
-        this.canvas.height = height;
-        this.drawDirty = true;
-      }
-      this.store.configure();
-      this.geometryDirty = this.sizeDirty = false;
-      this.dirty = true;
+      this.travel = Math.max(1, heroRect.height - stickyRect.height);
+      this.geometryDirty = false;
+      this.captureTarget(time);
     }
-    schedule() {
-      if (!this.context || this.frame !== null || document.hidden ||
-          !this.home.classList.contains("active")) return;
-      this.frame = requestAnimationFrame(this.tick);
-    }
-    measure(time) {
+    captureTarget(time) {
       const top = this.start - this.scrollPosition;
       this.inView = top + this.heroHeight > 0 && top < this.viewportHeight;
       const progress = top >= -1 ? 0 : this.travel + top <= 1 ? 1 : clamp(-top / this.travel);
-      if (progress !== this.targetProgress) {
-        const delta = progress - this.targetProgress;
-        const direction = Math.sign(delta) || this.scrollDirection;
-        // A new reverse target can still be ahead of the filtered position.
-        // Snap on reversal rather than briefly drawing in the wrong direction.
-        if (direction !== this.scrollDirection) this.forceSync = true;
-        this.scrollDirection = direction;
-        this.targetProgress = progress;
-        this.targetChangedAt = time;
-      }
-      this.targetFrame = Math.round(this.targetProgress * (HERO_FRAME_COUNT - 1));
-      if (this.requestedFrame !== this.targetFrame) {
-        this.hero.dataset.targetFrame = String(this.targetFrame + 1);
-        this.requestedFrame = this.targetFrame;
-      }
-      this.dirty = false;
+      if (progress === this.targetProgress) return;
+      const direction = Math.sign(progress - this.targetProgress);
+      if (direction !== this.direction) this.forceSync = true;
+      this.direction = direction;
+      this.targetProgress = progress;
+      this.targetChangedAt = time;
     }
-    draw() {
-      const desired = this.currentFrame;
-      const image = this.store.get(desired);
-      if (!image) {
-        if (this.debug) this.debug.misses++;
-        // On resize only, redraw the same last valid frame into the new backing
-        // store. Never replace a missing target with an arbitrary nearby frame.
-        if (this.drawDirty) {
-          const last = this.store.get(this.lastDrawn);
-          if (last) {
-            drawImageCover(this.context, last, this.canvas.width, this.canvas.height);
-            this.drawDirty = false;
-          } else this.hero.classList.remove("has-frame");
-        }
-        return;
-      }
-      if (desired === this.lastDrawn && !this.drawDirty) return;
-      drawImageCover(this.context, image, this.canvas.width, this.canvas.height);
-      this.lastDrawn = desired;
-      this.drawDirty = false;
-      if (!this.hero.classList.contains("has-frame")) this.hero.classList.add("has-frame");
-      this.hero.dataset.frame = String(desired + 1);
-      this.hero.dataset.sourceFrame = String(HERO_SOURCES[desired]);
-      if (this.debug) this.debug.draws++;
+    schedule() {
+      if (this.frame !== null || !this.active || !this.observedVisible || !this.inView && !this.geometryDirty) return;
+      this.frame = requestAnimationFrame(this.tick);
+    }
+    seek() {
+      if (this.mediaFailed || this.reduced.matches || !this.duration ||
+          this.video.readyState < 2 || this.seeking || this.video.seeking ||
+          !this.video.seekable.length || this.video.seekable.end(this.video.seekable.length - 1) === 0) return;
+      const threshold = this.progress === 0 || this.progress === 1 ? 0.001 : SEEK_THRESHOLD;
+      if (Math.abs(this.video.currentTime - this.desiredTime) <= threshold) return;
+      try {
+        this.seeking = true;
+        if (this.debug) this.seekStartedAt = performance.now();
+        this.video.currentTime = this.desiredTime;
+        if (this.debug) this.debug.seeks++;
+      } catch { this.mediaError(); }
     }
     story() {
-      if (this.isStatic || this.lastStoryProgress === this.progress) return;
+      if (this.lastStoryProgress === this.progress) return;
       const progress = this.progress;
       let chapter = 1;
       for (let index = 0; index < this.stageStates.length; index++) {
@@ -555,14 +279,14 @@
       this.lastStoryProgress = progress;
     }
     movePointer(event) {
-      if (this.isStatic || this.reduced.matches || !this.pointer.matches || event.pointerType !== "mouse") return;
+      if (!this.active || !this.inView || this.reduced.matches || !this.pointer.matches || event.pointerType !== "mouse") return;
       this.targetPointer.x = clamp((event.clientX / innerWidth - 0.5) * 10, -5, 5);
       this.targetPointer.y = clamp((event.clientY / innerHeight - 0.5) * 8, -4, 4);
       this.schedule();
     }
     resetPointer() {
       this.targetPointer.x = this.targetPointer.y = 0;
-      if (this.isStatic || this.reduced.matches || !this.pointer.matches) {
+      if (this.reduced.matches || !this.pointer.matches) {
         this.currentPointer.x = this.currentPointer.y = 0;
         this.hero.style.removeProperty("--pointer-x");
         this.hero.style.removeProperty("--pointer-y");
@@ -571,24 +295,23 @@
     tick(time) {
       const started = DEBUG_HERO ? performance.now() : 0;
       this.frame = null;
-      if (this.geometryDirty) this.measureGeometry();
-      if (this.dirty) this.measure(time);
-      if (!this.inView && !this.isStatic) { this.lastTime = null; return; }
+      if (!this.active) { this.pause(); return; }
+      if (this.geometryDirty) this.measureGeometry(time);
+      if (!this.inView || !this.observedVisible) { this.pause(); return; }
       const elapsed = this.lastTime === null ? 1000 / 60 : Math.min(time - this.lastTime, 50);
       this.lastTime = time;
       const difference = this.targetProgress - this.progress;
-      // A short, time-based progress filter absorbs wheel notches. Fine input,
-      // large jumps and endpoints are direct; after release the tail is <=70ms.
-      if (this.forceSync || this.reduced.matches || Math.abs(difference) > 0.12 ||
-          Math.abs(difference) < 0.5 / (HERO_FRAME_COUNT - 1) ||
-          time - this.targetChangedAt >= 70 || this.targetProgress === 0 || this.targetProgress === 1) {
+      // Fine input/reversals/jumps are direct. Wheel filtering lasts <=48ms.
+      if (this.forceSync || this.reduced.matches || Math.abs(difference) < 0.002 ||
+          Math.abs(difference) > 0.08 || time - this.targetChangedAt >= 48 ||
+          this.targetProgress === 0 || this.targetProgress === 1) {
         this.progress = this.targetProgress;
-      } else this.progress += difference * (1 - Math.exp(-elapsed / 18));
+      } else this.progress += difference * (1 - Math.exp(-elapsed / (this.mobile.matches ? 8 : 12)));
       this.forceSync = false;
-      const moving = this.progress !== this.targetProgress;
-      this.currentFrame = Math.round(this.progress * (HERO_FRAME_COUNT - 1));
-      this.store.aim(this.currentFrame, this.targetFrame, this.scrollDirection);
-      this.draw();
+      this.desiredTime = this.duration ? Math.min(this.progress * this.duration, Math.max(0, this.duration - 0.01)) : 0;
+      const targetTime = this.desiredTime.toFixed(4);
+      if (this.hero.dataset.targetTime !== targetTime) this.hero.dataset.targetTime = targetTime;
+      this.seek();
       const easing = 1 - Math.pow(0.88, elapsed / (1000 / 60));
       let pointerMoving = false;
       for (const axis of POINTER_AXES) {
@@ -602,28 +325,27 @@
       this.story();
       if (this.debug) {
         this.debug.rafs++;
-        const cost = performance.now() - started;
-        this.debug.maxMs = Math.max(this.debug.maxMs, cost);
+        this.debug.maxMs = Math.max(this.debug.maxMs, performance.now() - started);
         if (time - this.debug.lastUpdate >= 250) {
           this.debug.lastUpdate = time;
-          this.debugOutput.textContent = `RAF ${elapsed.toFixed(1)}ms · custo ${cost.toFixed(2)}ms · frame ${this.lastDrawn + 1}/${HERO_FRAME_COUNT} · alvo ${this.targetFrame + 1} · cache ${this.store.images.size} · carregados ${this.store.loaded.size} · espera ${this.debug.misses}`;
+          this.debugOutput.textContent = `alvo ${this.desiredTime.toFixed(2)}s / ${this.duration.toFixed(2)}s · seek ${this.debug.lastSeekMs.toFixed(1)}ms · RAF ${this.debug.maxMs.toFixed(2)}ms · seeks ${this.debug.seeks}`;
           this.hero.dataset.rafCount = String(this.debug.rafs);
-          this.hero.dataset.renderMisses = String(this.debug.misses);
+          this.hero.dataset.seekCount = String(this.debug.seeks);
+          this.hero.dataset.maxSeekMs = this.debug.maxSeekMs.toFixed(2);
           this.hero.dataset.maxRafMs = this.debug.maxMs.toFixed(2);
-          this.hero.dataset.renderCount = String(this.debug.draws);
         }
       }
-      if (moving || pointerMoving) this.schedule();
+      if (this.progress !== this.targetProgress || pointerMoving) this.schedule();
       else this.lastTime = null;
     }
   }
-
-  function startSequence() {
-    const home = $("#screen-home");
-    if (!home || !home.querySelector(".scroll-hero")) return;
-    new ScrollSequenceHero(home);
+  function startVideoHero() {
+    const home = document.querySelector("#screen-home");
+    const hero = home?.querySelector(".scroll-hero");
+    if (!hero?.querySelector("#heroScrollVideo")) return;
+    new ScrollVideoHero(home, hero);
   }
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", startSequence, { once: true });
-  } else startSequence();
+    document.addEventListener("DOMContentLoaded", startVideoHero, { once: true });
+  } else startVideoHero();
 })();

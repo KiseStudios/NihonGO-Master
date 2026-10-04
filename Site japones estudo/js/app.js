@@ -1042,7 +1042,7 @@ class JapaneseApp {
 
   exportUserData() {
     const data = {
-      app: "NihonGo Master",
+      app: "Kise Japan",
       version: "2.5",
       exportedAt: new Date().toISOString(),
       stats: this.stats,
@@ -1053,10 +1053,10 @@ class JapaneseApp {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `nihongo_master_backup_${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `kise_japan_backup_${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
-    this.showToast("📤 Backup baixado com sucesso!", "success");
+    this.showToast?.("📤 Backup baixado com sucesso!", "success");
   }
 
   resetUserData() {

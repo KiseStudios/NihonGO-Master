@@ -175,32 +175,37 @@ button:hover .ed-arrow {
   height: 72px;
 }
 .ed-brand {
-  display: flex;
+  position: relative;
+  display: inline-flex;
   align-items: center;
-  gap: 12px;
-  font-size: 22px;
-  font-weight: 800;
-  letter-spacing: -1.2px;
-  line-height: 1;
   flex-shrink: 0;
+  min-height: 44px;
+  border-radius: 8px;
 }
-.ed-brand .brand-go {
-  font-weight: 400;
-  margin-left: 3px;
-}
-.ed-brand small {
+.brand-logo-frame {
+  position: relative;
   display: block;
-  font-size: 9px;
-  letter-spacing: 5.4px;
-  font-weight: 500;
-  margin-top: 7px;
+  width: 176px;
+  aspect-ratio: 1477 / 474;
+  overflow: hidden;
 }
-.brand-sun {
-  width: 33px;
-  height: 33px;
-  border-radius: 50%;
-  background: #d9133a;
-  display: block;
+.brand-logo-image {
+  /* Enquadra a arte útil do PNG original, sem deformar ou alterar o arquivo.
+     Imagem: 2172 × 724; arte: x=363, y=120, largura=1477, altura=474. */
+  position: absolute;
+  width: 147.06%;
+  max-width: none;
+  height: auto;
+  left: -24.58%;
+  top: -25.32%;
+}
+[data-theme="dark"] .ed-brand::before {
+  /* A tipografia preta da logo precisa de uma superfície clara no tema escuro. */
+  content: "";
+  position: absolute;
+  inset: -5px -8px;
+  border-radius: inherit;
+  background: var(--brand-logo-surface);
 }
 .ed-menu {
   display: flex;
@@ -1298,17 +1303,34 @@ button:hover .ed-arrow {
   border-bottom: 1px solid #404550;
 }
 .footer-brand {
-  font-size: 38px;
-  font-weight: 800;
-  letter-spacing: -2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  font-family: var(--ed-serif);
+  font-size: 42px;
+  font-weight: 400;
+  letter-spacing: -0.035em;
   line-height: 1;
+}
+.footer-brand-symbol {
+  display: block;
+  width: 84px;
+  height: auto;
+  flex-shrink: 0;
 }
 .footer-brand span {
   display: block;
-  font-size: 16px;
-  letter-spacing: 2px;
-  font-weight: 400;
-  margin-top: 8px;
+}
+.footer-brand small {
+  display: block;
+  margin-top: 12px;
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #b9bbc1;
 }
 .footer-top > p {
   font-family: var(--ed-jp);
@@ -1584,16 +1606,8 @@ button:hover .ed-arrow {
     height: 76px;
     gap: 20px;
   }
-  .ed-brand {
-    font-size: 19px;
-  }
-  .brand-sun {
-    width: 28px;
-    height: 28px;
-  }
-  .ed-brand small {
-    font-size: 8px;
-    letter-spacing: 4.5px;
+  .brand-logo-frame {
+    width: 136px;
   }
   .ed-menu-toggle {
     display: flex;
@@ -1777,10 +1791,10 @@ button:hover .ed-arrow {
     max-width: 210px;
   }
   .footer-brand {
-    font-size: 28px;
+    font-size: 34px;
   }
-  .footer-brand span {
-    font-size: 12px;
+  .footer-brand-symbol {
+    width: 68px;
   }
 }
 @media (max-width: 700px) {
@@ -2058,13 +2072,6 @@ button:hover .ed-arrow {
   .ed-nav-inner {
     gap: 15px;
   }
-  .ed-brand {
-    gap: 9px;
-  }
-  .brand-sun {
-    width: 24px;
-    height: 24px;
-  }
 }
 @media (max-width: 380px) {
   .ed-nav-actions button:last-child {
@@ -2077,11 +2084,8 @@ button:hover .ed-arrow {
   .ed-nav-inner {
     gap: 10px;
   }
-  .ed-brand {
-    font-size: 17px;
-  }
-  .ed-brand small {
-    font-size: 7px;
+  .brand-logo-frame {
+    width: clamp(104px, 33vw, 126px);
   }
   .row-japanese {
     font-size: 14px;
@@ -2169,14 +2173,14 @@ button:hover .ed-arrow {
   box-shadow: none;
 }
 
-/* Cinematic opening. All sequence styles stay inside this first home section. */
+/* Cinematic opening. Media and story styles stay inside this first home section. */
 .scroll-hero {
   --hero-gutter: clamp(24px, 4.5vw, 100px);
   --hero-top: 116px;
   --hero-white: #f7f4eb;
   --hero-soft-white: #e4dfd3;
   position: relative;
-  /* 120 frames over four viewport heights of actual sticky travel. */
+  /* The paused video and story share four viewport heights of sticky travel. */
   height: 500vh;
   height: 500svh;
   margin-top: -92px;
@@ -2195,7 +2199,7 @@ button:hover .ed-arrow {
   background: #201b16;
 }
 .scroll-hero .hero-sequence-poster,
-.scroll-hero #heroSequenceCanvas,
+.scroll-hero .hero-scroll-video,
 .scroll-hero .hero-sequence-overlay,
 .scroll-hero .hero-sequence-handoff {
   position: absolute;
@@ -2210,19 +2214,15 @@ button:hover .ed-arrow {
   object-fit: cover;
   object-position: center;
 }
-.scroll-hero .hero-sequence-poster img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-.scroll-hero #heroSequenceCanvas {
+.scroll-hero .hero-scroll-video {
   display: block;
   z-index: 1;
   opacity: 0;
+  object-fit: cover;
+  object-position: center;
+  background: #201b16;
 }
-.scroll-hero.has-frame #heroSequenceCanvas { opacity: 1; }
+.scroll-hero.has-video-frame .hero-scroll-video { opacity: 1; }
 .scroll-hero .hero-sequence-overlay {
   z-index: 2;
   background:
@@ -2261,7 +2261,7 @@ button:hover .ed-arrow {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #e06b5b;
+  background: var(--brand-pink);
   flex-shrink: 0;
 }
 .scroll-hero [lang="ja"] {
@@ -2436,7 +2436,7 @@ button:hover .ed-arrow {
   letter-spacing: -.035em;
 }
 .scroll-hero .hero-master-title em {
-  color: var(--hero-white);
+  color: var(--brand-pink-soft);
   font-weight: 400;
 }
 .scroll-hero .hero-story-final .hero-japanese-label { margin-top: 23px; }
@@ -2534,7 +2534,7 @@ button:hover .ed-arrow {
   letter-spacing: .15em;
 }
 /* A compact, fully usable opening remains available before enhancement and
-   when animation is disabled or unavailable. */
+   when the scroll controller is unavailable. The poster also supports media errors. */
 .scroll-hero:is(:not(.is-enhanced), .is-static) {
   height: auto;
   min-height: 100vh;
@@ -2652,7 +2652,7 @@ button:hover .ed-arrow {
   .scroll-hero .hero-glyph ~ .hero-story-description { font-size: 29px; }
   .scroll-hero .hero-story-detail { margin-top: 17px; }
 }
-@media (max-height: 560px) {
+@media (max-height: 560px), (max-width: 390px) and (max-height: 660px) {
   .scroll-hero { --hero-top: 93px; }
   .scroll-hero .hero-sequence-edition { display: none; }
   .scroll-hero .hero-story-stage { top: calc(var(--hero-top) + 15px); bottom: 77px; }
