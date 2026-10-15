@@ -2566,13 +2566,6 @@ body.has-hero-experience .editorial-nav.is-hero-clear {
   border-bottom-color: #f7f4eb24;
   backdrop-filter: none;
 }
-body.has-hero-experience .editorial-nav.is-hero-clear .ed-brand::before {
-  content: "";
-  position: absolute;
-  inset: -4px -7px;
-  border-radius: 3px;
-  background: #f8f5eef0;
-}
 body.has-hero-experience .editorial-nav.is-hero-clear .ed-nav-group summary span { color: #f7f4ebbd; }
 body.has-hero-experience .editorial-nav.is-hero-clear .ed-nav-actions button:last-child { border-color: #f7f4eb4d; }
 body.has-hero-experience .editorial-nav.is-hero-clear :is(.ed-menu .nav-item.active, .ed-nav-group[open] summary) { color: #f7f4eb; }

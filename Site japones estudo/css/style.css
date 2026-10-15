@@ -1309,6 +1309,375 @@ body {
   to { transform: scale(1.15); }
 }
 
+/* Arcade de desafios */
+#screen-games .game-mode-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 205px), 1fr));
+  gap: 0.7rem;
+  margin: 0 auto 1.5rem;
+}
+
+#screen-games .game-mode-grid > button {
+  display: flex;
+  min-height: 76px;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 14px;
+  text-align: left;
+  white-space: normal;
+}
+
+#screen-games .game-mode-grid > button.btn-primary {
+  background: linear-gradient(135deg, #30223b, #80506d);
+  box-shadow: 0 7px 20px rgba(77, 43, 68, 0.18);
+}
+
+#screen-games .game-mode-icon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  place-items: center;
+  border-radius: 12px;
+  background: rgba(139, 92, 246, 0.1);
+  font-size: 1.35rem;
+}
+
+#screen-games .game-mode-grid .btn-primary .game-mode-icon {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+#screen-games .game-mode-grid > button > span:last-child {
+  display: grid;
+  gap: 0.22rem;
+}
+
+#screen-games .game-mode-grid strong {
+  color: inherit;
+  font-size: 0.83rem;
+  font-weight: 800;
+}
+
+#screen-games .game-mode-grid small {
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+#screen-games .game-mode-grid .btn-primary small {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+#screen-games .game-challenge-panel {
+  position: relative;
+  max-width: 740px;
+  margin: 0 auto 3rem;
+  padding: clamp(1.2rem, 4vw, 2.25rem);
+  border: 1px solid var(--border-color);
+  border-radius: 22px;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(225, 29, 72, 0.055), transparent 35%),
+    var(--bg-card);
+  box-shadow: var(--shadow-card);
+}
+
+#screen-games .game-panel-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+#screen-games .game-panel-kicker {
+  color: var(--primary);
+  font-size: 0.65rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+}
+
+#screen-games .game-round-counter {
+  padding: 0.32rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  color: var(--text-muted);
+  background: var(--bg-primary);
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+#screen-games .game-challenge-panel h2 {
+  margin: 0.85rem 0 0.4rem;
+  color: var(--text-main);
+  font-family: var(--font-jp);
+  font-size: clamp(1.55rem, 4vw, 2rem);
+  font-weight: 850;
+  letter-spacing: -0.04em;
+}
+
+#screen-games .game-panel-description {
+  max-width: 580px;
+  margin: 0 0 1.25rem;
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+#screen-games .game-challenge-progress {
+  height: 6px;
+  overflow: hidden;
+  margin: 0 0 1.25rem;
+  border-radius: 999px;
+  background: var(--border-color);
+}
+
+#screen-games .game-challenge-progress > span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--primary), #f59eaa);
+  transition: width 0.25s ease;
+}
+
+#screen-games .kana-script-switch {
+  display: inline-flex;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+  padding: 0.25rem;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--bg-primary);
+}
+
+#screen-games .kana-script-switch button {
+  padding: 0.42rem 0.7rem;
+  border: 0;
+  border-radius: 7px;
+  color: var(--text-muted);
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.74rem;
+  font-weight: 750;
+}
+
+#screen-games .kana-script-switch button.active {
+  color: #fff;
+  background: #49324e;
+}
+
+#screen-games .kana-challenge-card {
+  display: grid;
+  min-height: 240px;
+  justify-items: center;
+  align-content: center;
+  gap: 0.35rem;
+  border: 1px solid var(--border-color);
+  border-radius: 17px;
+  background: var(--bg-primary);
+}
+
+#screen-games .kana-challenge-group {
+  color: var(--text-muted);
+  font-size: 0.61rem;
+  font-weight: 850;
+  letter-spacing: 0.16em;
+}
+
+#screen-games .kana-challenge-character {
+  color: var(--primary);
+  font-family: var(--font-jp);
+  font-size: clamp(5rem, 15vw, 7.5rem);
+  font-weight: 750;
+  line-height: 1.15;
+}
+
+#screen-games .kana-audio-button {
+  padding: 0.4rem 0.65rem;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  color: var(--text-main);
+  background: var(--bg-card);
+  cursor: pointer;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+#screen-games .kana-answer-form {
+  margin-top: 1.2rem;
+}
+
+#screen-games .kana-answer-form > label {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: var(--text-main);
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+#screen-games .kana-answer-form > div {
+  display: flex;
+  gap: 0.55rem;
+}
+
+#screen-games .kana-answer-form input {
+  min-width: 0;
+  flex: 1;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  color: var(--text-main);
+  background: var(--bg-primary);
+  font-size: 0.9rem;
+}
+
+#screen-games .kana-answer-form input:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+#screen-games .kana-answer-form button,
+#screen-games .particle-next-button {
+  min-height: 44px;
+}
+
+#screen-games .game-challenge-feedback {
+  min-height: 1.5rem;
+  margin: 0.7rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+#screen-games .game-challenge-feedback.is-correct {
+  color: #07804b;
+}
+
+#screen-games .game-challenge-feedback.is-wrong {
+  color: #c13345;
+}
+
+#screen-games .game-challenge-result {
+  padding: 1.5rem 0 0.5rem;
+  text-align: center;
+}
+
+#screen-games .game-result-icon {
+  font-size: 2.8rem;
+}
+
+#screen-games .game-challenge-result h3 {
+  margin: 0.5rem 0 0.35rem;
+  color: var(--text-main);
+  font-size: 1.35rem;
+}
+
+#screen-games .game-challenge-result p {
+  margin: 0 0 1rem;
+  color: var(--text-muted);
+}
+
+#screen-games .particle-challenge-panel {
+  background:
+    radial-gradient(ellipse at 0% 100%, rgba(14, 165, 130, 0.07), transparent 38%),
+    var(--bg-card);
+}
+
+#screen-games .particle-level-tag {
+  display: inline-flex;
+  padding: 0.3rem 0.55rem;
+  border-radius: 999px;
+  color: #087b5b;
+  background: rgba(16, 185, 129, 0.12);
+  font-size: 0.65rem;
+  font-weight: 850;
+}
+
+#screen-games .particle-prompt-card {
+  padding: 1.2rem;
+  border: 1px solid var(--border-color);
+  border-radius: 15px;
+  background: var(--bg-primary);
+}
+
+#screen-games #particleChallengeSentence {
+  margin: 0.8rem 0 0.4rem;
+  color: var(--text-main);
+  font-family: var(--font-jp);
+  font-size: clamp(1.55rem, 5vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+#screen-games .particle-blank {
+  display: inline-block;
+  width: 1.05em;
+  height: 0.78em;
+  margin: 0 0.08em;
+  border-bottom: 2px dashed var(--primary);
+  vertical-align: baseline;
+}
+
+#screen-games #particleChallengeTranslation {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+#screen-games .particle-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+
+#screen-games .particle-option {
+  min-height: 72px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  color: var(--text-main);
+  background: var(--bg-card);
+  cursor: pointer;
+  font-family: var(--font-jp);
+  font-size: 1.6rem;
+  font-weight: 800;
+  transition: transform 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+#screen-games .particle-option:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+#screen-games .particle-option.is-answer {
+  border-color: #10b981;
+  color: #06734b;
+  background: rgba(16, 185, 129, 0.12);
+}
+
+#screen-games .particle-option.is-incorrect {
+  border-color: #ef7e89;
+  color: #b42335;
+  background: rgba(239, 68, 68, 0.09);
+}
+
+#screen-games .particle-option:disabled {
+  cursor: default;
+}
+
+#screen-games .particle-feedback {
+  min-height: 2.4rem;
+}
+
+#screen-games .particle-next-button {
+  margin-top: 0.25rem;
+}
+
 /* Construtor de Frases (Sentence Builder) */
 .sb-slots-container {
   min-height: 80px;
@@ -4098,6 +4467,1487 @@ input:checked + .slider:before {
   transform: translateY(-2px);
 }
 
+/* Anime listening room */
+#adv-tab-listening .anime-studio-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(270px, 0.8fr);
+  align-items: center;
+  gap: 2.5rem;
+  margin: 0 0 1.5rem;
+  padding: clamp(1.75rem, 4vw, 3.25rem);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 26px;
+  color: #fffaf4;
+  background:
+    radial-gradient(ellipse at 82% 8%, rgba(190, 58, 79, 0.34), transparent 35%),
+    radial-gradient(ellipse at 15% 100%, rgba(110, 61, 107, 0.32), transparent 42%),
+    linear-gradient(118deg, #171724 0%, #252131 54%, #38232e 100%);
+  box-shadow: 0 22px 55px rgba(29, 20, 30, 0.18);
+}
+
+#adv-tab-listening .anime-studio-copy,
+#adv-tab-listening .anime-studio-guide {
+  position: relative;
+  z-index: 1;
+}
+
+#adv-tab-listening .anime-studio-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: #f4b8a8;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+#adv-tab-listening .anime-studio-kicker span {
+  color: #f2d7c3;
+}
+
+#adv-tab-listening .anime-studio-copy h2 {
+  margin: 1rem 0 0.8rem;
+  color: #fffaf4;
+  font-family: var(--font-jp);
+  font-size: clamp(2rem, 4.8vw, 3.65rem);
+  font-weight: 700;
+  letter-spacing: -0.055em;
+  line-height: 1.06;
+}
+
+#adv-tab-listening .anime-studio-copy h2 em {
+  color: #f1b3a3;
+  font-style: normal;
+}
+
+#adv-tab-listening .anime-studio-copy > p {
+  max-width: 510px;
+  margin: 0;
+  color: #d6d0d3;
+  font-size: 0.98rem;
+  line-height: 1.75;
+}
+
+#adv-tab-listening .anime-studio-guide {
+  display: grid;
+  gap: 0.7rem;
+}
+
+#adv-tab-listening .anime-studio-guide > div {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.055);
+  backdrop-filter: blur(8px);
+}
+
+#adv-tab-listening .anime-studio-guide > div > span {
+  color: #f1b3a3;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+#adv-tab-listening .anime-studio-guide p {
+  display: grid;
+  gap: 0.15rem;
+  margin: 0;
+}
+
+#adv-tab-listening .anime-studio-guide strong {
+  color: #fffaf4;
+  font-size: 0.88rem;
+}
+
+#adv-tab-listening .anime-studio-guide small {
+  color: #c8c0c5;
+  font-size: 0.75rem;
+}
+
+#adv-tab-listening .anime-studio-kanji {
+  position: absolute;
+  z-index: 0;
+  right: 38%;
+  bottom: -0.35em;
+  color: rgba(255, 255, 255, 0.035);
+  font-family: var(--font-jp);
+  font-size: clamp(10rem, 25vw, 22rem);
+  font-weight: 900;
+  line-height: 1;
+  pointer-events: none;
+}
+
+#adv-tab-listening .anime-filters-bar {
+  display: grid;
+  grid-template-columns: auto auto minmax(200px, 1fr) auto;
+  gap: 0.75rem;
+  padding: 0.85rem;
+  border-radius: 16px;
+  box-shadow: none;
+}
+
+#adv-tab-listening .af-select-group {
+  gap: 0.55rem;
+  padding: 0 0.35rem;
+  color: var(--text-muted);
+}
+
+#adv-tab-listening .af-select {
+  min-height: 42px;
+}
+
+#adv-tab-listening .af-search-input {
+  min-height: 42px;
+}
+
+#adv-tab-listening .af-toggle-furigana-btn {
+  min-height: 42px;
+}
+
+#adv-tab-listening .anime-scenes-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  align-items: start;
+  gap: 1.15rem;
+}
+
+#adv-tab-listening .anime-scene-card {
+  gap: 0.9rem;
+  padding: 1.15rem;
+  border-radius: 18px;
+  box-shadow: 0 8px 28px rgba(24, 24, 36, 0.055);
+}
+
+#adv-tab-listening .scene-card-header {
+  min-height: 28px;
+  align-items: flex-start;
+}
+
+#adv-tab-listening .scene-anime-name {
+  line-height: 1.4;
+}
+
+#adv-tab-listening .scene-jlpt-tag {
+  flex-shrink: 0;
+  border-radius: 999px;
+}
+
+#adv-tab-listening .scene-char-avatar {
+  border-radius: 50%;
+}
+
+#adv-tab-listening .scene-audio-card-frame {
+  display: flex;
+  min-height: 255px;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 14px;
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.35);
+}
+
+#adv-tab-listening .scene-cine-overlay {
+  flex: 1;
+  padding: 1.15rem 1.2rem 0.9rem;
+  color: #fff;
+  background: linear-gradient(180deg, rgba(10, 10, 18, 0.28), rgba(10, 10, 18, 0.06));
+}
+
+#adv-tab-listening .scene-cinematic-badge {
+  color: #fce7df;
+  letter-spacing: 0.12em;
+}
+
+#adv-tab-listening .scene-quote-display {
+  padding: 0.55rem 0 0;
+}
+
+#adv-tab-listening .scene-jp-main {
+  font-size: clamp(1.35rem, 2vw, 1.7rem);
+  line-height: 1.55;
+}
+
+#adv-tab-listening .scene-furigana-sub {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+#adv-tab-listening .scene-romaji-sub {
+  margin-bottom: 0;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+#adv-tab-listening .scene-audio-actions {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: rgba(14, 13, 21, 0.78);
+}
+
+#adv-tab-listening .scene-audio-actions button {
+  min-height: 40px;
+  padding: 0.55rem 0.65rem;
+  border-radius: 9px;
+  font-size: 0.76rem;
+}
+
+#adv-tab-listening .scene-trans-box {
+  border-radius: 10px;
+  cursor: default;
+}
+
+#adv-tab-listening .scene-trans-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+#adv-tab-listening .scene-context-note {
+  border-left: 3px solid var(--theme-accent, var(--primary));
+  background: color-mix(in srgb, var(--theme-accent, var(--primary)) 8%, var(--bg-card));
+}
+
+#adv-tab-listening .scene-original-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid rgba(180, 35, 58, 0.2);
+  border-radius: 10px;
+  color: var(--text-muted);
+  background: color-mix(in srgb, #b4233a 6%, var(--bg-card));
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
+#adv-tab-listening .scene-original-note > span:first-child {
+  color: #b4233a;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+#adv-tab-listening .scene-original-note > span:last-child {
+  flex: 1;
+}
+
+#adv-tab-listening .scene-trans-text {
+  font-weight: 650;
+  line-height: 1.55;
+}
+
+#adv-tab-listening .scene-grammar-summary {
+  min-height: 48px;
+}
+
+#adv-tab-anime .anime-library-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.62fr);
+  align-items: center;
+  gap: 2rem;
+  min-height: 310px;
+  margin-bottom: 2.6rem;
+  padding: clamp(1.8rem, 5vw, 3.6rem);
+  border: 1px solid #e8e0d7;
+  border-radius: 26px;
+  color: #251d1a;
+  background:
+    radial-gradient(circle at 76% 35%, rgba(229, 179, 135, 0.24), transparent 28%),
+    linear-gradient(118deg, #f4eee7 0%, #ece2d8 58%, #e4d5c9 100%);
+}
+
+#adv-tab-anime .anime-library-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 630px;
+}
+
+#adv-tab-anime .anime-library-kicker {
+  color: #a33532;
+  font-size: 0.7rem;
+  font-weight: 850;
+  letter-spacing: 0.16em;
+}
+
+#adv-tab-anime .anime-library-kicker span {
+  padding: 0 0.35rem;
+  color: #bb8160;
+}
+
+#adv-tab-anime .anime-library-copy h2 {
+  margin: 1.1rem 0 0.8rem;
+  color: #251d1a;
+  font-family: var(--font-jp);
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  font-weight: 650;
+  letter-spacing: -0.065em;
+  line-height: 0.98;
+}
+
+#adv-tab-anime .anime-library-copy h2 em {
+  color: #a33532;
+  font-style: normal;
+}
+
+#adv-tab-anime .anime-library-copy > p {
+  max-width: 460px;
+  color: #71635b;
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+#adv-tab-anime .anime-library-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 0.75rem;
+  color: #a33532;
+  font-size: 0.84rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+#adv-tab-anime .anime-library-link span {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid #d4a99a;
+  border-radius: 50%;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+#adv-tab-anime .anime-library-link:hover span {
+  transform: translate(2px, -2px);
+  background: rgba(163, 53, 50, 0.08);
+}
+
+#adv-tab-anime .anime-library-orbit {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  right: 19%;
+  display: grid;
+  width: clamp(190px, 25vw, 330px);
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgba(163, 53, 50, 0.18);
+  border-radius: 50%;
+  transform: translate(50%, -50%);
+}
+
+#adv-tab-anime .anime-library-orbit::before,
+#adv-tab-anime .anime-library-orbit::after {
+  position: absolute;
+  inset: 13%;
+  border: 1px solid rgba(163, 53, 50, 0.18);
+  border-radius: 50%;
+  content: "";
+}
+
+#adv-tab-anime .anime-library-orbit::after {
+  inset: 27%;
+}
+
+#adv-tab-anime .anime-library-orbit span {
+  color: rgba(163, 53, 50, 0.15);
+  font-family: var(--font-jp);
+  font-size: clamp(3.4rem, 7vw, 6.7rem);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+#adv-tab-anime .anime-library-stats {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0.65rem;
+  justify-self: end;
+  width: min(100%, 260px);
+}
+
+#adv-tab-anime .anime-library-stats > div {
+  display: grid;
+  grid-template-columns: 78px 1fr;
+  align-items: baseline;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 12px;
+  background: rgba(255, 252, 248, 0.58);
+  backdrop-filter: blur(8px);
+}
+
+#adv-tab-anime .anime-library-stats strong {
+  color: #9b3a34;
+  font-family: var(--font-jp);
+  font-size: 1.35rem;
+  font-weight: 850;
+}
+
+#adv-tab-anime .anime-library-stats span {
+  color: #74665e;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+#adv-tab-anime .anime-library-heading,
+#adv-tab-listening .listening-session-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+#adv-tab-anime .anime-library-heading > div > span,
+#adv-tab-listening .listening-session-heading > div > span {
+  color: #a33532;
+  font-size: 0.66rem;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+}
+
+#adv-tab-anime .anime-library-heading h3,
+#adv-tab-listening .listening-session-heading h3 {
+  margin: 0.35rem 0 0;
+  color: var(--text-main);
+  font-family: var(--font-jp);
+  font-size: clamp(1.3rem, 3vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+#adv-tab-anime .anime-library-heading > p {
+  margin: 0 0 0.25rem;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+#adv-tab-anime .anime-library-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr));
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+#adv-tab-anime .anime-library-card {
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  background: var(--bg-card);
+  box-shadow: 0 5px 22px rgba(22, 20, 28, 0.045);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+#adv-tab-anime .anime-library-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--series-accent) 45%, var(--border-color));
+  box-shadow: 0 14px 34px rgba(22, 20, 28, 0.12);
+}
+
+#adv-tab-anime .anime-library-art {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  height: 155px;
+  align-items: flex-end;
+  overflow: hidden;
+  padding: 0.9rem 1rem;
+  color: #fff;
+  background:
+    radial-gradient(ellipse at 78% 15%, color-mix(in srgb, var(--series-accent) 72%, white), transparent 34%),
+    linear-gradient(130deg, color-mix(in srgb, var(--series-accent) 88%, #11131b), #171923 74%);
+}
+
+#adv-tab-anime .anime-library-art::before,
+#adv-tab-anime .anime-library-art::after {
+  position: absolute;
+  z-index: -1;
+  width: 190px;
+  height: 190px;
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  border-radius: 50%;
+  content: "";
+}
+
+#adv-tab-anime .anime-library-art::before {
+  top: -115px;
+  right: -24px;
+}
+
+#adv-tab-anime .anime-library-art::after {
+  right: 28px;
+  bottom: -155px;
+}
+
+#adv-tab-anime .anime-library-number {
+  position: absolute;
+  top: 0.8rem;
+  left: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+#adv-tab-anime .anime-library-symbol {
+  position: absolute;
+  top: 50%;
+  right: 1.15rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 3.8rem;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.28));
+  transform: translateY(-55%);
+}
+
+#adv-tab-anime .anime-library-japanese {
+  position: absolute;
+  right: 1rem;
+  bottom: 0.8rem;
+  color: rgba(255, 255, 255, 0.14);
+  font-family: var(--font-jp);
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+
+#adv-tab-anime .anime-library-art-caption {
+  color: rgba(255, 255, 255, 0.69);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+#adv-tab-anime .anime-library-card.rezero .anime-library-art {
+  background:
+    radial-gradient(ellipse at 77% 20%, rgba(239, 186, 187, 0.8), transparent 27%),
+    radial-gradient(ellipse at 4% 96%, rgba(191, 47, 68, 0.75), transparent 48%),
+    linear-gradient(132deg, #241c2b, #602739 64%, #171923);
+}
+
+#adv-tab-anime .anime-library-card-body {
+  padding: 1rem 1rem 0.85rem;
+}
+
+#adv-tab-anime .anime-library-card-meta,
+#adv-tab-anime .anime-library-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+#adv-tab-anime .anime-library-card-meta {
+  color: var(--text-muted);
+  font-size: 0.67rem;
+  font-weight: 750;
+}
+
+#adv-tab-anime .anime-library-card-body h3 {
+  min-height: 2.4em;
+  margin: 0.7rem 0 0.5rem;
+  color: var(--text-main);
+  font-size: 1.02rem;
+  font-weight: 850;
+  line-height: 1.2;
+}
+
+#adv-tab-anime .anime-library-character {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  color: var(--text-main);
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+#adv-tab-anime .anime-library-character span {
+  display: grid;
+  width: 25px;
+  height: 25px;
+  flex: 0 0 25px;
+  place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--series-accent) 12%, var(--bg-primary));
+}
+
+#adv-tab-anime .anime-library-summary {
+  min-height: 2.4em;
+  margin: 0.55rem 0 0.85rem;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
+
+#adv-tab-anime .anime-library-card-footer {
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--border-color);
+}
+
+#adv-tab-anime .anime-library-card-footer > span {
+  display: flex;
+  gap: 0.25rem;
+}
+
+#adv-tab-anime .anime-library-card-footer i {
+  padding: 0.18rem 0.38rem;
+  border-radius: 5px;
+  color: color-mix(in srgb, var(--series-accent) 78%, #221a20);
+  background: color-mix(in srgb, var(--series-accent) 11%, var(--bg-primary));
+  font-size: 0.59rem;
+  font-style: normal;
+  font-weight: 850;
+}
+
+#adv-tab-anime .anime-library-card-footer button,
+#adv-tab-listening .listening-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.42rem 0.62rem;
+  border: 0;
+  border-radius: 8px;
+  color: #fff;
+  background: #27212b;
+  cursor: pointer;
+  font-size: 0.68rem;
+  font-weight: 800;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+#adv-tab-anime .anime-library-card-footer button:hover,
+#adv-tab-listening .listening-back-link:hover {
+  transform: translateY(-1px);
+  background: #a33532;
+}
+
+#adv-tab-listening .listening-console-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin: 0 0 2.25rem;
+  padding: 1.1rem clamp(1.25rem, 4vw, 2.6rem) 1rem;
+  border: 1px solid #353541;
+  border-radius: 18px;
+  color: #f8f5f0;
+  background: #15151d;
+  box-shadow: 0 22px 50px rgba(18, 16, 24, 0.16);
+}
+
+#adv-tab-listening .listening-console-topline,
+#adv-tab-listening .listening-console-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  color: #9d9aa7;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+#adv-tab-listening .listening-console-topline {
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#adv-tab-listening .listening-console-content {
+  position: relative;
+  display: grid;
+  min-height: 250px;
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 0.6fr);
+  align-items: center;
+  gap: 1.2rem;
+}
+
+#adv-tab-listening .listening-console-content > div:first-child {
+  position: relative;
+  z-index: 1;
+  max-width: 610px;
+}
+
+#adv-tab-listening .listening-console-kicker {
+  margin: 0;
+  color: #e5a68e;
+  font-size: 0.67rem;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+}
+
+#adv-tab-listening .listening-console-kicker span {
+  padding: 0 0.3rem;
+  color: #f7e0d4;
+}
+
+#adv-tab-listening .listening-console-content h2 {
+  margin: 0.75rem 0 0.65rem;
+  color: #faf7f2;
+  font-family: var(--font-jp);
+  font-size: clamp(2rem, 4.4vw, 3.65rem);
+  font-weight: 700;
+  letter-spacing: -0.055em;
+  line-height: 1.02;
+}
+
+#adv-tab-listening .listening-console-content h2 em {
+  color: #dfa68e;
+  font-style: normal;
+}
+
+#adv-tab-listening .listening-console-content p:last-child {
+  max-width: 440px;
+  margin: 0;
+  color: #b7b3bd;
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+#adv-tab-listening .listening-soundwave {
+  display: flex;
+  height: 170px;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(3px, 0.55vw, 8px);
+  opacity: 0.8;
+  mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+}
+
+#adv-tab-listening .listening-soundwave i {
+  width: clamp(3px, 0.38vw, 5px);
+  height: var(--wave-height, 35%);
+  border-radius: 99px;
+  background: linear-gradient(180deg, #f1c2a8, #a84952 85%);
+  animation: listening-wave 1.3s ease-in-out infinite alternate;
+  animation-delay: var(--wave-delay, 0s);
+}
+
+#adv-tab-listening .listening-soundwave i:nth-child(3n) { --wave-height: 75%; --wave-delay: -0.6s; }
+#adv-tab-listening .listening-soundwave i:nth-child(3n + 1) { --wave-height: 48%; --wave-delay: -0.25s; }
+#adv-tab-listening .listening-soundwave i:nth-child(4n) { --wave-height: 95%; --wave-delay: -0.9s; }
+#adv-tab-listening .listening-soundwave i:nth-child(5n) { --wave-height: 24%; --wave-delay: -0.4s; }
+
+@keyframes listening-wave {
+  from { transform: scaleY(0.48); opacity: 0.58; }
+  to { transform: scaleY(1); opacity: 1; }
+}
+
+#adv-tab-listening .listening-console-footer {
+  justify-content: flex-start;
+  gap: clamp(1rem, 4vw, 3.5rem);
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#adv-tab-listening .listening-console-footer span:first-child {
+  color: #f0b69f;
+}
+
+#adv-tab-listening .listening-session-heading {
+  margin-bottom: 0.9rem;
+}
+
+#adv-tab-listening .listening-back-link {
+  color: #4d4240;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+}
+
+#adv-tab-listening .anime-filters-bar {
+  margin-bottom: 0.85rem;
+}
+
+#adv-tab-listening .listening-session-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 0 0.85rem;
+  color: var(--text-muted);
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+#adv-tab-listening .listening-session-meta span:first-child {
+  color: #a33532;
+}
+
+#adv-tab-listening .anime-scene-card {
+  gap: 0.8rem;
+  border-top: 3px solid var(--theme-accent, var(--primary));
+}
+
+#adv-tab-listening .scene-audio-card-frame {
+  min-height: 270px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #adv-tab-listening .listening-soundwave i {
+    animation: none;
+  }
+}
+
+@media (max-width: 900px) {
+  #adv-tab-anime .anime-library-hero {
+    grid-template-columns: minmax(0, 1fr) minmax(210px, 0.55fr);
+    gap: 1rem;
+  }
+
+  #adv-tab-anime .anime-library-stats {
+    width: min(100%, 220px);
+  }
+
+  #adv-tab-listening .listening-console-content {
+    grid-template-columns: minmax(0, 1fr) minmax(140px, 0.45fr);
+  }
+}
+
+@media (max-width: 620px) {
+  #adv-tab-anime .anime-library-hero {
+    min-height: 0;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    padding: 1.6rem;
+    border-radius: 20px;
+  }
+
+  #adv-tab-anime .anime-library-copy h2 {
+    font-size: clamp(2.6rem, 12vw, 4rem);
+  }
+
+  #adv-tab-anime .anime-library-stats {
+    width: 100%;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.4rem;
+  }
+
+  #adv-tab-anime .anime-library-stats > div {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+    padding: 0.65rem;
+  }
+
+  #adv-tab-anime .anime-library-stats strong {
+    font-size: 1.05rem;
+  }
+
+  #adv-tab-anime .anime-library-stats span {
+    font-size: 0.63rem;
+  }
+
+  #adv-tab-anime .anime-library-heading,
+  #adv-tab-listening .listening-session-heading {
+    align-items: flex-start;
+  }
+
+  #adv-tab-anime .anime-library-heading > p {
+    display: none;
+  }
+
+  #adv-tab-anime .anime-library-grid {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
+    gap: 0.75rem;
+  }
+
+  #adv-tab-listening .listening-console-hero {
+    padding: 0.9rem 1rem;
+    border-radius: 15px;
+  }
+
+  #adv-tab-listening .listening-console-topline {
+    font-size: 0.52rem;
+    letter-spacing: 0.08em;
+  }
+
+  #adv-tab-listening .listening-console-content {
+    min-height: 210px;
+    grid-template-columns: minmax(0, 1fr) 64px;
+    gap: 0.4rem;
+  }
+
+  #adv-tab-listening .listening-console-content h2 {
+    font-size: clamp(1.85rem, 9vw, 2.8rem);
+  }
+
+  #adv-tab-listening .listening-soundwave {
+    height: 120px;
+    gap: 3px;
+  }
+
+  #adv-tab-listening .listening-soundwave i {
+    width: 3px;
+  }
+
+  #adv-tab-listening .listening-console-footer {
+    gap: 0.7rem;
+    font-size: 0.5rem;
+    letter-spacing: 0.04em;
+  }
+
+  #adv-tab-listening .listening-session-heading {
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  #adv-tab-listening .listening-session-meta {
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+}
+
+#adv-tab-jlpt .jlpt-route-banner {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.5rem 2rem;
+  margin-bottom: 1.25rem;
+  padding: clamp(1.35rem, 3vw, 2.25rem);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 22px;
+  color: #fffaf5;
+  background:
+    radial-gradient(ellipse at 88% 0%, rgba(225, 29, 72, 0.32), transparent 34%),
+    linear-gradient(115deg, #1e1d2b, #302538 65%, #42272e);
+}
+
+#adv-tab-jlpt .jlpt-route-banner > div:not(.jlpt-route-mark) {
+  position: relative;
+  z-index: 1;
+}
+
+#adv-tab-jlpt .jlpt-route-kicker {
+  color: #f4b8a8;
+  font-size: 0.69rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+#adv-tab-jlpt .jlpt-route-kicker span {
+  color: #f3d5c3;
+}
+
+#adv-tab-jlpt .jlpt-route-banner h2 {
+  margin: 0.65rem 0 0.4rem;
+  color: #fffaf5;
+  font-size: clamp(1.45rem, 3vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+}
+
+#adv-tab-jlpt .jlpt-route-banner p {
+  max-width: 690px;
+  margin: 0;
+  color: #d7ced2;
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+#adv-tab-jlpt .jlpt-route-mark {
+  position: absolute;
+  z-index: 0;
+  right: 1.5rem;
+  bottom: -0.35em;
+  color: rgba(255, 255, 255, 0.045);
+  font-family: var(--font-jp);
+  font-size: clamp(8rem, 20vw, 15rem);
+  font-weight: 900;
+  line-height: 1;
+  pointer-events: none;
+}
+
+#adv-tab-jlpt .jlpt-route-steps {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  grid-column: 1 / -1;
+  align-items: center;
+  gap: 0.65rem;
+  max-width: 620px;
+}
+
+#adv-tab-jlpt .jlpt-route-steps span {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 50%;
+  color: #fffaf5;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+#adv-tab-jlpt .jlpt-route-steps i {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, rgba(244, 184, 168, 0.8), rgba(255, 255, 255, 0.2));
+}
+
+#adv-tab-jlpt .jlpt-selector-container {
+  justify-content: space-between;
+  border-radius: 14px;
+  box-shadow: none;
+}
+
+#adv-tab-jlpt .jlpt-level-pill {
+  min-width: 88px;
+}
+
+#adv-tab-jlpt .jlpt-overview-banner {
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(20, 20, 36, 0.06);
+}
+
+#adv-tab-jlpt .jlpt-study-counts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin: -0.5rem 0 2rem;
+}
+
+#adv-tab-jlpt .jlpt-study-counts > div {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--bg-card);
+}
+
+#adv-tab-jlpt .jlpt-study-counts strong {
+  color: var(--primary);
+  font-size: 1.25rem;
+  font-weight: 850;
+}
+
+#adv-tab-jlpt .jlpt-study-counts span {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 650;
+}
+
+#adv-tab-jlpt .jlpt-grammar-card {
+  border-left: 3px solid var(--jlpt-accent, var(--primary));
+  border-radius: 13px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#adv-tab-jlpt .jlpt-grammar-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(24, 24, 36, 0.08);
+}
+
+#adv-tab-jlpt .jlpt-kanji-card {
+  border-radius: 14px;
+}
+
+#adv-tab-jlpt .jlpt-vocab-chip {
+  border-radius: 12px;
+}
+
+#adv-tab-jlpt .jlpt-overview-banner {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.15rem, 2.5vw, 1.8rem);
+  background:
+    radial-gradient(ellipse at 100% 0%, color-mix(in srgb, var(--jlpt-accent) 9%, transparent), transparent 42%),
+    var(--bg-card);
+}
+
+#adv-tab-jlpt .jlpt-ob-header {
+  align-items: center;
+  gap: 1.4rem;
+}
+
+#adv-tab-jlpt .jlpt-level-title {
+  max-width: 560px;
+  margin: 0.12rem 0 0;
+  font-family: var(--font-jp);
+  font-size: clamp(1.25rem, 2.2vw, 1.8rem);
+  letter-spacing: -0.04em;
+  line-height: 1.18;
+}
+
+#adv-tab-jlpt .jlpt-badge-pill {
+  padding: 0.27rem 0.65rem;
+  border-radius: 999px;
+  letter-spacing: 0.06em;
+}
+
+#adv-tab-jlpt .jlpt-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(105px, 1fr));
+  gap: 0.55rem;
+}
+
+#adv-tab-jlpt .jlpt-stat-item {
+  min-width: 0;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--jlpt-accent) 16%, var(--border-color));
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--jlpt-accent) 4%, var(--bg-primary));
+}
+
+#adv-tab-jlpt .jlpt-stat-val {
+  color: var(--jlpt-accent);
+  font-size: 1.05rem;
+  line-height: 1.2;
+}
+
+#adv-tab-jlpt .jlpt-stat-lbl {
+  margin-top: 0.18rem;
+  font-size: 0.66rem;
+  line-height: 1.3;
+}
+
+#adv-tab-jlpt .jlpt-level-desc {
+  max-width: 820px;
+  margin: 0.85rem 0 0;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-muted);
+}
+
+#adv-tab-jlpt .jlpt-route-steps span.is-passed {
+  border-color: rgba(244, 184, 168, 0.48);
+  color: #f4c4b1;
+  background: rgba(244, 184, 168, 0.11);
+}
+
+#adv-tab-jlpt .jlpt-route-steps span.is-current {
+  width: 43px;
+  height: 43px;
+  flex-basis: 43px;
+  border-color: #f4b8a8;
+  color: #35232a;
+  background: #f4b8a8;
+  box-shadow: 0 0 0 5px rgba(244, 184, 168, 0.12);
+}
+
+#adv-tab-jlpt .jlpt-route-steps i.is-passed {
+  height: 2px;
+  background: #e5a68e;
+}
+
+#adv-tab-jlpt .jlpt-selector-container {
+  position: relative;
+  padding: 0.8rem;
+  gap: 0.8rem;
+}
+
+#adv-tab-jlpt .jlpt-sel-label {
+  padding-left: 0.3rem;
+  font-size: 0.76rem;
+  letter-spacing: 0.01em;
+}
+
+#adv-tab-jlpt .jlpt-pills-row {
+  gap: 0.4rem;
+}
+
+#adv-tab-jlpt .jlpt-level-pill {
+  min-height: 40px;
+  padding: 0.5rem 0.85rem;
+  border-radius: 10px;
+  font-size: 0.75rem;
+}
+
+#adv-tab-jlpt .jlpt-level-pill.active {
+  background: linear-gradient(135deg, #38243e, #87445f);
+  box-shadow: 0 5px 14px rgba(91, 44, 66, 0.2);
+}
+
+#adv-tab-jlpt .jlpt-study-counts > div {
+  position: relative;
+  overflow: hidden;
+  min-height: 66px;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  background:
+    linear-gradient(110deg, color-mix(in srgb, var(--primary) 5%, var(--bg-card)), var(--bg-card) 75%);
+}
+
+#adv-tab-jlpt .jlpt-study-counts strong {
+  font-family: var(--font-jp);
+  font-size: 1.45rem;
+}
+
+#adv-tab-jlpt .jlpt-sec-title {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-jp);
+  letter-spacing: -0.025em;
+}
+
+#adv-tab-jlpt .jlpt-content-section {
+  margin-top: 2.4rem;
+}
+
+#adv-tab-jlpt .jlpt-grammar-cards-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 0.85rem;
+}
+
+#adv-tab-jlpt .jlpt-grammar-card {
+  position: relative;
+  gap: 0.55rem;
+  padding: 1.05rem;
+  border-top: 1px solid color-mix(in srgb, var(--jlpt-accent) 17%, var(--border-color));
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--jlpt-accent) 3%, var(--bg-card)), var(--bg-card) 54%);
+}
+
+#adv-tab-jlpt .jg-index {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-muted);
+  font-size: 0.6rem;
+  font-weight: 850;
+  letter-spacing: 0.11em;
+}
+
+#adv-tab-jlpt .jg-index span {
+  color: var(--jlpt-accent);
+  font-size: 0.72rem;
+}
+
+#adv-tab-jlpt .jg-index i {
+  width: 18px;
+  height: 1px;
+  background: color-mix(in srgb, var(--jlpt-accent) 45%, transparent);
+}
+
+#adv-tab-jlpt .jg-pattern {
+  color: var(--jlpt-accent);
+  font-size: 1.13rem;
+  line-height: 1.4;
+}
+
+#adv-tab-jlpt .jg-meaning {
+  font-size: 0.9rem;
+}
+
+#adv-tab-jlpt .jg-expl {
+  min-height: 3em;
+  margin: 0;
+  font-size: 0.78rem;
+}
+
+#adv-tab-jlpt .jg-example-box {
+  margin-top: auto;
+  padding: 0.7rem;
+  border-radius: 9px;
+  border-color: color-mix(in srgb, var(--jlpt-accent) 13%, var(--border-color));
+}
+
+#adv-tab-jlpt .jg-ex-jp {
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+#adv-tab-jlpt .jg-audio-btn {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--jlpt-accent);
+  background: color-mix(in srgb, var(--jlpt-accent) 10%, var(--bg-card));
+}
+
+#adv-tab-jlpt .jlpt-kanji-cards-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 165px), 1fr));
+}
+
+#adv-tab-jlpt .jlpt-kanji-card {
+  position: relative;
+  overflow: hidden;
+  padding: 1rem;
+  border-radius: 13px;
+}
+
+#adv-tab-jlpt .jk-char {
+  color: var(--primary);
+  font-size: 2.65rem;
+}
+
+#adv-tab-jlpt .jk-example {
+  display: block;
+  margin-top: 0.55rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+#adv-tab-jlpt .jlpt-vocab-chips-row {
+  gap: 0.55rem;
+}
+
+#adv-tab-jlpt .jlpt-vocab-chip {
+  position: relative;
+  gap: 0.45rem;
+  padding: 0.55rem 0.8rem;
+  border-radius: 10px;
+}
+
+#adv-tab-jlpt .v-jp-text {
+  font-size: 1rem;
+}
+
+#adv-tab-jlpt .v-rom-text,
+#adv-tab-jlpt .v-pt-text {
+  font-size: 0.72rem;
+}
+
+#screen-advanced .adv-tab-btn[data-tab="jlpt"].active {
+  background: linear-gradient(135deg, #38243e, #87445f);
+  box-shadow: 0 5px 15px rgba(91, 44, 66, 0.2);
+}
+
+@media (max-width: 680px) {
+  #adv-tab-jlpt .jlpt-route-banner {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    border-radius: 18px;
+  }
+
+  #adv-tab-jlpt .jlpt-route-steps {
+    gap: 0.35rem;
+  }
+
+  #adv-tab-jlpt .jlpt-route-steps span {
+    width: 32px;
+    height: 32px;
+    flex-basis: 32px;
+  }
+
+  #adv-tab-jlpt .jlpt-selector-container {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  #adv-tab-jlpt .jlpt-pills-row {
+    width: 100%;
+  }
+
+  #adv-tab-jlpt .jlpt-level-pill {
+    flex: 1 1 auto;
+  }
+
+  #adv-tab-jlpt .jlpt-stats-grid {
+    width: 100%;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #adv-tab-jlpt .jlpt-stat-item {
+    padding: 0.55rem;
+  }
+
+  #adv-tab-jlpt .jlpt-stat-val {
+    font-size: 0.9rem;
+  }
+
+  #adv-tab-jlpt .jlpt-stat-lbl {
+    font-size: 0.6rem;
+  }
+
+  #adv-tab-jlpt .jlpt-study-counts > div {
+    min-height: 58px;
+    justify-content: center;
+  }
+
+  #adv-tab-jlpt .jlpt-grammar-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #adv-tab-jlpt .jlpt-kanji-cards-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #adv-tab-jlpt .jlpt-study-counts {
+    gap: 0.45rem;
+  }
+
+  #adv-tab-jlpt .jlpt-study-counts > div {
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.7rem;
+  }
+
+  #adv-tab-jlpt .jlpt-study-counts span {
+    font-size: 0.68rem;
+  }
+}
+
+@media (max-width: 900px) {
+  #adv-tab-listening .anime-filters-bar {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  #adv-tab-listening .af-search-group,
+  #adv-tab-listening .af-toggle-furigana-btn {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 680px) {
+  #adv-tab-listening .anime-studio-hero {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border-radius: 20px;
+  }
+
+  #adv-tab-listening .anime-studio-copy h2 {
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
+
+  #adv-tab-listening .anime-studio-guide {
+    grid-template-columns: 1fr;
+  }
+
+  #adv-tab-listening .anime-studio-kanji {
+    right: -0.05em;
+    bottom: 18%;
+    font-size: 11rem;
+  }
+
+  #adv-tab-listening .anime-filters-bar {
+    grid-template-columns: 1fr;
+    padding: 0.75rem;
+  }
+
+  #adv-tab-listening .af-select-group {
+    justify-content: space-between;
+    padding: 0;
+  }
+
+  #adv-tab-listening .af-search-group,
+  #adv-tab-listening .af-toggle-furigana-btn {
+    grid-column: auto;
+  }
+
+  #adv-tab-listening .anime-scenes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Responsividade da Capa */
 @media (max-width: 768px) {
   .japan-cover-hero {
@@ -4145,6 +5995,1773 @@ input:checked + .slider:before {
   }
 }
 
+/* Caderno cultural */
+.culture-view {
+  --culture-ink: #27231f;
+  --culture-paper: #f3efe7;
+  --culture-red: #b63831;
+  --culture-green: #526b58;
+  --culture-blue: #557184;
+  color: var(--text-main);
+}
 
+.culture-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0.2rem 0 1.4rem;
+}
 
+.culture-back-link {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+}
 
+.culture-back-link:hover {
+  color: var(--primary);
+}
+
+.culture-page-index,
+.culture-eyebrow,
+.culture-section-kicker,
+.culture-card-number,
+.culture-practice > span,
+.culture-season-label,
+.culture-phrase-context {
+  font-size: 0.63rem;
+  font-weight: 850;
+  letter-spacing: 0.13em;
+}
+
+.culture-page-index {
+  color: var(--text-muted);
+}
+
+.culture-page-index span {
+  padding: 0 0.3rem;
+  color: var(--primary);
+}
+
+.culture-tab-panel[hidden] {
+  display: none !important;
+}
+
+.culture-subtabs {
+  display: flex;
+  gap: 0.4rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+  padding: 0.35rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-card);
+  scrollbar-width: thin;
+}
+
+.culture-subtab {
+  display: inline-flex;
+  min-height: 48px;
+  flex: 1 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: var(--text-muted);
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 750;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.culture-subtab > span:first-child {
+  color: var(--culture-red);
+  font-family: var(--font-jp);
+  font-size: 0.75rem;
+}
+
+.culture-subtab:hover {
+  color: var(--text-main);
+  background: var(--bg-primary);
+}
+
+.culture-subtab.active {
+  border-color: var(--border-color);
+  color: var(--text-main);
+  background: var(--bg-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.culture-study-hero {
+  position: relative;
+  display: flex;
+  min-height: 220px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  overflow: hidden;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border-radius: 6px;
+  color: #f7f3ec;
+  background: linear-gradient(115deg, #262522, #37312d);
+}
+
+.culture-study-hero > div {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+}
+
+.culture-study-hero .culture-section-kicker {
+  color: #e9a69a;
+}
+
+.culture-study-hero h1 {
+  margin: 0.8rem 0 0.55rem;
+  color: #fbf8f2;
+  font-size: clamp(2rem, 5vw, 3.55rem);
+  font-weight: 750;
+  letter-spacing: -0.06em;
+  line-height: 1.04;
+}
+
+.culture-study-hero h1 em {
+  color: #e9a69a;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
+}
+
+.culture-study-hero p {
+  max-width: 560px;
+  margin: 0;
+  color: rgba(247, 243, 236, 0.72);
+  font-size: 0.82rem;
+  line-height: 1.65;
+}
+
+.culture-study-mark {
+  position: relative;
+  z-index: 0;
+  flex: 0 0 auto;
+  color: rgba(247, 243, 236, 0.12);
+  font-family: 'Noto Serif JP', var(--font-jp);
+  font-size: clamp(8rem, 18vw, 13rem);
+  line-height: 0.8;
+}
+
+.culture-jlpt-panel > .culture-study-hero {
+  min-height: 205px;
+  border: 1px solid rgba(85, 116, 95, 0.2);
+  color: #33443a;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(112, 151, 114, 0.16), transparent 38%),
+    linear-gradient(120deg, #e8eee4, #f3f0e7);
+}
+
+.culture-jlpt-panel > .culture-study-hero .culture-section-kicker {
+  color: #55745f;
+}
+
+.culture-jlpt-panel > .culture-study-hero h1 {
+  color: #273b2f;
+}
+
+.culture-jlpt-panel > .culture-study-hero h1 em {
+  color: #66816b;
+}
+
+.culture-jlpt-panel > .culture-study-hero p {
+  color: #58675b;
+}
+
+.culture-jlpt-panel > .culture-study-hero .culture-study-mark {
+  color: rgba(67, 102, 75, 0.17);
+}
+
+.culture-jlpt-level-picker {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin: 1.2rem 0 1.5rem;
+}
+
+.culture-level-button {
+  display: grid;
+  min-height: 66px;
+  justify-items: start;
+  align-content: center;
+  gap: 0.22rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  color: var(--text-main);
+  background: var(--bg-card);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 850;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.culture-level-button:hover {
+  transform: translateY(-1px);
+  border-color: #55745f;
+}
+
+.culture-level-button.active {
+  border-color: #55745f;
+  color: #fff;
+  background: #55745f;
+}
+
+.culture-level-button small {
+  color: var(--text-muted);
+  font-size: 0.59rem;
+  font-weight: 650;
+}
+
+.culture-level-button.active small {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.culture-study-dashboard {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(250px, 0.75fr);
+  gap: 0.8rem;
+  margin: 0 0 2.25rem;
+}
+
+.culture-study-mission,
+.culture-study-notes {
+  padding: clamp(1.1rem, 2.5vw, 1.6rem);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background: var(--bg-card);
+}
+
+.culture-study-mission {
+  border-top: 3px solid #55745f;
+  box-shadow: var(--shadow-sm);
+}
+
+.culture-mission-heading,
+.culture-notes-topline,
+.culture-note-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+}
+
+.culture-mission-heading h2,
+.culture-study-notes h2 {
+  margin: 0.4rem 0 0;
+  color: var(--text-main);
+  font-size: 1.18rem;
+  font-weight: 820;
+  letter-spacing: -0.035em;
+}
+
+.culture-xp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.42rem 0.58rem;
+  border: 1px solid rgba(85, 116, 95, 0.28);
+  border-radius: 4px;
+  color: #365541;
+  background: rgba(85, 116, 95, 0.09);
+  font-size: 0.65rem;
+}
+
+[data-theme="dark"] .culture-xp-badge { color: #a8d2b2; }
+
+.culture-xp-badge > span {
+  font-family: var(--font-jp);
+  font-size: 0.85rem;
+}
+
+.culture-study-mission > p,
+.culture-study-notes > p {
+  margin: 0.65rem 0 0.9rem;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  line-height: 1.6;
+}
+
+.culture-mission-progress {
+  height: 5px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--border-color);
+}
+
+.culture-mission-progress > span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: #55745f;
+  transition: width 0.3s ease;
+}
+
+.culture-mission-steps {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.75rem 0;
+}
+
+.culture-mission-step {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) 22px;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  padding: 0.6rem 0.55rem;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: var(--text-main);
+  background: var(--bg-primary);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.culture-mission-step:hover { border-color: rgba(85, 116, 95, 0.4); }
+
+.culture-mission-step > span:first-child {
+  color: #55745f;
+  font-size: 0.59rem;
+  font-weight: 850;
+}
+
+.culture-mission-step > span:nth-child(2) {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.culture-mission-step strong {
+  font-size: 0.69rem;
+  font-weight: 780;
+}
+
+.culture-mission-step small {
+  color: var(--text-muted);
+  font-size: 0.59rem;
+}
+
+.culture-step-status {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 850;
+  text-align: center;
+}
+
+.culture-mission-step.is-complete {
+  border-color: rgba(85, 116, 95, 0.24);
+  background: rgba(85, 116, 95, 0.08);
+}
+
+.culture-mission-step.is-complete .culture-step-status { color: #27815a; }
+
+.culture-mission-cta {
+  display: flex;
+  width: 100%;
+  min-height: 44px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+  padding: 0.65rem 0.8rem;
+  border: 0;
+  border-radius: 4px;
+  color: #fff;
+  background: #344d3c;
+  cursor: pointer;
+  font-size: 0.7rem;
+  font-weight: 800;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.culture-mission-cta:hover {
+  transform: translateY(-1px);
+  background: #263e2e;
+}
+
+.culture-study-notes {
+  display: flex;
+  flex-direction: column;
+  border-top: 3px solid #b78b4b;
+  background:
+    repeating-linear-gradient(to bottom, transparent 0, transparent 31px, rgba(183, 139, 75, 0.08) 32px),
+    var(--bg-card);
+}
+
+.culture-notes-topline {
+  justify-content: flex-start;
+  color: #92703d;
+  font-size: 0.55rem;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+}
+
+.culture-notes-topline > span:first-child {
+  font-family: var(--font-jp);
+  font-size: 0.95rem;
+}
+
+.culture-notes-topline > span:last-child {
+  margin-left: auto;
+  color: var(--text-muted);
+  font-size: 0.51rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.culture-study-notes h2 { font-size: 1.05rem; }
+.culture-study-notes > p { margin-bottom: 0.7rem; }
+
+.culture-study-notes textarea {
+  min-height: 126px;
+  flex: 1;
+  resize: vertical;
+  padding: 0.65rem;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  color: var(--text-main);
+  background: color-mix(in srgb, var(--bg-card) 92%, transparent);
+  font: inherit;
+  font-size: 0.7rem;
+  line-height: 1.7;
+}
+
+.culture-study-notes textarea:focus-visible {
+  outline: 2px solid #b78b4b;
+  outline-offset: 2px;
+}
+
+.culture-note-footer {
+  margin-top: 0.45rem;
+  color: var(--text-muted);
+  font-size: 0.57rem;
+}
+
+.culture-note-footer button {
+  padding: 0.3rem 0;
+  border: 0;
+  color: var(--text-muted);
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.culture-jlpt-content { --jlpt-accent: #55745f; }
+
+.culture-jlpt-content .jlpt-overview-banner {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  border: 1px solid rgba(85, 116, 95, 0.2);
+  border-left-width: 5px !important;
+  border-radius: 5px;
+  background: linear-gradient(115deg, color-mix(in srgb, var(--jlpt-accent) 8%, var(--bg-card)), var(--bg-card) 70%);
+}
+
+.culture-jlpt-content .jlpt-level-title {
+  margin-top: 0.65rem;
+  font-size: clamp(1.15rem, 2.5vw, 1.7rem);
+}
+
+.culture-jlpt-content .jlpt-level-desc {
+  max-width: 850px;
+  line-height: 1.7;
+}
+
+.culture-jlpt-content .jlpt-study-counts { margin: 0.8rem 0 2rem; }
+
+.culture-jlpt-content .jlpt-content-section {
+  position: relative;
+  margin: 0 0 2.5rem !important;
+  padding: 1rem 0 0 1.15rem;
+  border-left: 2px solid color-mix(in srgb, var(--jlpt-accent) 30%, var(--border-color));
+}
+
+.culture-jlpt-content .jlpt-content-section::before {
+  position: absolute;
+  top: 1.1rem;
+  left: -6px;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--bg-primary);
+  border-radius: 50%;
+  background: var(--jlpt-accent);
+  content: "";
+}
+
+.culture-jlpt-content .jlpt-sec-title {
+  font-size: 1.08rem;
+  letter-spacing: -0.02em;
+}
+
+.culture-jlpt-content .jlpt-grammar-card {
+  border-top: 2px solid var(--jlpt-accent);
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+.culture-jlpt-content .jlpt-grammar-card:hover,
+.culture-jlpt-content .jlpt-kanji-card:hover { box-shadow: var(--shadow-md); }
+
+.culture-jlpt-content .jg-pattern,
+.culture-jlpt-content .jk-char,
+.culture-jlpt-content .v-jp-text { color: var(--jlpt-accent); }
+
+.culture-jlpt-content .jlpt-grammar-cards-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+}
+
+.culture-jlpt-content .jlpt-grammar-cards-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+}
+
+.culture-jlpt-content .jlpt-grammar-card,
+.culture-jlpt-content .jlpt-kanji-card,
+.culture-jlpt-content .jlpt-vocab-chip {
+  border-radius: 5px;
+}
+
+.culture-jlpt-content .jlpt-vocab-chip {
+  flex-wrap: wrap;
+  border-radius: 3px;
+}
+
+.culture-activity-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  margin: 1.2rem 0;
+}
+
+.culture-activity-controls > label {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.culture-activity-controls > select {
+  min-height: 40px;
+  padding: 0.45rem 0.65rem;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  color: var(--text-main);
+  background: var(--bg-card);
+  font: inherit;
+  font-size: 0.72rem;
+}
+
+.culture-activity-modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-left: auto;
+}
+
+.culture-activity-modes button {
+  min-height: 40px;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  color: var(--text-muted);
+  background: var(--bg-card);
+  cursor: pointer;
+  font-size: 0.69rem;
+  font-weight: 750;
+}
+
+.culture-activity-modes button.active {
+  border-color: #34302b;
+  color: #fff;
+  background: #34302b;
+}
+
+.culture-quiz-card {
+  max-width: 850px;
+  margin: 0 auto 2.5rem;
+  padding: clamp(1.2rem, 4vw, 2rem);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-card);
+}
+
+.culture-quiz-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.culture-quiz-topline h2 {
+  margin: 0.35rem 0 0;
+  color: var(--text-main);
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.culture-quiz-counter {
+  flex: 0 0 auto;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  color: var(--text-muted);
+  font-size: 0.69rem;
+  font-weight: 800;
+}
+
+.culture-quiz-progress {
+  height: 5px;
+  overflow: hidden;
+  margin: 1.2rem 0;
+  border-radius: 999px;
+  background: var(--border-color);
+}
+
+.culture-quiz-progress > span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--culture-red), #e5a68e);
+  transition: width 0.25s ease;
+}
+
+.culture-question {
+  display: grid;
+  min-height: 165px;
+  justify-items: center;
+  align-content: center;
+  gap: 0.6rem;
+  padding: 1.2rem;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background: var(--bg-primary);
+  text-align: center;
+}
+
+.culture-question-category {
+  color: var(--culture-red);
+  font-size: 0.59rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+}
+
+.culture-question-prompt {
+  color: var(--text-main);
+  font-family: var(--font-jp);
+  font-size: clamp(1.6rem, 5vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.culture-question-detail {
+  color: var(--text-muted);
+  font-size: 0.71rem;
+  line-height: 1.6;
+}
+
+.culture-answer-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin-top: 0.8rem;
+}
+
+.culture-answer-option {
+  min-height: 52px;
+  padding: 0.7rem;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  color: var(--text-main);
+  background: var(--bg-card);
+  cursor: pointer;
+  font-size: 0.76rem;
+  line-height: 1.45;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.culture-answer-option:hover:not(:disabled) {
+  border-color: var(--culture-red);
+  background: var(--bg-primary);
+}
+
+.culture-answer-option.is-correct {
+  border-color: #16835c;
+  color: #08734c;
+  background: rgba(16, 185, 129, 0.11);
+}
+
+.culture-answer-option.is-incorrect {
+  border-color: #d5646b;
+  color: #b42335;
+  background: rgba(239, 68, 68, 0.09);
+}
+
+.culture-answer-option:disabled {
+  cursor: default;
+}
+
+.culture-quiz-feedback {
+  min-height: 1.3rem;
+  margin: 0.75rem 0;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
+.culture-quiz-feedback.is-correct {
+  color: #08734c;
+}
+
+.culture-quiz-feedback.is-incorrect {
+  color: #b42335;
+}
+
+.culture-quiz-next {
+  min-height: 44px;
+}
+
+.culture-quiz-result {
+  padding: 1.3rem 0 0.5rem;
+  text-align: center;
+}
+
+.culture-quiz-result[hidden] {
+  display: none;
+}
+
+.culture-quiz-result > span {
+  color: var(--culture-red);
+  font-family: var(--font-jp);
+  font-size: 2.2rem;
+}
+
+.culture-quiz-result h3 {
+  margin: 0.35rem 0;
+  color: var(--text-main);
+}
+
+.culture-quiz-result p {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.culture-hero {
+  display: grid;
+  min-height: 380px;
+  grid-template-columns: minmax(0, 1.1fr) minmax(220px, 0.8fr);
+  align-items: center;
+  gap: 2rem;
+  overflow: hidden;
+  padding: clamp(1.6rem, 5vw, 4.5rem);
+  border-radius: 6px;
+  color: #f7f3ec;
+  background:
+    linear-gradient(115deg, rgba(35, 32, 30, 0.99) 0%, rgba(35, 32, 30, 0.97) 46%, rgba(44, 39, 35, 0.86) 100%),
+    var(--culture-ink);
+}
+
+.culture-hero-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 610px;
+}
+
+.culture-eyebrow {
+  color: #e7a79a;
+}
+
+.culture-eyebrow span {
+  margin-right: 0.4rem;
+  color: #f7f3ec;
+  font-family: var(--font-jp);
+}
+
+.culture-hero h1 {
+  margin: 1.2rem 0 0.9rem;
+  color: #fbf8f2;
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  font-weight: 750;
+  letter-spacing: -0.07em;
+  line-height: 0.99;
+}
+
+.culture-hero h1 em {
+  color: #e9a69a;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
+}
+
+.culture-hero-copy > p {
+  max-width: 490px;
+  margin: 0;
+  color: rgba(247, 243, 236, 0.75);
+  font-size: 0.92rem;
+  line-height: 1.75;
+}
+
+.culture-hero-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid rgba(247, 243, 236, 0.5);
+  color: #fbf8f2;
+  font-size: 0.77rem;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.culture-hero-link span {
+  color: #e9a69a;
+  font-size: 1rem;
+}
+
+.culture-hero-art {
+  position: relative;
+  display: grid;
+  min-height: 255px;
+  place-items: center;
+}
+
+.culture-art-sun {
+  position: absolute;
+  width: min(19vw, 225px);
+  height: min(19vw, 225px);
+  min-width: 165px;
+  min-height: 165px;
+  border-radius: 50%;
+  background: #b63831;
+  box-shadow: 0 0 85px rgba(182, 56, 49, 0.18);
+}
+
+.culture-art-kanji {
+  position: relative;
+  z-index: 1;
+  color: rgba(255, 250, 241, 0.94);
+  font-family: 'Noto Serif JP', var(--font-jp);
+  font-size: clamp(6.5rem, 16vw, 11rem);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.culture-art-caption {
+  position: absolute;
+  right: 2%;
+  bottom: 3%;
+  color: rgba(247, 243, 236, 0.72);
+  font-size: 0.57rem;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  line-height: 1.7;
+}
+
+.culture-art-stamp {
+  position: absolute;
+  top: 3%;
+  left: 4%;
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid rgba(247, 243, 236, 0.6);
+  color: #f7f3ec;
+  font-family: var(--font-jp);
+  font-size: 0.85rem;
+  transform: rotate(-8deg);
+}
+
+.culture-hero-note {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: baseline;
+  gap: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(247, 243, 236, 0.17);
+}
+
+.culture-hero-note > span {
+  flex: 0 0 auto;
+  color: #e9a69a;
+  font-size: 0.6rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+}
+
+.culture-hero-note p {
+  margin: 0;
+  color: rgba(247, 243, 236, 0.68);
+  font-size: 0.72rem;
+  line-height: 1.6;
+}
+
+.culture-section {
+  margin-top: clamp(3.5rem, 7vw, 6rem);
+}
+
+.culture-section-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(240px, 0.7fr);
+  align-items: end;
+  gap: 1.5rem;
+  margin-bottom: 1.6rem;
+}
+
+.culture-section-kicker {
+  color: var(--culture-red);
+}
+
+.culture-section-heading h2,
+.culture-language h2 {
+  margin: 0.65rem 0 0;
+  font-size: clamp(1.65rem, 3.5vw, 2.55rem);
+  font-weight: 780;
+  letter-spacing: -0.055em;
+  line-height: 1.1;
+}
+
+.culture-section-heading > p,
+.culture-language-heading > p {
+  max-width: 430px;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.83rem;
+  line-height: 1.7;
+}
+
+.culture-everyday-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.culture-detail-card {
+  position: relative;
+  display: flex;
+  min-height: 345px;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 1.3rem;
+  border: 1px solid var(--border-color);
+  border-top: 3px solid var(--culture-red);
+  border-radius: 5px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-card);
+}
+
+.culture-detail-card--green {
+  border-top-color: var(--culture-green);
+}
+
+.culture-detail-card--blue {
+  border-top-color: var(--culture-blue);
+}
+
+.culture-card-number {
+  color: var(--text-muted);
+  font-size: 0.57rem;
+}
+
+.culture-card-mark {
+  position: absolute;
+  top: 0.7rem;
+  right: 1rem;
+  color: color-mix(in srgb, var(--culture-red) 13%, var(--bg-card));
+  font-family: 'Noto Serif JP', var(--font-jp);
+  font-size: 4.8rem;
+  line-height: 1;
+}
+
+.culture-detail-card--green .culture-card-mark {
+  color: color-mix(in srgb, var(--culture-green) 16%, var(--bg-card));
+}
+
+.culture-detail-card--blue .culture-card-mark {
+  color: color-mix(in srgb, var(--culture-blue) 16%, var(--bg-card));
+}
+
+.culture-detail-card h3 {
+  position: relative;
+  margin: 2.2rem 0 0.65rem;
+  color: var(--text-main);
+  font-size: 1.12rem;
+  font-weight: 780;
+  letter-spacing: -0.025em;
+  line-height: 1.3;
+}
+
+.culture-detail-card > p {
+  margin: 0 0 1.25rem;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  line-height: 1.7;
+}
+
+.culture-practice {
+  display: grid;
+  gap: 0.28rem;
+  margin-top: auto;
+  padding: 0.85rem;
+  border-radius: 4px;
+  background: var(--bg-primary);
+}
+
+.culture-practice > span {
+  color: var(--text-muted);
+  font-size: 0.53rem;
+}
+
+.culture-practice strong {
+  color: var(--culture-red);
+  font-family: var(--font-jp);
+  font-size: 1.05rem;
+}
+
+.culture-detail-card--green .culture-practice strong {
+  color: var(--culture-green);
+}
+
+.culture-detail-card--blue .culture-practice strong {
+  color: var(--culture-blue);
+}
+
+.culture-practice small {
+  color: var(--text-muted);
+  font-size: 0.65rem;
+}
+
+.culture-season-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.culture-season-card {
+  position: relative;
+  min-height: 255px;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+}
+
+.culture-season-symbol {
+  display: block;
+  margin-bottom: 1rem;
+  color: var(--culture-red);
+  font-family: 'Noto Serif JP', var(--font-jp);
+  font-size: 2.35rem;
+}
+
+.culture-season-card:nth-child(2) .culture-season-symbol {
+  color: #62826a;
+}
+
+.culture-season-card:nth-child(3) .culture-season-symbol {
+  color: #bd7948;
+}
+
+.culture-season-card:nth-child(4) .culture-season-symbol {
+  color: #62809a;
+}
+
+.culture-season-label {
+  color: var(--text-muted);
+  font-size: 0.54rem;
+}
+
+.culture-season-card h3 {
+  margin: 0.45rem 0;
+  color: var(--text-main);
+  font-size: 0.95rem;
+  font-weight: 780;
+}
+
+.culture-season-card > p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.69rem;
+  line-height: 1.65;
+}
+
+.culture-season-word {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+  color: var(--culture-red);
+  font-family: var(--font-jp);
+  font-size: 0.8rem;
+  font-weight: 750;
+}
+
+.culture-season-word small {
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+  font-size: 0.59rem;
+  font-weight: 600;
+}
+
+.culture-region-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.culture-region-card {
+  display: grid;
+  grid-template-columns: 36px minmax(100px, 0.55fr) minmax(0, 1.6fr);
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-card);
+}
+
+.culture-region-id {
+  align-self: start;
+  padding-top: 0.15rem;
+  color: var(--culture-red);
+  font-size: 0.62rem;
+  font-weight: 850;
+}
+
+.culture-region-jp {
+  color: var(--text-muted);
+  font-family: var(--font-jp);
+  font-size: 0.65rem;
+}
+
+.culture-region-card h3 {
+  margin: 0.1rem 0 0;
+  color: var(--text-main);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.culture-region-card > p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  line-height: 1.55;
+}
+
+.culture-region-tag {
+  grid-column: 2 / -1;
+  color: var(--culture-green);
+  font-size: 0.52rem;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+}
+
+.culture-language {
+  margin-top: clamp(3.5rem, 7vw, 6rem);
+  padding: clamp(1.4rem, 4vw, 2.6rem);
+  color: #f7f3ec;
+  background: #262522;
+}
+
+.culture-language-heading {
+  max-width: 610px;
+}
+
+.culture-language .culture-section-kicker {
+  color: #e9a69a;
+}
+
+.culture-language h2 {
+  color: #f7f3ec;
+}
+
+.culture-language-heading > p {
+  margin-top: 0.65rem;
+  color: rgba(247, 243, 236, 0.68);
+}
+
+.culture-phrase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.culture-phrase-card {
+  position: relative;
+  display: grid;
+  gap: 0.28rem;
+  padding: 1rem;
+  border: 1px solid rgba(247, 243, 236, 0.16);
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.culture-phrase-context {
+  margin-bottom: 0.4rem;
+  color: #e9a69a;
+  font-size: 0.52rem;
+}
+
+.culture-phrase-card strong {
+  color: #fffaf3;
+  font-family: var(--font-jp);
+  font-size: clamp(0.95rem, 2vw, 1.2rem);
+}
+
+.culture-phrase-card > span:not(.culture-phrase-context) {
+  color: rgba(247, 243, 236, 0.8);
+  font-size: 0.7rem;
+}
+
+.culture-phrase-card small {
+  color: rgba(247, 243, 236, 0.58);
+  font-size: 0.65rem;
+}
+
+.culture-phrase-card button {
+  justify-self: start;
+  margin-top: 0.5rem;
+  padding: 0.35rem 0;
+  border: 0;
+  color: #f1b8a8;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.78rem;
+}
+
+.culture-phrase-card button span {
+  margin-left: 0.25rem;
+  font-size: 0.63rem;
+  font-weight: 750;
+}
+
+.culture-source-note {
+  margin: 1.15rem 0 0;
+  color: rgba(247, 243, 236, 0.53);
+  font-size: 0.62rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 850px) {
+  .culture-study-dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .culture-jlpt-level-picker {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .culture-activity-modes {
+    margin-left: 0;
+  }
+
+  .culture-everyday-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .culture-detail-card:last-child {
+    grid-column: 1 / -1;
+    min-height: 290px;
+  }
+
+  .culture-season-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .culture-region-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .culture-study-dashboard {
+    gap: 0.65rem;
+  }
+
+  .culture-mission-heading {
+    align-items: flex-start;
+  }
+
+  .culture-xp-badge {
+    flex: 0 0 auto;
+  }
+
+  .culture-study-notes textarea {
+    min-height: 150px;
+  }
+
+  .culture-subtabs {
+    gap: 0.2rem;
+  }
+
+  .culture-subtab {
+    min-height: 44px;
+    gap: 0.35rem;
+    padding: 0.45rem 0.65rem;
+    font-size: 0.69rem;
+  }
+
+  .culture-study-hero {
+    min-height: 190px;
+    padding: 1.3rem;
+  }
+
+  .culture-study-mark {
+    margin-right: -0.7rem;
+    font-size: 6rem;
+  }
+
+  .culture-jlpt-level-picker {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .culture-level-button {
+    min-height: 58px;
+  }
+
+  .culture-activity-controls {
+    align-items: flex-start;
+  }
+
+  .culture-activity-modes {
+    width: 100%;
+  }
+
+  .culture-activity-modes button {
+    flex: 1 1 auto;
+  }
+
+  .culture-answer-options {
+    grid-template-columns: 1fr;
+  }
+
+  .culture-page-header {
+    align-items: flex-start;
+  }
+
+  .culture-page-index {
+    max-width: 50%;
+    text-align: right;
+  }
+
+  .culture-hero {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 1.5rem;
+  }
+
+  .culture-hero h1 {
+    font-size: clamp(2.75rem, 13vw, 4rem);
+  }
+
+  .culture-hero-art {
+    min-height: 205px;
+  }
+
+  .culture-art-sun {
+    width: 165px;
+    height: 165px;
+  }
+
+  .culture-art-kanji {
+    font-size: 8rem;
+  }
+
+  .culture-art-caption {
+    right: 4%;
+    bottom: 0;
+  }
+
+  .culture-hero-note {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .culture-section-heading {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .culture-everyday-grid,
+  .culture-season-grid,
+  .culture-phrase-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .culture-detail-card,
+  .culture-detail-card:last-child {
+    grid-column: auto;
+    min-height: 300px;
+  }
+
+  .culture-season-card {
+    min-height: 0;
+  }
+
+  .culture-region-card {
+    grid-template-columns: 25px 95px minmax(0, 1fr);
+    gap: 0.55rem;
+    padding: 0.8rem 0.3rem;
+  }
+
+  .culture-region-card > p {
+    font-size: 0.65rem;
+  }
+
+  .culture-region-tag {
+    grid-column: 2 / -1;
+  }
+
+  .culture-language {
+    margin-right: -0.25rem;
+    margin-left: -0.25rem;
+    padding: 1.25rem;
+  }
+}
+
+.culture-skill-studio {
+  --skill-ink: #243b30;
+  --skill-green: #55745f;
+  margin: 3rem 0 1rem;
+  padding: clamp(1rem, 3vw, 2.25rem);
+  border: 1px solid color-mix(in srgb, var(--skill-green) 20%, var(--border-color));
+  border-radius: 20px;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--skill-green) 7%, var(--bg-card)), var(--bg-card) 65%);
+  box-shadow: 0 18px 45px rgba(32, 55, 42, 0.08);
+}
+
+.culture-skill-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.culture-skill-heading h2 {
+  margin: 0.4rem 0;
+  color: var(--skill-ink);
+  font-size: clamp(1.5rem, 4vw, 2.15rem);
+  letter-spacing: -0.04em;
+}
+
+.culture-skill-heading p {
+  max-width: 650px;
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.culture-skill-mark {
+  display: grid;
+  width: 76px;
+  height: 76px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--skill-green) 25%, transparent);
+  border-radius: 50%;
+  color: var(--skill-green);
+  font-size: 2.6rem;
+  background: color-mix(in srgb, var(--skill-green) 9%, var(--bg-card));
+}
+
+.culture-skill-modes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+}
+
+.culture-skill-mode {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.2rem 0.65rem;
+  align-content: center;
+  min-height: 76px;
+  padding: 0.8rem;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 160ms ease, transform 160ms ease, background 160ms ease;
+}
+
+.culture-skill-mode:hover { transform: translateY(-2px); }
+
+.culture-skill-mode.active {
+  border-color: var(--skill-green);
+  background: color-mix(in srgb, var(--skill-green) 8%, var(--bg-card));
+  box-shadow: inset 0 0 0 1px var(--skill-green);
+}
+
+.culture-skill-mode > span {
+  grid-row: span 2;
+  align-self: center;
+  color: var(--skill-green);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.culture-skill-mode strong { font-size: 0.78rem; }
+.culture-skill-mode small { color: var(--text-muted); font-size: 0.67rem; }
+
+.culture-skill-exercise {
+  position: relative;
+  padding: clamp(1rem, 3vw, 1.8rem);
+  border: 1px solid var(--border-color);
+  border-radius: 15px;
+  background: var(--bg-card);
+}
+
+.culture-skill-topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  color: var(--skill-green);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.culture-skill-topline span:last-child {
+  color: var(--text-muted);
+  letter-spacing: 0;
+}
+
+.culture-skill-progress {
+  height: 5px;
+  overflow: hidden;
+  margin: 0.8rem 0 1.7rem;
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--skill-green) 12%, var(--bg-card));
+}
+
+.culture-skill-progress > span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--skill-green);
+  transition: width 220ms ease;
+}
+
+.culture-skill-prompt {
+  display: grid;
+  gap: 0.6rem;
+  min-height: 105px;
+  align-content: center;
+  padding: 1.15rem;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--skill-green) 5%, var(--bg-card));
+}
+
+.culture-skill-prompt-label {
+  color: var(--skill-green);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.culture-skill-prompt strong {
+  color: var(--skill-ink);
+  font-size: clamp(1.1rem, 3vw, 1.65rem);
+  line-height: 1.5;
+}
+
+.culture-skill-choices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+}
+
+#cultureSkillChoices:not([hidden])::before {
+  grid-column: 1 / -1;
+  color: var(--text-muted);
+  content: "Escolha uma resposta:";
+  font-size: 0.73rem;
+  font-weight: 700;
+}
+
+.culture-skill-choice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  min-height: 56px;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.culture-skill-choice:not(:disabled):hover {
+  transform: translateY(-1px);
+  border-color: var(--skill-green);
+  background: color-mix(in srgb, var(--skill-green) 5%, var(--bg-card));
+}
+
+.culture-skill-choice > span {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--skill-green);
+  background: color-mix(in srgb, var(--skill-green) 10%, var(--bg-card));
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.culture-skill-choice strong {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.culture-skill-choice.is-correct {
+  border-color: #4a9661;
+  background: color-mix(in srgb, #4a9661 10%, var(--bg-card));
+}
+
+.culture-skill-choice.is-incorrect {
+  border-color: #c97568;
+  color: var(--text-muted);
+  background: color-mix(in srgb, #c97568 7%, var(--bg-card));
+}
+
+.culture-skill-choice:disabled { cursor: default; }
+
+.culture-skill-tools {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1rem 0;
+}
+
+.culture-skill-tool,
+.culture-skill-reveal {
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  font: inherit;
+  font-size: 0.73rem;
+  cursor: pointer;
+}
+
+#cultureSkillHint {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.culture-skill-form label {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: var(--text-primary);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.culture-skill-input-row {
+  display: flex;
+  gap: 0.55rem;
+}
+
+.culture-skill-input-row input {
+  min-width: 0;
+  flex: 1;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--border-color);
+  border-radius: 9px;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  font: inherit;
+}
+
+.culture-skill-submit,
+.culture-skill-next,
+.culture-speech-button {
+  padding: 0.75rem 1rem;
+  border: 0;
+  border-radius: 9px;
+  color: white;
+  background: var(--skill-green);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.culture-speech-button { margin-top: 0.8rem; }
+.culture-speech-button:disabled { opacity: 0.65; cursor: wait; }
+
+.culture-speech-fallback {
+  margin-top: 0.65rem;
+  color: var(--text-muted);
+  font-size: 0.73rem;
+  line-height: 1.5;
+}
+
+.culture-skill-feedback {
+  min-height: 1.2rem;
+  margin: 0.7rem 0;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.culture-skill-feedback.is-correct { color: #287447; }
+.culture-skill-feedback.is-incorrect { color: #a3473b; }
+
+.culture-skill-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.7rem;
+  margin-top: 0.8rem;
+}
+
+.culture-skill-result {
+  padding: 1.3rem 0.5rem 0.2rem;
+  text-align: center;
+}
+
+.culture-skill-result > span {
+  color: var(--skill-green);
+  font-size: 2rem;
+}
+
+.culture-skill-result h3 { margin: 0.4rem 0; color: var(--skill-ink); }
+.culture-skill-result p { margin: 0.4rem 0 1rem; color: var(--text-muted); }
+
+@media (max-width: 680px) {
+  .culture-skill-modes { grid-template-columns: 1fr; }
+  .culture-skill-choices { grid-template-columns: 1fr; }
+  .culture-skill-mode { min-height: 62px; }
+  .culture-skill-mark { width: 54px; height: 54px; font-size: 1.8rem; }
+  .culture-skill-input-row { flex-direction: column; }
+  .culture-skill-submit { min-height: 44px; }
+  .culture-skill-actions { align-items: stretch; flex-direction: column; }
+  .culture-skill-actions button { min-height: 42px; }
+}

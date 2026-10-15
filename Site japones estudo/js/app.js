@@ -1140,39 +1140,33 @@ class JapaneseApp {
 
   /* Alternador de Abas de Jogos */
   switchGameTab(tabName) {
-    const memorySec = document.getElementById("gameMemorySection");
-    const speedSec = document.getElementById("gameSpeedSection");
-    const sentenceSec = document.getElementById("gameSentenceSection");
+    const gameModes = {
+      memory: ["gameMemorySection", "tabGameMemory"],
+      speed: ["gameSpeedSection", "tabGameSpeed"],
+      sentence: ["gameSentenceSection", "tabGameSentence"],
+      kana: ["gameKanaSection", "tabGameKana"],
+      particle: ["gameParticleSection", "tabGameParticle"],
+    };
+    if (!gameModes[tabName]) tabName = "memory";
 
-    const tabMem = document.getElementById("tabGameMemory");
-    const tabSpd = document.getElementById("tabGameSpeed");
-    const tabSent = document.getElementById("tabGameSentence");
-
-    const tabs = [tabMem, tabSpd, tabSent];
-    tabs.forEach(t => {
-      if (t) {
-        t.classList.remove("btn-primary");
-        t.classList.add("btn-outline");
+    if (tabName !== "speed" && window.japaneseGames?.speedTimer) {
+      clearInterval(window.japaneseGames.speedTimer);
+      window.japaneseGames.speedTimer = null;
+    }
+    Object.entries(gameModes).forEach(([mode, [sectionId, tabId]]) => {
+      const section = document.getElementById(sectionId);
+      const tab = document.getElementById(tabId);
+      if (section) section.style.display = mode === tabName ? "block" : "none";
+      if (tab) {
+        tab.classList.toggle("btn-primary", mode === tabName);
+        tab.classList.toggle("btn-outline", mode !== tabName);
+        tab.setAttribute("aria-selected", String(mode === tabName));
       }
     });
 
-    if (memorySec) memorySec.style.display = "none";
-    if (speedSec) speedSec.style.display = "none";
-    if (sentenceSec) sentenceSec.style.display = "none";
-
     if (tabName === "memory") {
-      if (memorySec) memorySec.style.display = "block";
-      if (tabMem) {
-        tabMem.classList.add("btn-primary");
-        tabMem.classList.remove("btn-outline");
-      }
       if (window.japaneseGames) window.japaneseGames.startMemoryGame("hiragana");
     } else if (tabName === "speed") {
-      if (speedSec) speedSec.style.display = "block";
-      if (tabSpd) {
-        tabSpd.classList.add("btn-primary");
-        tabSpd.classList.remove("btn-outline");
-      }
       const banner = document.getElementById("speedStartBanner");
       const playArea = document.getElementById("speedPlayArea");
       const finishArea = document.getElementById("speedFinishArea");
@@ -1180,12 +1174,11 @@ class JapaneseApp {
       if (playArea) playArea.style.display = "none";
       if (finishArea) finishArea.style.display = "none";
     } else if (tabName === "sentence") {
-      if (sentenceSec) sentenceSec.style.display = "block";
-      if (tabSent) {
-        tabSent.classList.add("btn-primary");
-        tabSent.classList.remove("btn-outline");
-      }
       if (window.japaneseGames) window.japaneseGames.initSentenceBuilder();
+    } else if (tabName === "kana") {
+      if (window.japaneseGames) window.japaneseGames.startKanaChallenge("hiragana");
+    } else if (tabName === "particle") {
+      if (window.japaneseGames) window.japaneseGames.startParticleChallenge();
     }
   }
 

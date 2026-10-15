@@ -3,6 +3,8 @@
  * 1. Jogo da Memória Japonês (Para Iniciantes e Treino Visual)
  * 2. Speed Run / Contra o Tempo (Para quem já sabe o básico e quer agilidade)
  * 3. Construtor de Frases (Para quem quer dominar gramática real)
+ * 4. Dojo de Kana (Leitura ativa por digitação)
+ * 5. Ninja das Partículas (Gramática aplicada em frases)
  */
 
 class JapaneseGames {
@@ -23,10 +25,245 @@ class JapaneseGames {
     // Sentence builder state
     this.sentenceIndex = 0;
     this.sentenceSelectedBlocks = [];
+
+    this.kanaMode = "hiragana";
+    this.kanaRounds = [];
+    this.kanaIndex = 0;
+    this.kanaScore = 0;
+    this.kanaLocked = false;
+
+    this.particleRounds = [];
+    this.particleIndex = 0;
+    this.particleScore = 0;
+    this.particleLocked = false;
+    this.bindChallengeEvents();
+  }
+
+  bindChallengeEvents() {
+    const kanaForm = document.getElementById("kanaChallengeForm");
+    kanaForm?.addEventListener("submit", event => {
+      event.preventDefault();
+      this.checkKanaAnswer();
+    });
+
+    document.getElementById("kanaChallengeRestart")?.addEventListener("click", () => this.startKanaChallenge(this.kanaMode));
+    document.getElementById("kanaChallengeAudio")?.addEventListener("click", () => {
+      const current = this.kanaRounds[this.kanaIndex];
+      if (current) window.app?.speakJapanese(current.char);
+    });
+    document.querySelectorAll("[data-kana-mode]").forEach(button => {
+      button.addEventListener("click", () => this.startKanaChallenge(button.dataset.kanaMode));
+    });
+    document.getElementById("particleChallengeNext")?.addEventListener("click", () => this.nextParticleQuestion());
+    document.getElementById("particleChallengeRestart")?.addEventListener("click", () => this.startParticleChallenge());
+  }
+
+  shuffle(items) {
+    const result = [...items];
+    for (let index = result.length - 1; index > 0; index--) {
+      const swapIndex = Math.floor(Math.random() * (index + 1));
+      [result[index], result[swapIndex]] = [result[swapIndex], result[index]];
+    }
+    return result;
   }
 
   /* ========================================================
-     1. JOGO DA MEMÓRIA JAPONÊS (MEMORY GAME)
+     1. DOJO DE KANA (LEITURA DIGITADA)
+     ======================================================== */
+  startKanaChallenge(mode = "hiragana") {
+    this.kanaMode = mode === "katakana" ? "katakana" : "hiragana";
+    const pool = JAPANESE_DATA[this.kanaMode].basic.filter(item => item.char && item.romaji);
+    if (pool.length === 0) {
+      throw new Error(`Não há caracteres disponíveis para o desafio de ${this.kanaMode}.`);
+    }
+
+    this.kanaRounds = this.shuffle(pool).slice(0, 10);
+    this.kanaIndex = 0;
+    this.kanaScore = 0;
+    this.kanaLocked = false;
+    document.getElementById("kanaChallengeForm").style.display = "";
+    document.getElementById("kanaChallengeResult").style.display = "none";
+    document.querySelectorAll("[data-kana-mode]").forEach(button => {
+      button.classList.toggle("active", button.dataset.kanaMode === this.kanaMode);
+    });
+    this.renderKanaQuestion();
+  }
+
+  renderKanaQuestion() {
+    const item = this.kanaRounds[this.kanaIndex];
+    const input = document.getElementById("kanaChallengeInput");
+    const submit = document.querySelector("#kanaChallengeForm button[type='submit']");
+    const feedback = document.getElementById("kanaChallengeFeedback");
+    if (!item || !input || !submit || !feedback) return;
+
+    this.kanaLocked = false;
+    document.getElementById("kanaChallengeCharacter").textContent = item.char;
+    document.getElementById("kanaChallengeGroup").textContent = this.kanaMode.toUpperCase();
+    document.getElementById("kanaChallengeCounter").textContent = `${this.kanaIndex + 1} / ${this.kanaRounds.length}`;
+    document.getElementById("kanaChallengeProgress").style.width = `${(this.kanaIndex / this.kanaRounds.length) * 100}%`;
+    input.value = "";
+    input.disabled = false;
+    input.focus({ preventScroll: true });
+    submit.textContent = "Conferir ↵";
+    feedback.textContent = "";
+    feedback.className = "game-challenge-feedback";
+  }
+
+  checkKanaAnswer() {
+    if (this.kanaLocked) {
+      this.nextKanaQuestion();
+      return;
+    }
+
+    const item = this.kanaRounds[this.kanaIndex];
+    const input = document.getElementById("kanaChallengeInput");
+    const feedback = document.getElementById("kanaChallengeFeedback");
+    const submit = document.querySelector("#kanaChallengeForm button[type='submit']");
+    const answer = input.value.trim().toLowerCase();
+    if (!answer) {
+      input.focus();
+      return;
+    }
+
+    this.kanaLocked = true;
+    input.disabled = true;
+    if (answer === item.romaji.toLowerCase()) {
+      this.kanaScore++;
+      feedback.textContent = `Isso! ${item.char} se lê “${item.romaji}”.`;
+      feedback.classList.add("is-correct");
+      window.japaneseQuiz?.playSound("correct");
+    } else {
+      feedback.textContent = `Quase! ${item.char} se lê “${item.romaji}”.`;
+      feedback.classList.add("is-wrong");
+      window.japaneseQuiz?.playSound("wrong");
+    }
+    submit.textContent = this.kanaIndex + 1 === this.kanaRounds.length ? "Ver resultado →" : "Próximo kana →";
+  }
+
+  nextKanaQuestion() {
+    this.kanaIndex++;
+    if (this.kanaIndex >= this.kanaRounds.length) {
+      this.finishKanaChallenge();
+      return;
+    }
+    this.renderKanaQuestion();
+  }
+
+  finishKanaChallenge() {
+    document.getElementById("kanaChallengeProgress").style.width = "100%";
+    document.getElementById("kanaChallengeForm").style.display = "none";
+    document.getElementById("kanaChallengeFeedback").textContent = "";
+    document.getElementById("kanaChallengeCounter").textContent = `${this.kanaRounds.length} / ${this.kanaRounds.length}`;
+    document.getElementById("kanaChallengeFinalScore").textContent = `Você acertou ${this.kanaScore} de ${this.kanaRounds.length}.`;
+    document.getElementById("kanaChallengeResult").style.display = "block";
+    if (this.kanaScore === this.kanaRounds.length) window.japaneseQuiz?.triggerConfetti();
+  }
+
+  /* ========================================================
+     2. NINJA DAS PARTÍCULAS (GRAMÁTICA EM CONTEXTO)
+     ======================================================== */
+  startParticleChallenge() {
+    const questions = [
+      { sentence: "わたし__学生です。", translation: "Eu sou estudante.", level: "N5", answer: "は", options: ["は", "を", "で"], note: "は apresenta o tópico da frase: “quanto a mim...”." },
+      { sentence: "水__飲みます。", translation: "Bebo água.", level: "N5", answer: "を", options: ["が", "を", "に"], note: "を marca o objeto direto da ação 飲みます (beber)." },
+      { sentence: "毎朝六時__起きます。", translation: "Acordo às seis toda manhã.", level: "N5", answer: "に", options: ["で", "に", "と"], note: "に marca um horário específico: 六時に (às seis)." },
+      { sentence: "学校__日本語を勉強します。", translation: "Estudo japonês na escola.", level: "N5", answer: "で", options: ["へ", "で", "の"], note: "で indica o local onde uma ação acontece." },
+      { sentence: "友達__映画を見ました。", translation: "Assisti a um filme com um amigo.", level: "N5", answer: "と", options: ["と", "が", "を"], note: "と significa “com” quando acompanha outra pessoa." },
+      { sentence: "机の上__本があります。", translation: "Há um livro em cima da mesa.", level: "N5", answer: "に", options: ["を", "に", "は"], note: "に marca o local onde algo existe com あります." },
+      { sentence: "これは田中さん__かばんです。", translation: "Esta é a bolsa do(a) Tanaka.", level: "N5", answer: "の", options: ["の", "も", "で"], note: "の conecta substantivos e indica posse: Tanaka no kaban." },
+      { sentence: "図書館__本を読みます。", translation: "Leio um livro na biblioteca.", level: "N5", answer: "で", options: ["に", "と", "で"], note: "で marca o lugar em que a ação de ler acontece." },
+    ];
+    this.particleRounds = this.shuffle(questions);
+    this.particleIndex = 0;
+    this.particleScore = 0;
+    this.particleLocked = false;
+    document.getElementById("particleChallengeOptions").style.display = "grid";
+    document.getElementById("particleChallengeResult").style.display = "none";
+    document.getElementById("particleChallengeNext").style.display = "none";
+    this.renderParticleQuestion();
+  }
+
+  renderParticleQuestion() {
+    const question = this.particleRounds[this.particleIndex];
+    if (!question) return;
+    this.particleLocked = false;
+    document.getElementById("particleChallengeCounter").textContent = `${this.particleIndex + 1} / ${this.particleRounds.length}`;
+    document.getElementById("particleChallengeProgress").style.width = `${(this.particleIndex / this.particleRounds.length) * 100}%`;
+    document.getElementById("particleChallengeLevel").textContent = `JLPT ${question.level}`;
+    const sentence = document.getElementById("particleChallengeSentence");
+    const [beforeBlank, afterBlank] = question.sentence.split("__");
+    sentence.replaceChildren(document.createTextNode(beforeBlank));
+    if (afterBlank !== undefined) {
+      const blank = document.createElement("span");
+      blank.className = "particle-blank";
+      blank.setAttribute("role", "img");
+      blank.setAttribute("aria-label", "espaço para a partícula");
+      sentence.append(blank, document.createTextNode(afterBlank));
+    }
+    document.getElementById("particleChallengeTranslation").textContent = question.translation;
+    document.getElementById("particleChallengeFeedback").textContent = "";
+    document.getElementById("particleChallengeFeedback").className = "game-challenge-feedback particle-feedback";
+    document.getElementById("particleChallengeNext").style.display = "none";
+    const options = document.getElementById("particleChallengeOptions");
+    options.innerHTML = "";
+    this.shuffle(question.options).forEach(option => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "particle-option";
+      button.textContent = option;
+      button.addEventListener("click", () => this.checkParticleAnswer(option));
+      options.appendChild(button);
+    });
+  }
+
+  checkParticleAnswer(answer) {
+    if (this.particleLocked) return;
+    this.particleLocked = true;
+    const question = this.particleRounds[this.particleIndex];
+    const isCorrect = answer === question.answer;
+    const feedback = document.getElementById("particleChallengeFeedback");
+    document.querySelectorAll("#particleChallengeOptions .particle-option").forEach(button => {
+      button.disabled = true;
+      if (button.textContent === question.answer) button.classList.add("is-answer");
+      else if (button.textContent === answer) button.classList.add("is-incorrect");
+    });
+    if (isCorrect) {
+      this.particleScore++;
+      feedback.textContent = `Acertou! ${question.note}`;
+      feedback.classList.add("is-correct");
+      window.japaneseQuiz?.playSound("correct");
+    } else {
+      feedback.textContent = `A partícula certa é ${question.answer}. ${question.note}`;
+      feedback.classList.add("is-wrong");
+      window.japaneseQuiz?.playSound("wrong");
+    }
+    document.getElementById("particleChallengeNext").textContent =
+      this.particleIndex + 1 === this.particleRounds.length ? "Ver resultado →" : "Próxima frase →";
+    document.getElementById("particleChallengeNext").style.display = "inline-flex";
+  }
+
+  nextParticleQuestion() {
+    this.particleIndex++;
+    if (this.particleIndex >= this.particleRounds.length) {
+      this.finishParticleChallenge();
+      return;
+    }
+    this.renderParticleQuestion();
+  }
+
+  finishParticleChallenge() {
+    document.getElementById("particleChallengeProgress").style.width = "100%";
+    document.getElementById("particleChallengeOptions").style.display = "none";
+    document.getElementById("particleChallengeFeedback").textContent = "";
+    document.getElementById("particleChallengeNext").style.display = "none";
+    document.getElementById("particleChallengeCounter").textContent = `${this.particleRounds.length} / ${this.particleRounds.length}`;
+    document.getElementById("particleChallengeFinalScore").textContent = `Você acertou ${this.particleScore} de ${this.particleRounds.length} frases.`;
+    document.getElementById("particleChallengeResult").style.display = "block";
+    if (this.particleScore === this.particleRounds.length) window.japaneseQuiz?.triggerConfetti();
+  }
+
+  /* ========================================================
+     3. JOGO DA MEMÓRIA JAPONÊS (MEMORY GAME)
      ======================================================== */
   startMemoryGame(mode = "hiragana") {
     const grid = document.getElementById("memoryGameGrid");

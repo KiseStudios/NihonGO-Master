@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Yuji+Boku&family=Instrument+Serif:ital@0;1&family=Noto+Serif+JP:wght@400;600&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
 
   <!-- Estilos Customizados -->
-  <link rel="stylesheet" href="css/style.css?v=kise-japan-1">
+  <link rel="stylesheet" href="css/style.css?v=kise-japan-10">
   <link rel="stylesheet" href="css/home.css?v=layered-2">
   <link rel="preload" as="image" href="telainicial2/optimized/kiseinitialjapan.webp" fetchpriority="high">
   <link rel="preload" as="image" href="telainicial2/optimized/kisejapansequence.webp">
@@ -51,6 +51,7 @@
           </div>
         </details>
         <a href="#kanji" data-screen="kanji" class="nav-item">Kanji</a>
+        <a href="#culture" data-screen="culture" class="nav-item">Cultura japonesa</a>
         <details class="ed-nav-group">
           <summary>Treinar <span aria-hidden="true">⌄</span></summary>
           <div class="ed-dropdown">
@@ -393,9 +394,8 @@
             livros.
           </p>
           <a
-            href="#advanced"
-            data-screen="advanced"
-            data-advanced-tab="yojijukugo"
+            href="#culture"
+            data-screen="culture"
             class="ed-button ed-button-light"
             >Explorar cultura japonesa <span class="ed-arrow" aria-hidden="true">↗</span></a
           >
@@ -1091,28 +1091,34 @@
          ========================================== -->
     <section id="screen-games" class="screen-view">
       <div class="section-header" style="text-align: center;">
-        <div class="section-badge">🎮 Desafios Práticos</div>
-        <h1 class="section-title">Arcade de Desafios Japoneses</h1>
+        <div class="section-badge">道場 • TREINO INTERATIVO</div>
+        <h1 class="section-title">Escolha sua missão</h1>
         <p class="section-subtitle" style="margin: 0 auto;">
-          Escolha um modo de jogo abaixo para treinar memorização visual, velocidade de reflexo ou estrutura de frases reais!
+          Treine leitura, escrita e gramática com desafios rápidos — cada rodada é uma nova conquista.
         </p>
       </div>
 
       <!-- Abas dos Mini-Games -->
-      <div style="display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;">
-        <button id="tabGameMemory" class="btn-primary" onclick="window.app.switchGameTab('memory')">
-          🎴 Jogo da Memória
+      <div class="game-mode-grid" role="tablist" aria-label="Escolha uma atividade">
+        <button id="tabGameMemory" class="btn-primary" role="tab" aria-selected="true" aria-controls="gameMemorySection" onclick="window.app.switchGameTab('memory')">
+          <span class="game-mode-icon">🎴</span><span><strong>Pares Kana</strong><small>Memória visual</small></span>
         </button>
-        <button id="tabGameSpeed" class="btn-outline" onclick="window.app.switchGameTab('speed')">
-          ⏱️ Contra o Tempo (30s)
+        <button id="tabGameSpeed" class="btn-outline" role="tab" aria-selected="false" aria-controls="gameSpeedSection" onclick="window.app.switchGameTab('speed')">
+          <span class="game-mode-icon">⚡</span><span><strong>Corrida 30s</strong><small>Reflexo & leitura</small></span>
         </button>
-        <button id="tabGameSentence" class="btn-outline" onclick="window.app.switchGameTab('sentence')">
-          🧩 Construtor de Frases
+        <button id="tabGameSentence" class="btn-outline" role="tab" aria-selected="false" aria-controls="gameSentenceSection" onclick="window.app.switchGameTab('sentence')">
+          <span class="game-mode-icon">🧩</span><span><strong>Monte a frase</strong><small>Ordem das palavras</small></span>
+        </button>
+        <button id="tabGameKana" class="btn-outline" role="tab" aria-selected="false" aria-controls="gameKanaSection" onclick="window.app.switchGameTab('kana')">
+          <span class="game-mode-icon">✍️</span><span><strong>Dojo de Kana</strong><small>Digite a leitura</small></span>
+        </button>
+        <button id="tabGameParticle" class="btn-outline" role="tab" aria-selected="false" aria-controls="gameParticleSection" onclick="window.app.switchGameTab('particle')">
+          <span class="game-mode-icon" lang="ja">忍</span><span><strong>Ninja das partículas</strong><small>Complete a frase</small></span>
         </button>
       </div>
 
       <!-- MINI-GAME 1: JOGO DA MEMÓRIA -->
-      <div id="gameMemorySection" class="quiz-box" style="max-width: 640px;">
+      <div id="gameMemorySection" class="quiz-box" role="tabpanel" aria-labelledby="tabGameMemory" style="max-width: 640px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
           <div style="display: flex; gap: 0.35rem;">
             <button class="tab-pill active memory-mode-btn" data-mode="hiragana" onclick="window.japaneseGames.startMemoryGame('hiragana')">Hiragana</button>
@@ -1147,7 +1153,7 @@
       </div>
 
       <!-- MINI-GAME 2: SPEED RUN (CONTRA O TEMPO - 30s) -->
-      <div id="gameSpeedSection" class="quiz-box" style="display: none; max-width: 640px;">
+      <div id="gameSpeedSection" class="quiz-box" role="tabpanel" aria-labelledby="tabGameSpeed" style="display: none; max-width: 640px;">
         <!-- Banner Inicial -->
         <div id="speedStartBanner" style="text-align: center; padding: 1.5rem 0;">
           <div style="font-size: 3.5rem; margin-bottom: 0.75rem;">⏱️</div>
@@ -1214,7 +1220,7 @@
       </div>
 
       <!-- MINI-GAME 3: CONSTRUTOR DE FRASES (SENTENCE BUILDER) -->
-      <div id="gameSentenceSection" class="quiz-box" style="display: none; max-width: 680px;">
+      <div id="gameSentenceSection" class="quiz-box" role="tabpanel" aria-labelledby="tabGameSentence" style="display: none; max-width: 680px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
           <span class="section-badge" style="margin: 0;">Gramática N5</span>
           <span id="sbCounter" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">Frase 1 de 6</span>
@@ -1253,6 +1259,65 @@
           </button>
         </div>
       </div>
+
+      <!-- MINI-GAME 4: DOJO DE KANA -->
+      <section id="gameKanaSection" class="game-challenge-panel" role="tabpanel" style="display: none;" aria-labelledby="kanaChallengeTitle">
+        <div class="game-panel-heading">
+          <span class="game-panel-kicker">MISSÃO 04 · LEITURA ATIVA</span>
+          <span id="kanaChallengeCounter" class="game-round-counter">1 / 10</span>
+        </div>
+        <h2 id="kanaChallengeTitle">Dojo de Kana</h2>
+        <p class="game-panel-description">Leia o caractere e digite sua leitura em romaji. Resposta rápida, sem alternativas.</p>
+        <div class="kana-script-switch" role="group" aria-label="Escolha o alfabeto">
+          <button type="button" class="active" data-kana-mode="hiragana">あ Hiragana</button>
+          <button type="button" data-kana-mode="katakana">ア Katakana</button>
+        </div>
+        <div class="game-challenge-progress"><span id="kanaChallengeProgress"></span></div>
+        <div class="kana-challenge-card">
+          <span id="kanaChallengeGroup" class="kana-challenge-group">HIRAGANA</span>
+          <div id="kanaChallengeCharacter" class="kana-challenge-character">あ</div>
+          <button type="button" id="kanaChallengeAudio" class="kana-audio-button" aria-label="Ouvir caractere">🔊 Ouvir som</button>
+        </div>
+        <form id="kanaChallengeForm" class="kana-answer-form">
+          <label for="kanaChallengeInput">Qual é a leitura?</label>
+          <div>
+            <input id="kanaChallengeInput" type="text" inputmode="text" autocomplete="off" autocapitalize="none" placeholder="Digite em romaji" required>
+            <button type="submit" class="btn-primary">Conferir ↵</button>
+          </div>
+        </form>
+        <p id="kanaChallengeFeedback" class="game-challenge-feedback" aria-live="polite"></p>
+        <div id="kanaChallengeResult" class="game-challenge-result" style="display: none;">
+          <span class="game-result-icon">🌸</span>
+          <h3>Missão concluída</h3>
+          <p id="kanaChallengeFinalScore"></p>
+          <button type="button" class="btn-primary" id="kanaChallengeRestart">Treinar novamente</button>
+        </div>
+      </section>
+
+      <!-- MINI-GAME 5: NINJA DAS PARTÍCULAS -->
+      <section id="gameParticleSection" class="game-challenge-panel particle-challenge-panel" role="tabpanel" style="display: none;" aria-labelledby="particleChallengeTitle">
+        <div class="game-panel-heading">
+          <span class="game-panel-kicker">MISSÃO 05 · GRAMÁTICA EM CONTEXTO</span>
+          <span id="particleChallengeCounter" class="game-round-counter">1 / 8</span>
+        </div>
+        <h2 id="particleChallengeTitle">Ninja das partículas</h2>
+        <p class="game-panel-description">Escolha a partícula que completa a frase. Observe a função de cada palavra, não apenas a tradução.</p>
+        <div class="game-challenge-progress"><span id="particleChallengeProgress"></span></div>
+        <div class="particle-prompt-card">
+          <span id="particleChallengeLevel" class="particle-level-tag">JLPT N5</span>
+          <p id="particleChallengeSentence" lang="ja"></p>
+          <p id="particleChallengeTranslation"></p>
+        </div>
+        <div id="particleChallengeOptions" class="particle-options" role="group" aria-label="Escolha a partícula"></div>
+        <div id="particleChallengeFeedback" class="game-challenge-feedback particle-feedback" aria-live="polite"></div>
+        <button type="button" class="btn-primary particle-next-button" id="particleChallengeNext" style="display: none;">Próxima frase →</button>
+        <div id="particleChallengeResult" class="game-challenge-result" style="display: none;">
+          <span class="game-result-icon" lang="ja">忍</span>
+          <h3>Treino encerrado</h3>
+          <p id="particleChallengeFinalScore"></p>
+          <button type="button" class="btn-primary" id="particleChallengeRestart">Nova rodada</button>
+        </div>
+      </section>
     </section>
 
     <!-- ==========================================
@@ -1336,9 +1401,9 @@
           <div class="section-badge" style="background: linear-gradient(135deg, rgba(225, 29, 72, 0.15), rgba(139, 92, 246, 0.15)); color: var(--primary);">
             🎌 MODO AVANÇADO • JLPT N5 AO N1 & ANIME STUDIO
           </div>
-          <h1 class="section-title">Estudos Avançados & Imersão Anime</h1>
+          <h1 class="section-title">Imersão em Anime & Listening</h1>
           <p class="section-subtitle">
-            Domine as estruturas formais do exame JLPT e pratique sua compreensão auditiva e fala (shadowing) com cenas consagradas dos animes mais populares do mundo.
+            Explore sua série favorita na biblioteca ou entre no Listening Lab para praticar escuta, pronúncia e shadowing.
           </p>
         </div>
         <button class="btn-outline" onclick="window.japaneseApp.navigateTo('home')" style="border-radius: 9999px; padding: 0.5rem 1.25rem;">
@@ -1349,7 +1414,10 @@
       <!-- Abas Principais do Modo Avançado -->
       <div class="adv-tabs-bar">
         <button class="adv-tab-btn active" data-tab="anime">
-          <span>🎬 Cenas & Falas de Animes (Shadowing & Vídeos)</span>
+          <span>🎞️ Explorar animes</span>
+        </button>
+        <button class="adv-tab-btn" data-tab="listening">
+          <span>🎧 Listening lab</span>
         </button>
         <button class="adv-tab-btn" data-tab="jlpt">
           <span>⛩️ Trilha JLPT N5 ao N1 (Gramática & Kanjis)</span>
@@ -1362,20 +1430,55 @@
         </button>
       </div>
 
-      <!-- PAINEL 1: CENAS E FALAS DE ANIMES (SHADOWING & VÍDEO) -->
+      <!-- PAINEL 1: BIBLIOTECA DE ANIMES -->
       <div id="adv-tab-anime" class="adv-tab-content" style="display: block;">
-        <!-- Barra de Filtros e Busca -->
+        <section class="anime-library-hero" aria-labelledby="anime-library-title">
+          <div class="anime-library-orbit" aria-hidden="true"><span>物語</span></div>
+          <div class="anime-library-copy">
+            <span class="anime-library-kicker">ANIME ARCHIVE <span>•</span> 物語を選ぶ</span>
+            <h2 id="anime-library-title">Que história<br><em>vamos explorar?</em></h2>
+            <p>Escolha um universo, conheça os personagens e leve sua curiosidade para as sessões de japonês.</p>
+            <a href="#advanced" class="anime-library-link" data-tab="listening">Ir direto para o Listening Lab <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="anime-library-stats" id="animeLibraryStats" aria-label="Acervo de animes"></div>
+        </section>
+        <div class="anime-library-heading">
+          <div><span>ESCOLHA SEU PRÓXIMO UNIVERSO</span><h3>Biblioteca de histórias</h3></div>
+          <p id="animeLibraryCount"></p>
+        </div>
+        <div id="animeLibraryGrid" class="anime-library-grid"></div>
+      </div>
+
+      <!-- PAINEL 2: LISTENING LAB -->
+      <div id="adv-tab-listening" class="adv-tab-content listening-lab-panel" style="display: none;">
+        <section class="listening-console-hero" aria-labelledby="listening-console-title">
+          <div class="listening-console-topline"><span>FIELD RECORDING 001</span><span>日本語 · LISTENING ROOM</span></div>
+          <div class="listening-console-content">
+            <div>
+              <p class="listening-console-kicker">ESCUTA ATIVA <span>•</span> SHADOWING</p>
+              <h2 id="listening-console-title">Ouça de novo.<br><em>Dessa vez, perceba.</em></h2>
+              <p>Ritmo, partículas e intenção: escolha uma sessão e escute além das palavras.</p>
+            </div>
+            <div class="listening-soundwave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="listening-console-footer"><span>01 — ESCUTE</span><span>02 — ACOMPANHE</span><span>03 — REPITA EM VOZ ALTA</span></div>
+        </section>
+        <div class="listening-session-heading">
+          <div><span>SESSÕES DE PRÁTICA</span><h3>Encontre sua próxima escuta</h3></div>
+          <button type="button" class="listening-back-link" data-tab="anime">← Voltar à biblioteca</button>
+        </div>
         <div class="anime-filters-bar">
           <div class="af-select-group">
-            <label for="advAnimeFilterSelect">Anime:</label>
+            <label for="advAnimeFilterSelect">Série</label>
             <select id="advAnimeFilterSelect" class="af-select">
               <option value="all">Todos os Animes</option>
               <option value="Jujutsu Kaisen">Jujutsu Kaisen</option>
               <option value="Shingeki no Kyojin (Attack on Titan)">Attack on Titan</option>
-              <option value="Kimetsu no Yaiba (Demon Slayer)">Demon Slayer</option>
+              <option value="Kimetsu no Yaiba">Demon Slayer</option>
               <option value="One Piece">One Piece</option>
               <option value="Naruto Shippuden">Naruto Shippuden</option>
-              <option value="Sousou no Frieren (Frieren e a Jornada para o Além)">Sousou no Frieren</option>
+              <option value="Sousou no Frieren">Sousou no Frieren</option>
+              <option value="Re:Zero − Starting Life in Another World">Re:Zero</option>
               <option value="Fullmetal Alchemist: Brotherhood">Fullmetal Alchemist</option>
               <option value="Death Note">Death Note</option>
               <option value="Hunter x Hunter">Hunter x Hunter</option>
@@ -1383,37 +1486,42 @@
               <option value="Vinland Saga">Vinland Saga</option>
               <option value="Neon Genesis Evangelion">Evangelion</option>
               <option value="Bleach">Bleach</option>
+              <option value="Kimi no Na wa (Your Name)">Your Name</option>
             </select>
           </div>
-
           <div class="af-select-group">
-            <label for="advLevelFilterSelect">Nível JLPT:</label>
+            <label for="advLevelFilterSelect">Nível</label>
             <select id="advLevelFilterSelect" class="af-select">
               <option value="all">Todos os Níveis</option>
-              <option value="n4">JLPT N4</option>
-              <option value="n3">JLPT N3</option>
-              <option value="n2">JLPT N2</option>
-              <option value="n1">JLPT N1</option>
+              <option value="n5">JLPT N5</option><option value="n4">JLPT N4</option>
+              <option value="n3">JLPT N3</option><option value="n2">JLPT N2</option><option value="n1">JLPT N1</option>
             </select>
           </div>
-
           <div class="af-search-group">
-            <input type="text" id="advAnimeSearchInput" class="af-search-input" placeholder="🔍 Buscar personagem, fala ou anime...">
+            <input type="text" id="advAnimeSearchInput" class="af-search-input" placeholder="Buscar série, personagem ou expressão...">
           </div>
-
-          <button id="toggleAnimeFuriganaBtn" class="af-toggle-furigana-btn" title="Ocultar Furigana e Tradução para testar seu ouvido">
+          <button id="toggleAnimeFuriganaBtn" class="af-toggle-furigana-btn" title="Ocultar leitura e tradução para testar sua escuta">
             👁️ Furigana & Tradução Visíveis
           </button>
         </div>
-
-        <!-- Grid de Cards de Falas de Anime -->
-        <div id="animeScenesGrid" class="anime-scenes-grid">
-          <!-- Renderizado dinamicamente via js/advanced.js -->
-        </div>
+        <div class="listening-session-meta"><span id="listeningSessionCount"></span><span>ÁUDIO SINTETIZADO · VELOCIDADE AJUSTÁVEL</span></div>
+        <div id="animeScenesGrid" class="anime-scenes-grid"></div>
       </div>
 
       <!-- PAINEL 2: TRILHA JLPT N5 AO N1 -->
       <div id="adv-tab-jlpt" class="adv-tab-content" style="display: none;">
+        <section class="jlpt-route-banner" aria-labelledby="jlpt-route-title">
+          <div class="jlpt-route-mark" aria-hidden="true">道</div>
+          <div>
+            <span class="jlpt-route-kicker">SUA ROTA DE ESTUDO <span>•</span> 五段階</span>
+            <h2 id="jlpt-route-title">Cinco níveis. Um passo de cada vez.</h2>
+            <p>Escolha um estágio para revisar gramática, kanji e vocabulário. Os exemplos têm áudio para você estudar leitura e escuta juntos.</p>
+          </div>
+          <div class="jlpt-route-steps" aria-label="Níveis do JLPT">
+            <span data-route-level="n5">N5</span><i></i><span data-route-level="n4">N4</span><i></i><span data-route-level="n3">N3</span><i></i><span data-route-level="n2">N2</span><i></i><span data-route-level="n1">N1</span>
+          </div>
+        </section>
+
         <!-- Seletor de Níveis JLPT -->
         <div class="jlpt-selector-container">
           <span class="jlpt-sel-label">Selecione o Nível do Exame JLPT:</span>
@@ -1469,6 +1577,243 @@
           <!-- Renderizado via advanced.js -->
         </div>
       </div>
+    </section>
+
+    <!-- ==========================================
+         TELA 9: CULTURA JAPONESA
+         ========================================== -->
+    <section id="screen-culture" class="screen-view culture-view">
+      <header class="culture-page-header">
+        <a href="#home" class="culture-back-link" data-screen="home">← Voltar ao início</a>
+        <span class="culture-page-index">KISE JAPAN <span>•</span> CADERNO CULTURAL 01</span>
+      </header>
+
+      <nav class="culture-subtabs" role="tablist" aria-label="Seções de Cultura japonesa">
+        <button type="button" id="cultureTabOverview" class="culture-subtab active" role="tab" aria-selected="true" aria-controls="culturePanelOverview" data-culture-tab="overview">
+          <span lang="ja">文化</span><span>Cultura</span>
+        </button>
+        <button type="button" id="cultureTabJlpt" class="culture-subtab" role="tab" aria-selected="false" aria-controls="culturePanelJlpt" data-culture-tab="jlpt">
+          <span lang="ja">学習の道</span><span>Estudos JLPT</span>
+        </button>
+        <button type="button" id="cultureTabActivities" class="culture-subtab" role="tab" aria-selected="false" aria-controls="culturePanelActivities" data-culture-tab="activities">
+          <span lang="ja">練習</span><span>Atividades</span>
+        </button>
+      </nav>
+
+      <div id="culturePanelOverview" class="culture-tab-panel" role="tabpanel" aria-labelledby="cultureTabOverview">
+      <section class="culture-hero" aria-labelledby="culture-page-title">
+        <div class="culture-hero-copy">
+          <span class="culture-eyebrow"><span lang="ja">暮らしと文化</span> · VIDA E CULTURA</span>
+          <h1 id="culture-page-title">O Japão por<br>trás do <em>cotidiano.</em></h1>
+          <p>Um guia para observar hábitos, sabores, estações e lugares — e entender como a língua ganha sentido na vida real.</p>
+          <a href="#culture-everyday" class="culture-hero-link">Começar a explorar <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="culture-hero-art" aria-hidden="true">
+          <span class="culture-art-sun"></span>
+          <span class="culture-art-kanji" lang="ja">和</span>
+          <span class="culture-art-caption">WA · HARMONIA<br>NO COTIDIANO</span>
+          <span class="culture-art-stamp" lang="ja">日本</span>
+        </div>
+        <div class="culture-hero-note">
+          <span>UM OLHAR ATENTO</span>
+          <p>Costumes mudam entre regiões, gerações e pessoas. Curiosidade e respeito são sempre bons começos.</p>
+        </div>
+      </section>
+
+      <section class="culture-everyday culture-section" id="culture-everyday" aria-labelledby="culture-everyday-title">
+        <div class="culture-section-heading">
+          <div>
+            <span class="culture-section-kicker">01 — PEQUENOS GESTOS, MUITO CONTEXTO</span>
+            <h2 id="culture-everyday-title">A cultura mora nos detalhes.</h2>
+          </div>
+          <p>Mais do que regras, são pistas para perceber o espaço compartilhado e se comunicar com consideração.</p>
+        </div>
+        <div class="culture-everyday-grid">
+          <article class="culture-detail-card culture-detail-card--red">
+            <span class="culture-card-number">01 / CHEGADAS</span>
+            <span class="culture-card-mark" lang="ja">礼</span>
+            <h3>Cumprimentar também é contexto</h3>
+            <p>Uma leve inclinação da cabeça pode acompanhar saudações. A profundidade e a formalidade dependem da situação; não é preciso exagerar.</p>
+            <div class="culture-practice"><span>PARA COMEÇAR</span><strong lang="ja">おはようございます</strong><small>Ohayō gozaimasu · Bom dia (educado)</small></div>
+          </article>
+          <article class="culture-detail-card culture-detail-card--green">
+            <span class="culture-card-number">02 / EM CASA</span>
+            <span class="culture-card-mark" lang="ja">玄</span>
+            <h3>O genkan marca uma passagem</h3>
+            <p>Na entrada de muitas casas, o genkan separa o exterior do espaço interno. É comum deixar os sapatos ali e usar chinelos próprios da casa.</p>
+            <div class="culture-practice"><span>UMA FRASE ÚTIL</span><strong lang="ja">おじゃまします</strong><small>Ojamashimasu · Com licença por entrar</small></div>
+          </article>
+          <article class="culture-detail-card culture-detail-card--blue">
+            <span class="culture-card-number">03 / À MESA</span>
+            <span class="culture-card-mark" lang="ja">食</span>
+            <h3>Uma refeição começa com palavras</h3>
+            <p>Antes de comer, muitas pessoas dizem itadakimasu; ao terminar, gochisōsama deshita. As expressões agradecem a refeição e quem a preparou.</p>
+            <div class="culture-practice"><span>ANTES DA REFEIÇÃO</span><strong lang="ja">いただきます</strong><small>Itadakimasu · Agradecimento antes de comer</small></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="culture-seasons culture-section" aria-labelledby="culture-seasons-title">
+        <div class="culture-section-heading">
+          <div>
+            <span class="culture-section-kicker">02 — O ANO EM MOVIMENTO</span>
+            <h2 id="culture-seasons-title">Quatro estações, muitos ritmos.</h2>
+          </div>
+          <p>O clima e as datas variam bastante de norte a sul. Esta é uma pequena janela para algumas tradições sazonais.</p>
+        </div>
+        <div class="culture-season-grid">
+          <article class="culture-season-card">
+            <span class="culture-season-symbol" lang="ja">春</span><span class="culture-season-label">PRIMAVERA</span>
+            <h3>Flores e recomeços</h3>
+            <p>A floração das sakura é acompanhada em diferentes regiões; hanami é o costume de apreciar as flores, muitas vezes em encontros ao ar livre.</p>
+            <span class="culture-season-word" lang="ja">花見 <small>hanami</small></span>
+          </article>
+          <article class="culture-season-card">
+            <span class="culture-season-symbol" lang="ja">夏</span><span class="culture-season-label">VERÃO</span>
+            <h3>Noites de matsuri</h3>
+            <p>Festivais locais podem reunir barracas, música, danças e fogos. Cada matsuri tem sua própria história e forma de celebração.</p>
+            <span class="culture-season-word" lang="ja">祭り <small>matsuri</small></span>
+          </article>
+          <article class="culture-season-card">
+            <span class="culture-season-symbol" lang="ja">秋</span><span class="culture-season-label">OUTONO</span>
+            <h3>Folhas em transformação</h3>
+            <p>O momijigari é o passeio para observar as folhas avermelhadas. A mudança de cores começa em épocas diferentes conforme a região.</p>
+            <span class="culture-season-word" lang="ja">紅葉 <small>momiji</small></span>
+          </article>
+          <article class="culture-season-card">
+            <span class="culture-season-symbol" lang="ja">冬</span><span class="culture-season-label">INVERNO</span>
+            <h3>Calor compartilhado</h3>
+            <p>Em muitas casas, o kotatsu — uma mesa baixa com aquecimento e cobertor — vira ponto de encontro nos dias frios.</p>
+            <span class="culture-season-word" lang="ja">炬燵 <small>kotatsu</small></span>
+          </article>
+        </div>
+      </section>
+
+      <section class="culture-regions culture-section" aria-labelledby="culture-regions-title">
+        <div class="culture-section-heading">
+          <div>
+            <span class="culture-section-kicker">03 — UM ARQUIPÉLAGO DE IDENTIDADES</span>
+            <h2 id="culture-regions-title">O Japão não cabe em uma só paisagem.</h2>
+          </div>
+          <p>Regiões têm histórias, ingredientes, sotaques e modos de viver próprios. Quatro pontos para começar a viagem.</p>
+        </div>
+        <div class="culture-region-list">
+          <article class="culture-region-card">
+            <span class="culture-region-id">01</span><div><span class="culture-region-jp" lang="ja">北海道</span><h3>Hokkaido</h3></div>
+            <p>Conhecida por invernos rigorosos, paisagens amplas e uma forte presença de laticínios e frutos do mar na culinária local.</p><span class="culture-region-tag">NORTE · NATUREZA</span>
+          </article>
+          <article class="culture-region-card">
+            <span class="culture-region-id">02</span><div><span class="culture-region-jp" lang="ja">関東</span><h3>Kantō</h3></div>
+            <p>Área de Tóquio e de grandes centros urbanos, com bairros de ritmos muito distintos e redes de transporte extensas.</p><span class="culture-region-tag">LESTE · METRÓPOLE</span>
+          </article>
+          <article class="culture-region-card">
+            <span class="culture-region-id">03</span><div><span class="culture-region-jp" lang="ja">関西</span><h3>Kansai</h3></div>
+            <p>Região que inclui Kyoto, Osaka e Nara, marcada por antigas capitais, patrimônios históricos e tradições culinárias diversas.</p><span class="culture-region-tag">OESTE · HISTÓRIA</span>
+          </article>
+          <article class="culture-region-card">
+            <span class="culture-region-id">04</span><div><span class="culture-region-jp" lang="ja">沖縄</span><h3>Okinawa</h3></div>
+            <p>Um conjunto de ilhas subtropicais com uma história própria, incluindo a herança do Reino de Ryūkyū, música e culinária singulares.</p><span class="culture-region-tag">SUL · ILHAS</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="culture-language" aria-labelledby="culture-language-title">
+        <div class="culture-language-heading">
+          <span class="culture-section-kicker">04 — LEVE AS PALAVRAS COM VOCÊ</span>
+          <h2 id="culture-language-title">Frases para estar presente.</h2>
+          <p>Expressões simples para situações reais. Toque no ícone para ouvir a pronúncia.</p>
+        </div>
+        <div class="culture-phrase-grid">
+          <article class="culture-phrase-card"><span class="culture-phrase-context">AO AGRADECER</span><strong lang="ja">ありがとうございます</strong><span>Arigatō gozaimasu</span><small>Muito obrigado(a).</small><button type="button" aria-label="Ouvir arigatō gozaimasu" onclick="window.app.speakJapanese('ありがとうございます')">↗ <span>Ouvir</span></button></article>
+          <article class="culture-phrase-card"><span class="culture-phrase-context">AO PEDIR COM EDUCAÇÃO</span><strong lang="ja">お願いします</strong><span>Onegaishimasu</span><small>Por favor / conto com você.</small><button type="button" aria-label="Ouvir onegaishimasu" onclick="window.app.speakJapanese('お願いします')">↗ <span>Ouvir</span></button></article>
+          <article class="culture-phrase-card"><span class="culture-phrase-context">AO PEDIR DESCULPAS</span><strong lang="ja">すみません</strong><span>Sumimasen</span><small>Com licença / desculpe.</small><button type="button" aria-label="Ouvir sumimasen" onclick="window.app.speakJapanese('すみません')">↗ <span>Ouvir</span></button></article>
+        </div>
+        <p class="culture-source-note">Um ponto de partida, não um manual de regras: observe o contexto, respeite as diferenças e pergunte quando tiver dúvida.</p>
+      </section>
+      </div>
+
+      <section id="culturePanelJlpt" class="culture-tab-panel culture-jlpt-panel" role="tabpanel" aria-labelledby="cultureTabJlpt" hidden>
+        <header class="culture-study-hero">
+          <div>
+            <span class="culture-section-kicker">TRILHA DE ESTUDO · N5 AO N1</span>
+            <h1>Do primeiro passo<br>à leitura <em>avançada.</em></h1>
+            <p>Revise gramática, kanji e vocabulário com exemplos contextualizados e áudio. Escolha um nível para abrir o conteúdo.</p>
+          </div>
+          <span class="culture-study-mark" lang="ja" aria-hidden="true">学</span>
+        </header>
+        <div class="culture-jlpt-level-picker" role="group" aria-label="Escolha o nível JLPT">
+          <button type="button" class="culture-level-button active" data-culture-level="n5" aria-pressed="true">N5 <small>Iniciante</small></button>
+          <button type="button" class="culture-level-button" data-culture-level="n4" aria-pressed="false">N4 <small>Básico</small></button>
+          <button type="button" class="culture-level-button" data-culture-level="n3" aria-pressed="false">N3 <small>Intermediário</small></button>
+          <button type="button" class="culture-level-button" data-culture-level="n2" aria-pressed="false">N2 <small>Avançado</small></button>
+          <button type="button" class="culture-level-button" data-culture-level="n1" aria-pressed="false">N1 <small>Proficiente</small></button>
+        </div>
+        <section class="culture-study-dashboard" aria-label="Seu plano de estudo">
+          <div class="culture-study-mission">
+            <div class="culture-mission-heading">
+              <div><span class="culture-section-kicker">MISSÃO DO NÍVEL</span><h2 id="cultureMissionTitle">Construa sua base</h2></div>
+              <span class="culture-xp-badge"><span lang="ja">道</span> <strong id="cultureStudyXp">0 XP</strong></span>
+            </div>
+            <p id="cultureMissionDescription">Complete três etapas e faça um desafio para consolidar o que aprendeu.</p>
+            <div class="culture-mission-progress" role="progressbar" aria-label="Etapas de estudo concluídas" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0"><span id="cultureMissionProgress"></span></div>
+            <div class="culture-mission-steps">
+              <button type="button" class="culture-mission-step" data-study-step="grammar"><span>01</span><span><strong>Investigue a gramática</strong><small>Leia os pontos-chave e os exemplos.</small></span><span class="culture-step-status">○</span></button>
+              <button type="button" class="culture-mission-step" data-study-step="kanji"><span>02</span><span><strong>Reconheça os kanji</strong><small>Revise leitura, significado e contexto.</small></span><span class="culture-step-status">○</span></button>
+              <button type="button" class="culture-mission-step" data-study-step="vocab"><span>03</span><span><strong>Fixe o vocabulário</strong><small>Leia as palavras e ouça a pronúncia.</small></span><span class="culture-step-status">○</span></button>
+            </div>
+            <button type="button" class="culture-mission-cta" id="cultureMissionChallenge">Enfrentar desafio do nível <span aria-hidden="true">↗</span></button>
+          </div>
+          <aside class="culture-study-notes" aria-labelledby="cultureNotesTitle">
+            <div class="culture-notes-topline"><span lang="ja" aria-hidden="true">書</span><span>SEU CADERNO</span><span id="cultureNotesSaved" role="status">Salvo neste dispositivo</span></div>
+            <h2 id="cultureNotesTitle">Anote para lembrar.</h2>
+            <p>Registre uma regra, uma dúvida ou um exemplo. Cada nível tem suas próprias anotações.</p>
+            <label class="sr-only" for="cultureStudyNote">Anotações do nível JLPT atual</label>
+            <textarea id="cultureStudyNote" maxlength="2000" placeholder="Ex.: 〜てから mostra que uma ação acontece antes da outra..."></textarea>
+            <div class="culture-note-footer"><span id="cultureNoteCount">0 / 2000</span><button type="button" id="cultureClearNote">Limpar nota</button></div>
+          </aside>
+        </section>
+        <div id="cultureJlptContent" class="culture-jlpt-content"></div>
+      </section>
+
+      <section id="culturePanelActivities" class="culture-tab-panel culture-activities-panel" role="tabpanel" aria-labelledby="cultureTabActivities" hidden>
+        <header class="culture-study-hero culture-activities-hero">
+          <div>
+            <span class="culture-section-kicker">PRÁTICA ATIVA · TREINE E CONSOLIDE</span>
+            <h1>Transforme estudo<br>em <em>memória.</em></h1>
+            <p>Faça rodadas rápidas de gramática, kanji e vocabulário. Misture os conteúdos ou escolha um tema e nível específico.</p>
+          </div>
+          <span class="culture-study-mark" lang="ja" aria-hidden="true">練</span>
+        </header>
+        <div class="culture-activity-controls">
+          <label for="cultureActivityLevel">Nível</label>
+          <select id="cultureActivityLevel">
+            <option value="all">Todos os níveis</option>
+            <option value="n5">JLPT N5</option><option value="n4">JLPT N4</option>
+            <option value="n3">JLPT N3</option><option value="n2">JLPT N2</option><option value="n1">JLPT N1</option>
+          </select>
+          <div class="culture-activity-modes" role="group" aria-label="Tipo de exercício">
+            <button type="button" class="active" data-culture-activity="mixed" aria-pressed="true">Misto</button>
+            <button type="button" data-culture-activity="grammar" aria-pressed="false">Gramática</button>
+            <button type="button" data-culture-activity="kanji" aria-pressed="false">Kanji</button>
+            <button type="button" data-culture-activity="vocab" aria-pressed="false">Vocabulário</button>
+          </div>
+        </div>
+        <section class="culture-quiz-card" aria-labelledby="cultureQuizTitle">
+          <div class="culture-quiz-topline">
+            <div><span class="culture-section-kicker">DESAFIO JLPT</span><h2 id="cultureQuizTitle">Uma pergunta por vez.</h2></div>
+            <span id="cultureQuizCounter" class="culture-quiz-counter">1 / 10</span>
+          </div>
+          <div class="culture-quiz-progress" role="progressbar" aria-label="Progresso do desafio" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><span id="cultureQuizProgress"></span></div>
+          <div class="culture-question" id="cultureQuestion" aria-live="polite"></div>
+          <div id="cultureAnswerOptions" class="culture-answer-options"></div>
+          <p id="cultureQuizFeedback" class="culture-quiz-feedback" aria-live="polite"></p>
+          <button type="button" id="cultureQuizNext" class="btn-primary culture-quiz-next" hidden>Próxima pergunta →</button>
+          <div id="cultureQuizResult" class="culture-quiz-result" hidden>
+            <span lang="ja">修了</span><h3>Rodada concluída</h3><p id="cultureQuizFinalScore"></p>
+            <button type="button" id="cultureQuizRestart" class="btn-primary">Jogar outra rodada</button>
+          </div>
+        </section>
+      </section>
     </section>
 
   </main>

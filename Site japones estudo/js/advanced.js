@@ -6,14 +6,14 @@
  * - 40 Gramáticas Oficiais JLPT (8 por nível: N5, N4, N3, N2, N1) com áudios e fórmulas
  * - 40 Kanjis Notáveis estruturados com leituras On'yomi, Kun'yomi e Jukugo
  * - 40 Vocabulários essenciais com áudio instantâneo
- * - 16 Cenas e Falas Icônicas de Anime com Player Cinematográfico 16:9,
- *   Áudio calibrado, Modo Shadowing, Legendas Karaokê e Links Oficiais Diretos
+ * - Exercícios originais de listening baseados em personagens e temas de anime,
+ *   com áudio sintetizado, modo shadowing e explicações de vocabulário
  * - Provérbios de 4 Kanjis (Yojijukugo - 四字熟語) com pronúncia e significado
  * - Guia comparativo de Gírias de Anime vs. Japonês Real
  */
 
 const ADVANCED_DATA = {
-  // 1. Dados Estruturados por Nível JLPT (N5 ao N1) - 8 Gramáticas, 8 Kanjis e 8 Vocabs cada
+  // 1. Conteúdo estruturado por nível JLPT (N5 ao N1)
   jlpt: {
     n5: {
       name: "JLPT N5 (Iniciante Consolidado)",
@@ -89,6 +89,22 @@ const ADVANCED_DATA = {
           exampleJp: "日曜日は買い物をしたり、映画を見たりします。",
           exampleRomaji: "Nichiyōbi wa kaimono o shitari, eiga o mitari shimasu.",
           examplePt: "Aos domingos eu faço compras, assisto a filmes, entre outras coisas."
+        },
+        {
+          pattern: "〜なければなりません (nakereba narimasen)",
+          meaning: "É necessário fazer... / Tenho que...",
+          explanation: "Expressa obrigação. Forma negativa informal do verbo + なければなりません.",
+          exampleJp: "明日までに宿題を出さなければなりません。",
+          exampleRomaji: "Ashita made ni shukudai o dasanakereba narimasen.",
+          examplePt: "Preciso entregar a tarefa até amanhã."
+        },
+        {
+          pattern: "〜から〜まで (kara... made)",
+          meaning: "De... até...",
+          explanation: "Marca os pontos inicial e final de um intervalo de tempo ou espaço.",
+          exampleJp: "駅から学校まで歩きます。",
+          exampleRomaji: "Eki kara gakkō made arukimasu.",
+          examplePt: "Vou a pé da estação até a escola."
         }
       ],
       kanji: [
@@ -99,7 +115,8 @@ const ADVANCED_DATA = {
         { char: "木", onyomi: "MOKU, BOKU", kunyomi: "ki", meaning: "Árvore, Madeira", example: "木曜日 (mokuyōbi - quinta-feira)" },
         { char: "金", onyomi: "KIN, KON", kunyomi: "kane", meaning: "Ouro, Dinheiro", example: "お金 (okane - dinheiro)" },
         { char: "土", onyomi: "DO, TO", kunyomi: "tsuchi", meaning: "Terra, Solo", example: "土曜日 (doyōbi - sábado)" },
-        { char: "人", onyomi: "JIN, NIN", kunyomi: "hito", meaning: "Pessoa", example: "日本人 (nihonjin - japonês)" }
+        { char: "人", onyomi: "JIN, NIN", kunyomi: "hito", meaning: "Pessoa", example: "日本人 (nihonjin - japonês)" },
+        { char: "年", onyomi: "NEN", kunyomi: "toshi", meaning: "Ano", example: "今年 (kotoshi - este ano)" }
       ],
       vocab: [
         { jp: "毎日", romaji: "mainichi", pt: "todos os dias" },
@@ -109,7 +126,9 @@ const ADVANCED_DATA = {
         { jp: "時間", romaji: "jikan", pt: "tempo / hora" },
         { jp: "家族", romaji: "kazoku", pt: "família" },
         { jp: "学校", romaji: "gakkō", pt: "escola" },
-        { jp: "天気", romaji: "tenki", pt: "clima / tempo meteorológico" }
+        { jp: "天気", romaji: "tenki", pt: "clima / tempo meteorológico" },
+        { jp: "電車", romaji: "densha", pt: "trem" },
+        { jp: "旅行", romaji: "ryokō", pt: "viagem / viajar" }
       ]
     },
 
@@ -187,6 +206,22 @@ const ADVANCED_DATA = {
           exampleJp: "明日は雪が降るかもしれません。",
           exampleRomaji: "Ashita wa yuki ga furu kamoshiremasen.",
           examplePt: "Pode ser que neve amanhã."
+        },
+        {
+          pattern: "〜ながら (nagara)",
+          meaning: "Enquanto faz...",
+          explanation: "Conecta duas ações simultâneas; o verbo principal aparece depois de ながら.",
+          exampleJp: "音楽を聞きながら、レポートを書きます。",
+          exampleRomaji: "Ongaku o kikinagara, repōto o kakimasu.",
+          examplePt: "Escrevo o relatório enquanto escuto música."
+        },
+        {
+          pattern: "〜ておく (te oku)",
+          meaning: "Fazer algo com antecedência / deixar preparado",
+          explanation: "A forma ておく indica uma ação feita agora para facilitar uma situação futura.",
+          exampleJp: "旅行の前に、切符を買っておきます。",
+          exampleRomaji: "Ryokō no mae ni, kippu o katte okimasu.",
+          examplePt: "Vou comprar a passagem antes da viagem."
         }
       ],
       kanji: [
@@ -197,7 +232,8 @@ const ADVANCED_DATA = {
         { char: "話", onyomi: "WA", kunyomi: "hana-su", meaning: "Falar, Conversa", example: "会話 (kaiwa - conversa)" },
         { char: "買", onyomi: "BAI", kunyomi: "ka-u", meaning: "Comprar", example: "買い物 (kaimono - compras)" },
         { char: "聞", onyomi: "BUN, MON", kunyomi: "ki-ku", meaning: "Ouvir, Perguntar", example: "新聞 (shinbun - jornal)" },
-        { char: "言", onyomi: "GEN, GON", kunyomi: "i-u, koto", meaning: "Dizer, Palavra", example: "言葉 (kotoba - palavra/idioma)" }
+        { char: "言", onyomi: "GEN, GON", kunyomi: "i-u, koto", meaning: "Dizer, Palavra", example: "言葉 (kotoba - palavra/idioma)" },
+        { char: "送", onyomi: "SŌ", kunyomi: "oku-ru", meaning: "Enviar, Levar", example: "送る (okuru - enviar)" }
       ],
       vocab: [
         { jp: "約束", romaji: "yakusoku", pt: "promessa / compromisso" },
@@ -207,7 +243,9 @@ const ADVANCED_DATA = {
         { jp: "都合", romaji: "tsugō", pt: "conveniência / disponibilidade de horário" },
         { jp: "連絡", romaji: "renraku", pt: "contato / comunicação" },
         { jp: "案内", romaji: "annai", pt: "guia / orientação" },
-        { jp: "遠慮", romaji: "enryo", pt: "hesitação / reserva social" }
+        { jp: "遠慮", romaji: "enryo", pt: "hesitação / reserva social" },
+        { jp: "片付ける", romaji: "katazukeru", pt: "arrumar / organizar" },
+        { jp: "乗り換え", romaji: "norikae", pt: "baldeação / troca de linha" }
       ]
     },
 
@@ -285,6 +323,22 @@ const ADVANCED_DATA = {
           exampleJp: "この店は値段のわりに、とても美味しい。",
           exampleRomaji: "Kono mise wa nedan no wari ni, totemo oishii.",
           examplePt: "Este restaurante é muito gostoso considerando o preço baixo."
+        },
+        {
+          pattern: "〜ばかり (bakari)",
+          meaning: "Acabar de fazer... / Ter acabado de...",
+          explanation: "Com verbo na forma た, indica uma ação concluída há pouco tempo.",
+          exampleJp: "今、駅に着いたばかりです。",
+          exampleRomaji: "Ima, eki ni tsuita bakari desu.",
+          examplePt: "Acabei de chegar à estação."
+        },
+        {
+          pattern: "〜ことになっている (koto ni natte iru)",
+          meaning: "Estar combinado / Ser a regra que...",
+          explanation: "Descreve uma decisão, agenda ou regra estabelecida, não apenas uma intenção pessoal.",
+          exampleJp: "会議は九時に始まることになっています。",
+          exampleRomaji: "Kaigi wa kuji ni hajimaru koto ni natte imasu.",
+          examplePt: "Ficou combinado que a reunião começa às nove."
         }
       ],
       kanji: [
@@ -295,7 +349,8 @@ const ADVANCED_DATA = {
         { char: "覚", onyomi: "KAKU", kunyomi: "obo-eru, sa-meru", meaning: "Memorizar, Despertar", example: "覚悟 (kakugo - determinação)" },
         { char: "限", onyomi: "GEN", kunyomi: "kagi-ru", meaning: "Limite, Restringir", example: "限界 (genkai - limite extremo)" },
         { char: "信", onyomi: "SHIN", kunyomi: "-", meaning: "Acreditar, Confiança", example: "信じる (shinjiru - acreditar)" },
-        { char: "感", onyomi: "KAN", kunyomi: "-", meaning: "Sentimento, Sensação", example: "感情 (kanjō - emoção)" }
+        { char: "感", onyomi: "KAN", kunyomi: "-", meaning: "Sentimento, Sensação", example: "感情 (kanjō - emoção)" },
+        { char: "率", onyomi: "RITSU, SOTSU", kunyomi: "hiki-iru", meaning: "Taxa, Proporção; liderar", example: "成功率 (seikōritsu - taxa de sucesso)" }
       ],
       vocab: [
         { jp: "限界", romaji: "genkai", pt: "limite / fronteira" },
@@ -305,7 +360,9 @@ const ADVANCED_DATA = {
         { jp: "絶望", romaji: "zetsubō", pt: "desespero profundo" },
         { jp: "希望", romaji: "kibō", pt: "esperança" },
         { jp: "挑戦", romaji: "chōsen", pt: "desafio" },
-        { jp: "信頼", romaji: "shinrai", pt: "confiança mútua" }
+        { jp: "信頼", romaji: "shinrai", pt: "confiança mútua" },
+        { jp: "影響", romaji: "eikyō", pt: "influência / impacto" },
+        { jp: "改善", romaji: "kaizen", pt: "melhoria / aperfeiçoamento" }
       ]
     },
 
@@ -383,6 +440,22 @@ const ADVANCED_DATA = {
           exampleJp: "物価は上がる一方だ。",
           exampleRomaji: "Bukka wa agaru ippō da.",
           examplePt: "O custo de vida não para de subir."
+        },
+        {
+          pattern: "〜に伴って (ni tomonatte)",
+          meaning: "À medida que... / Em consequência de...",
+          explanation: "Indica duas mudanças que avançam juntas; aparece com frequência em textos formais.",
+          exampleJp: "人口の増加に伴って、交通量も増えている。",
+          exampleRomaji: "Jinkō no zōka ni tomonatte, kōtsūryō mo fuete iru.",
+          examplePt: "Com o aumento da população, o volume de tráfego também está crescendo."
+        },
+        {
+          pattern: "〜とは限らない (to wa kagiranai)",
+          meaning: "Não necessariamente... / Não se pode afirmar que...",
+          explanation: "Mostra que uma ideia geralmente aceita não é verdadeira em todos os casos.",
+          exampleJp: "高い商品が、必ずしも良いとは限らない。",
+          exampleRomaji: "Takai shōhin ga, kanarazushimo yoi to wa kagiranai.",
+          examplePt: "Produtos caros não são necessariamente bons."
         }
       ],
       kanji: [
@@ -393,7 +466,8 @@ const ADVANCED_DATA = {
         { char: "征", onyomi: "SEI", kunyomi: "-", meaning: "Subjugar, Conquistar", example: "征服 (seifuku - conquista)" },
         { char: "創", onyomi: "SŌ", kunyomi: "tsuku-ru", meaning: "Criar, Originar", example: "創造 (sōzō - criação)" },
         { char: "誇", onyomi: "KO", kunyomi: "hoko-ru", meaning: "Orgulho, Vangloriar-se", example: "誇り (hokori - orgulho)" },
-        { char: "統", onyomi: "TŌ", kunyomi: "su-beru", meaning: "Unificar, Governar", example: "統一 (tōitsu - unificação)" }
+        { char: "統", onyomi: "TŌ", kunyomi: "su-beru", meaning: "Unificar, Governar", example: "統一 (tōitsu - unificação)" },
+        { char: "概", onyomi: "GAI", kunyomi: "-", meaning: "Resumo, Geral", example: "概念 (gainen - conceito)" }
       ],
       vocab: [
         { jp: "矛盾", romaji: "mujun", pt: "contradição" },
@@ -403,7 +477,9 @@ const ADVANCED_DATA = {
         { jp: "主観的", romaji: "shukanteki", pt: "subjetivo" },
         { jp: "客観的", romaji: "kyakkanteki", pt: "objetivo / imparcial" },
         { jp: "潜在能力", romaji: "senzai nōryoku", pt: "potencial latente" },
-        { jp: "葛藤", romaji: "kattō", pt: "conflito interno / dilema" }
+        { jp: "葛藤", romaji: "kattō", pt: "conflito interno / dilema" },
+        { jp: "妥当", romaji: "datō", pt: "razoável / apropriado" },
+        { jp: "促進", romaji: "sokushin", pt: "promoção / aceleração" }
       ]
     },
 
@@ -481,6 +557,22 @@ const ADVANCED_DATA = {
           exampleJp: "武士たるもの、命を惜しんではならぬ。",
           exampleRomaji: "Bushi taru mono, inochi o oshinde wa naranu.",
           examplePt: "Aquele que é um verdadeiro samurai não deve poupar a própria vida em nome da honra."
+        },
+        {
+          pattern: "〜べく (beku)",
+          meaning: "A fim de... / Com o propósito de...",
+          explanation: "Forma escrita e formal de expressar objetivo; em geral, conecta-se à forma de dicionário do verbo.",
+          exampleJp: "原因を究明すべく、専門家が現地へ向かった。",
+          exampleRomaji: "Gen'in o kyūmei subeku, senmonka ga genchi e mukatta.",
+          examplePt: "Especialistas foram ao local a fim de investigar a causa."
+        },
+        {
+          pattern: "〜を余儀なくされる (o yoginaku sareru)",
+          meaning: "Ser obrigado a... / Não ter alternativa senão...",
+          explanation: "Expressão formal usada quando circunstâncias externas forçam uma decisão ou mudança.",
+          exampleJp: "悪天候により、計画の変更を余儀なくされた。",
+          exampleRomaji: "Akutenkō ni yori, keikaku no henkō o yoginaku sareta.",
+          examplePt: "Por causa do mau tempo, fomos obrigados a mudar o plano."
         }
       ],
       kanji: [
@@ -491,7 +583,8 @@ const ADVANCED_DATA = {
         { char: "覇", onyomi: "HA", kunyomi: "-", meaning: "Supremacia, Dominação", example: "覇気 (haki - ambição/presença dominadora)" },
         { char: "冥", onyomi: "MEI, MYŌ", kunyomi: "kura-i", meaning: "Escuridão, Submundo", example: "冥土 (meido - submundo espiritual)" },
         { char: "孤", onyomi: "KO", kunyomi: "-", meaning: "Solidão, Órfão", example: "孤独 (kodoku - solidão/isolamento)" },
-        { char: "滅", onyomi: "METSU", kunyomi: "horo-biru", meaning: "Destruir, Perecer", example: "鬼滅 (kimetsu - extermínio de demônios)" }
+        { char: "滅", onyomi: "METSU", kunyomi: "horo-biru", meaning: "Destruir, Perecer", example: "鬼滅 (kimetsu - extermínio de demônios)" },
+        { char: "懸", onyomi: "KEN", kunyomi: "ka-keru", meaning: "Suspender, Arriscar", example: "懸念 (kenen - preocupação)" }
       ],
       vocab: [
         { jp: "刹那", romaji: "setsuna", pt: "instante efêmero / fração de segundo" },
@@ -501,42 +594,43 @@ const ADVANCED_DATA = {
         { jp: "泰然自若", romaji: "taizenjijaku", pt: "imperturbável e sereno perante a tempestade" },
         { jp: "深淵", romaji: "shin'en", pt: "abismo profundo" },
         { jp: "一網打尽", romaji: "ichimōdajin", pt: "captura ou aniquilação total de uma só vez" },
-        { jp: "百戦錬磨", romaji: "hyaksenrenma", pt: "veterano forjado em incontáveis batalhas" }
+        { jp: "百戦錬磨", romaji: "hyaksenrenma", pt: "veterano forjado em incontáveis batalhas" },
+        { jp: "懸念", romaji: "kenen", pt: "preocupação / receio" },
+        { jp: "脆弱", romaji: "zeijaku", pt: "fragilidade / vulnerabilidade" }
       ]
     }
   },
 
-  // 2. Acervo de 16 Cenas e Falas de Anime com Áudio, Vídeo e Análise
+  // 2. Exercícios de listening com áudio sintetizado e análise
   animeScenes: [
     {
-      id: "gojo-domain",
-      anime: "Jujutsu Kaisen",
-      character: "Satoru Gojo (五条 悟)",
-      role: "O Feiticeiro Mais Forte",
-      animeEmoji: "🔮",
-      themeColor: "#8b5cf6",
-      level: "N2",
-      badgeText: "N2 / Vocabulário Místico",
-      japanese: "領域展開...「無量空処」。何もしなくていいんだよ。",
-      furigana: "りょういきてんかい...「むりょうくうしょ」。なにもしなくていいんだよ。",
-      romaji: "Ryōiki Tenkai... 'Muryōkūsho'. Nanimo shinakute ii n da yo.",
-      portuguese: "Expansão de Domínio... 'Vazio Ilimitado'. Você não precisa fazer absolutamente nada.",
-      context: "Momento lendário em que Gojo remove a venda e expande seu Domínio contra Jogo, inundando sua mente com informações infinitas.",
-      youtubeEmbedId: "b8y48kO7f0U",
-      videoPosterBg: "radial-gradient(circle at center, #3b0764 0%, #0f172a 100%)",
-      voicePitch: 0.95,
-      voiceRate: 0.82,
+      id: "rezero-subaru-reset",
+      anime: "Re:Zero − Starting Life in Another World",
+      character: "Subaru Natsuki (ナツキ・スバル)",
+      role: "Exercício original: recomeçar depois de um erro",
+      animeEmoji: "⏳",
+      themeColor: "#b4233a",
+      level: "N4",
+      badgeText: "N4 / 〜ても: mesmo que",
+      originalStudy: true,
+      japanese: "何度失敗しても、次の一歩を考えよう。",
+      furigana: "なんどしっぱいしても、つぎのいっぽをかんがえよう。",
+      romaji: "Nando shippai shite mo, tsugi no ippo o kangaeyō.",
+      portuguese: "Mesmo que eu falhe várias vezes, vou pensar no próximo passo.",
+      context: "Exemplo didático original associado ao tema de recomeçar da série; não é uma fala oficial do anime.",
+      videoPosterBg: "radial-gradient(circle at 78% 18%, #76273d 0%, #321c36 48%, #111827 100%)",
+      voicePitch: 1.02,
+      voiceRate: 0.84,
       words: [
-        { jp: "領域展開", romaji: "Ryōiki Tenkai", pt: "Expansão de Domínio (N2)" },
-        { jp: "無量空処", romaji: "Muryōkūsho", pt: "Vazio Ilimitado (Termo budista N1)" },
-        { jp: "何もしなくていい", romaji: "nanimo shinakute ii", pt: "Não precisa fazer nada (N4 〜なくていい)" },
-        { jp: "んだよ", romaji: "n da yo", pt: "ênfase explicativa relaxada" }
+        { jp: "何度", romaji: "nando", pt: "quantas vezes / várias vezes" },
+        { jp: "失敗しても", romaji: "shippai shite mo", pt: "mesmo que falhe (〜ても)" },
+        { jp: "次の一歩", romaji: "tsugi no ippo", pt: "o próximo passo" },
+        { jp: "考えよう", romaji: "kangaeyō", pt: "vamos pensar / vou pensar" }
       ],
       grammarNotes: [
-        "領域展開 (Ryōiki Tenkai): 領域 (domínio - N2) + 展開 (expansão - N2).",
-        "無量空処 (Muryōkūsho): Reino do espaço infinito imaterial na cosmologia budista.",
-        "〜なくていい (nakute ii): Estrutura do N4 que indica ausência de obrigação.",
-        "んだよ (n da yo): のだ + よ, transmitindo um tom sereno de superioridade absoluta."
+        "Verbo na forma て + も apresenta uma condição concessiva: 失敗しても, mesmo que eu falhe.",
+        "〜よう é a forma volitiva informal de 考える: expressa intenção ou convite.",
+        "Frase criada para estudo e shadowing; não corresponde a uma citação do roteiro."
       ]
     },
 
@@ -779,6 +873,99 @@ const ADVANCED_DATA = {
         "〜って (tte): Versão coloquial da partícula de citação と.",
         "わかってた (wakatteta): Contração de わかっていた (o som /i/ é elidido).",
         "〜のに (noni): Gramática do N3 que expressa contradição com tom de lamento."
+      ]
+    },
+
+    {
+      id: "rezero-emilia",
+      anime: "Re:Zero − Starting Life in Another World",
+      character: "Subaru Natsuki (ナツキ・スバル)",
+      role: "O rapaz que recomeça do zero",
+      animeEmoji: "⏳",
+      themeColor: "#b4233a",
+      level: "N4",
+      badgeText: "N4 / Desejos com 〜たい",
+      originalStudy: true,
+      japanese: "困っている人を一人にしたくない。",
+      furigana: "こまっているひとをひとりにしたくない。",
+      romaji: "Komatte iru hito o hitori ni shitakunai.",
+      portuguese: "Não quero deixar sozinha uma pessoa que está passando por dificuldades.",
+      context: "Exemplo didático original sobre empatia, associado ao espírito da série; não é uma fala oficial do anime.",
+      videoPosterBg: "radial-gradient(circle at 78% 18%, #76273d 0%, #321c36 48%, #111827 100%)",
+      voicePitch: 1.02,
+      voiceRate: 0.84,
+      words: [
+        { jp: "困っている", romaji: "komatte iru", pt: "estar em dificuldade" },
+        { jp: "一人にする", romaji: "hitori ni suru", pt: "deixar alguém sozinho" },
+        { jp: "〜たくない", romaji: "takunai", pt: "não querer fazer algo" }
+      ],
+      grammarNotes: [
+        "〜たくない expressa vontade negativa: したい (querer fazer) passa a したくない (não querer fazer).",
+        "困っている人 é uma oração descritiva antes do substantivo: 'a pessoa que está em dificuldade'.",
+        "O sujeito é omitido, algo comum em japonês quando pode ser recuperado pelo contexto.",
+        "Frase criada para estudo e shadowing; não corresponde a uma citação do roteiro."
+      ]
+    },
+
+    {
+      id: "rezero-emilia-request",
+      anime: "Re:Zero − Starting Life in Another World",
+      character: "Emilia (エミリア)",
+      role: "Exercício original: pedir ajuda com gentileza",
+      animeEmoji: "❄️",
+      themeColor: "#587db8",
+      level: "N4",
+      badgeText: "N4 / 〜てくれる: fazer por mim",
+      originalStudy: true,
+      japanese: "この町を案内してくれる？",
+      furigana: "このまちをあんないしてくれる？",
+      romaji: "Kono machi o annai shite kureru?",
+      portuguese: "Você pode me mostrar esta cidade?",
+      context: "Pedido casual e amigável criado para praticar 〜てくれる; material de estudo original, não uma fala oficial.",
+      videoPosterBg: "radial-gradient(circle at 78% 18%, #617fa8 0%, #343654 48%, #111827 100%)",
+      voicePitch: 1.08,
+      voiceRate: 0.82,
+      words: [
+        { jp: "この町", romaji: "kono machi", pt: "esta cidade" },
+        { jp: "案内する", romaji: "annai suru", pt: "guiar / mostrar o lugar" },
+        { jp: "〜てくれる", romaji: "te kureru", pt: "fazer algo para mim" }
+      ],
+      grammarNotes: [
+        "Verbo na forma て + くれる expressa uma ação que outra pessoa faz como favor ao falante.",
+        "A entonação ascendente transforma a frase em pergunta casual; entre desconhecidos, prefira 〜てくれますか.",
+        "Frase criada para estudo e shadowing; não corresponde a uma citação do roteiro."
+      ]
+    },
+
+    {
+      id: "rezero-plan",
+      anime: "Re:Zero − Starting Life in Another World",
+      character: "Subaru Natsuki (ナツキ・スバル)",
+      role: "Exercício original: avaliar uma situação",
+      animeEmoji: "🕰️",
+      themeColor: "#74528f",
+      level: "N2",
+      badgeText: "N2 / 〜までは: até que",
+      originalStudy: true,
+      japanese: "状況を確かめるまでは、結論を急ぐべきじゃない。",
+      furigana: "じょうきょうをたしかめるまでは、けつろんをいそぐべきじゃない。",
+      romaji: "Jōkyō o tashikameru made wa, ketsuron o isogu beki ja nai.",
+      portuguese: "Até confirmar a situação, não devemos nos apressar em tirar conclusões.",
+      context: "Frase original para treinar linguagem de planejamento e cautela; inspirada no tema de reavaliar decisões, não é uma fala oficial.",
+      videoPosterBg: "radial-gradient(circle at 78% 18%, #61466f 0%, #332b4a 48%, #111827 100%)",
+      voicePitch: 0.96,
+      voiceRate: 0.82,
+      words: [
+        { jp: "状況", romaji: "jōkyō", pt: "situação / circunstâncias" },
+        { jp: "確かめる", romaji: "tashikameru", pt: "confirmar / verificar" },
+        { jp: "結論", romaji: "ketsuron", pt: "conclusão" },
+        { jp: "〜べきではない", romaji: "beki dewa nai", pt: "não se deve..." }
+      ],
+      grammarNotes: [
+        "〜までは marca o limite temporal: até que a situação seja confirmada.",
+        "〜べきではない expressa que não é recomendável ou correto fazer algo.",
+        "じゃない é a contração casual de ではない; a forma mais formal é 急ぐべきではありません.",
+        "Frase criada para estudo e shadowing; não corresponde a uma citação do roteiro."
       ]
     },
 
@@ -1165,17 +1352,88 @@ class JapaneseAdvancedController {
     this.currentLevelFilter = "all";
     this.hideFuriganaMode = false;
     this.activeUtterance = null;
+    this.cultureJlptLevel = "n5";
+    this.cultureQuizType = "mixed";
+    this.cultureQuizLevel = "all";
+    this.cultureQuizRounds = [];
+    this.cultureQuizIndex = 0;
+    this.cultureQuizScore = 0;
+    this.cultureQuizLocked = false;
+    this.cultureStudyProgress = this.loadCultureStudyProgress();
+    this.cultureSkillMode = "listen";
+    this.cultureSkillRounds = [];
+    this.cultureSkillIndex = 0;
+    this.cultureSkillScore = 0;
+    this.cultureSkillAnswered = false;
+    this.cultureSkillRecognition = null;
   }
 
   init() {
+    this.renderAnimeLibrary();
     this.renderAnimeScenes();
     this.renderJlptLevel(this.currentJlptLevel);
+    this.updateJlptRoute(this.currentJlptLevel);
     this.renderYojijukugo();
     this.renderSlangGuide();
+    this.renderJlptLevel(this.cultureJlptLevel, "cultureJlptContent");
+    this.renderCultureStudyDashboard();
+    this.startCultureQuiz();
     this.attachEvents();
   }
 
   attachEvents() {
+    document.querySelectorAll("[data-culture-tab]").forEach(button => {
+      button.addEventListener("click", () => this.switchCultureTab(button.dataset.cultureTab));
+    });
+    document.querySelectorAll("[data-culture-level]").forEach(button => {
+      button.addEventListener("click", () => this.selectCultureJlptLevel(button.dataset.cultureLevel));
+    });
+    document.querySelectorAll("[data-study-step]").forEach(button => {
+      button.addEventListener("click", () => this.completeCultureStudyStep(button.dataset.studyStep));
+    });
+    document.getElementById("cultureMissionChallenge")?.addEventListener("click", () => this.startCultureLevelChallenge());
+    document.getElementById("cultureStudyNote")?.addEventListener("input", event => this.saveCultureStudyNote(event.target.value));
+    document.getElementById("cultureClearNote")?.addEventListener("click", () => {
+      const note = document.getElementById("cultureStudyNote");
+      note.value = "";
+      this.saveCultureStudyNote("");
+      note.focus();
+    });
+    const skillStudio = document.getElementById("cultureJlptContent");
+    skillStudio?.addEventListener("click", event => {
+      const button = event.target.closest("[data-skill-action], [data-skill-mode], [data-skill-choice]");
+      if (!button) return;
+      if (button.dataset.skillMode) {
+        this.setCultureSkillMode(button.dataset.skillMode);
+      } else if (button.dataset.skillChoice) {
+        this.handleCultureSkillChoice(button);
+      } else {
+        this.handleCultureSkillAction(button.dataset.skillAction);
+      }
+    });
+    skillStudio?.addEventListener("submit", event => {
+      if (event.target.id !== "cultureSkillForm") return;
+      event.preventDefault();
+      this.checkCultureSkillAnswer(document.getElementById("cultureSkillInput").value);
+    });
+    document.querySelectorAll("[data-culture-activity]").forEach(button => {
+      button.addEventListener("click", () => {
+        this.cultureQuizType = button.dataset.cultureActivity;
+        document.querySelectorAll("[data-culture-activity]").forEach(modeButton => {
+          const selected = modeButton === button;
+          modeButton.classList.toggle("active", selected);
+          modeButton.setAttribute("aria-pressed", String(selected));
+        });
+        this.startCultureQuiz();
+      });
+    });
+    document.getElementById("cultureActivityLevel")?.addEventListener("change", event => {
+      this.cultureQuizLevel = event.target.value;
+      this.startCultureQuiz();
+    });
+    document.getElementById("cultureQuizNext")?.addEventListener("click", () => this.nextCultureQuizQuestion());
+    document.getElementById("cultureQuizRestart")?.addEventListener("click", () => this.startCultureQuiz());
+
     // Alternância de Abas Internas
     document.querySelectorAll(".adv-tab-btn").forEach(btn => {
       btn.addEventListener("click", () => {
@@ -1183,6 +1441,19 @@ class JapaneseAdvancedController {
         this.switchTab(tab);
       });
     });
+    document.querySelectorAll(".anime-library-link, .listening-back-link").forEach(link => {
+      link.addEventListener("click", event => {
+        event.preventDefault();
+        this.switchTab(link.getAttribute("data-tab"));
+      });
+    });
+    const library = document.getElementById("animeLibraryGrid");
+    if (library) {
+      library.addEventListener("click", event => {
+        const button = event.target.closest("[data-anime-name]");
+        if (button) this.openAnimeListening(button.dataset.animeName);
+      });
+    }
 
     // Seletor de Níveis JLPT (N5 a N1)
     document.querySelectorAll(".jlpt-level-pill").forEach(pill => {
@@ -1231,6 +1502,157 @@ class JapaneseAdvancedController {
     }
   }
 
+  switchCultureTab(tabName) {
+    const validTabs = ["overview", "jlpt", "activities"];
+    if (!validTabs.includes(tabName)) return;
+
+    document.querySelectorAll("[data-culture-tab]").forEach(button => {
+      const selected = button.dataset.cultureTab === tabName;
+      button.classList.toggle("active", selected);
+      button.setAttribute("aria-selected", String(selected));
+      button.tabIndex = selected ? 0 : -1;
+    });
+    document.querySelectorAll(".culture-tab-panel").forEach(panel => {
+      panel.hidden = panel.id !== `culturePanel${tabName[0].toUpperCase()}${tabName.slice(1)}`;
+    });
+  }
+
+  loadCultureStudyProgress() {
+    const storageKey = "nihongo_culture_jlpt_progress";
+    const saved = localStorage.getItem(storageKey);
+    if (!saved) return { xp: 0, levels: {} };
+
+    try {
+      const parsed = JSON.parse(saved);
+      if (!parsed || typeof parsed !== "object" || !parsed.levels || typeof parsed.levels !== "object") {
+        throw new Error("Formato inválido para o progresso de estudos JLPT.");
+      }
+      return {
+        xp: Number.isFinite(parsed.xp) ? parsed.xp : 0,
+        levels: parsed.levels
+      };
+    } catch (error) {
+      console.warn("O progresso JLPT salvo não pôde ser lido; uma nova trilha será iniciada.", error);
+      return { xp: 0, levels: {} };
+    }
+  }
+
+  saveCultureStudyProgress() {
+    try {
+      localStorage.setItem("nihongo_culture_jlpt_progress", JSON.stringify(this.cultureStudyProgress));
+      return true;
+    } catch (error) {
+      console.error("Não foi possível salvar o progresso JLPT neste dispositivo.", error);
+      const status = document.getElementById("cultureNotesSaved");
+      if (status) status.textContent = "Falha ao salvar";
+      window.app?.showToast("Não foi possível salvar seu progresso JLPT no navegador.", "error");
+      return false;
+    }
+  }
+
+  getCultureStudyLevelState(level = this.cultureJlptLevel) {
+    if (!this.cultureStudyProgress.levels[level]) {
+      this.cultureStudyProgress.levels[level] = { steps: {}, note: "", bestScore: 0 };
+    }
+    const levelState = this.cultureStudyProgress.levels[level];
+    if (!levelState.steps || typeof levelState.steps !== "object") levelState.steps = {};
+    if (typeof levelState.note !== "string") levelState.note = "";
+    if (!Number.isFinite(levelState.bestScore)) levelState.bestScore = 0;
+    return levelState;
+  }
+
+  selectCultureJlptLevel(level) {
+    if (!ADVANCED_DATA.jlpt[level]) return;
+    this.cultureJlptLevel = level;
+    document.querySelectorAll("[data-culture-level]").forEach(button => {
+      const selected = button.dataset.cultureLevel === level;
+      button.classList.toggle("active", selected);
+      button.setAttribute("aria-pressed", String(selected));
+    });
+    this.renderJlptLevel(level, "cultureJlptContent");
+    this.renderCultureStudyDashboard();
+  }
+
+  renderCultureStudyDashboard() {
+    const levelState = this.getCultureStudyLevelState();
+    const completedSteps = ["grammar", "kanji", "vocab"].filter(step => levelState.steps[step]).length;
+    const missionNames = {
+      n5: ["Construa sua base", "Ganhe confiança no básico"],
+      n4: ["Amplie seu repertório", "Conecte frases e ideias"],
+      n3: ["Atravesse a ponte", "Leia entre as linhas"],
+      n2: ["Aprofunde sua precisão", "Domine as nuances"],
+      n1: ["Refine o olhar", "Desafie sua leitura avançada"]
+    };
+    const mission = missionNames[this.cultureJlptLevel];
+    document.getElementById("cultureMissionTitle").textContent = mission[0];
+    document.getElementById("cultureMissionDescription").textContent =
+      `${mission[1]}: complete as três etapas e teste seu conhecimento em um desafio de 10 questões.`;
+    document.getElementById("cultureStudyXp").textContent = `${this.cultureStudyProgress.xp} XP`;
+    document.getElementById("cultureMissionProgress").style.width = `${(completedSteps / 3) * 100}%`;
+    document.querySelector(".culture-mission-progress").setAttribute("aria-valuenow", String(completedSteps));
+    document.querySelectorAll("[data-study-step]").forEach(button => {
+      const complete = Boolean(levelState.steps[button.dataset.studyStep]);
+      button.classList.toggle("is-complete", complete);
+      button.setAttribute("aria-pressed", String(complete));
+      button.querySelector(".culture-step-status").textContent = complete ? "✓" : "○";
+    });
+
+    const note = document.getElementById("cultureStudyNote");
+    if (note && note.dataset.level !== this.cultureJlptLevel) {
+      note.value = levelState.note;
+      note.dataset.level = this.cultureJlptLevel;
+    }
+    document.getElementById("cultureNoteCount").textContent = `${(note?.value || "").length} / 2000`;
+  }
+
+  completeCultureStudyStep(step) {
+    const sectionIndexes = {
+      grammar: 0,
+      kanji: 1,
+      vocab: 2
+    };
+    if (sectionIndexes[step] === undefined) return;
+
+    const levelState = this.getCultureStudyLevelState();
+    if (!levelState.steps[step]) {
+      levelState.steps[step] = true;
+      this.cultureStudyProgress.xp += 15;
+      this.saveCultureStudyProgress();
+    }
+    this.renderCultureStudyDashboard();
+    document.querySelectorAll("#cultureJlptContent .jlpt-content-section")[sectionIndexes[step]]
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  saveCultureStudyNote(value) {
+    const levelState = this.getCultureStudyLevelState();
+    levelState.note = value;
+    const saved = this.saveCultureStudyProgress();
+    document.getElementById("cultureNoteCount").textContent = `${value.length} / 2000`;
+    const status = document.getElementById("cultureNotesSaved");
+    if (!saved) return;
+    status.textContent = "Nota salva";
+    clearTimeout(this.cultureNoteStatusTimer);
+    this.cultureNoteStatusTimer = setTimeout(() => {
+      status.textContent = "Salvo neste dispositivo";
+    }, 1400);
+  }
+
+  startCultureLevelChallenge() {
+    this.cultureQuizType = "mixed";
+    this.cultureQuizLevel = this.cultureJlptLevel;
+    document.getElementById("cultureActivityLevel").value = this.cultureJlptLevel;
+    document.querySelectorAll("[data-culture-activity]").forEach(button => {
+      const selected = button.dataset.cultureActivity === "mixed";
+      button.classList.toggle("active", selected);
+      button.setAttribute("aria-pressed", String(selected));
+    });
+    this.startCultureQuiz();
+    this.switchCultureTab("activities");
+    document.getElementById("cultureQuizTitle").textContent = `Desafio JLPT ${this.cultureJlptLevel.toUpperCase()}`;
+    document.getElementById("culturePanelActivities").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   switchTab(tabName) {
     this.currentTab = tabName;
     document.querySelectorAll(".adv-tab-btn").forEach(btn => {
@@ -1242,12 +1664,97 @@ class JapaneseAdvancedController {
     });
   }
 
+  openAnimeListening(animeName) {
+    this.currentAnimeFilter = animeName;
+    this.currentLevelFilter = "all";
+    const animeSelect = document.getElementById("advAnimeFilterSelect");
+    const levelSelect = document.getElementById("advLevelFilterSelect");
+    const searchInput = document.getElementById("advAnimeSearchInput");
+    if (animeSelect) animeSelect.value = animeName;
+    if (levelSelect) levelSelect.value = "all";
+    if (searchInput) searchInput.value = "";
+    this.switchTab("listening");
+    this.renderAnimeScenes();
+  }
+
+  renderAnimeLibrary() {
+    const container = document.getElementById("animeLibraryGrid");
+    if (!container) return;
+
+    const series = new Map();
+    ADVANCED_DATA.animeScenes.forEach(scene => {
+      const title = scene.anime.replace(" (Demon Slayer)", "");
+      const entry = series.get(title) || { title, scenes: [], representative: scene };
+      entry.scenes.push(scene);
+      series.set(title, entry);
+    });
+
+    const entries = [...series.values()].sort((a, b) => {
+      if (a.title.startsWith("Re:Zero")) return -1;
+      if (b.title.startsWith("Re:Zero")) return 1;
+      return a.title.localeCompare(b.title);
+    });
+    const stats = document.getElementById("animeLibraryStats");
+    const count = document.getElementById("animeLibraryCount");
+    if (stats) stats.innerHTML = `
+      <div><strong>${entries.length.toString().padStart(2, "0")}</strong><span>universos</span></div>
+      <div><strong>${ADVANCED_DATA.animeScenes.length.toString().padStart(2, "0")}</strong><span>sessões</span></div>
+      <div><strong>01—05</strong><span>níveis JLPT</span></div>
+    `;
+    if (count) count.textContent = `${entries.length} séries no acervo`;
+
+    container.innerHTML = entries.map((entry, index) => {
+      const levels = [...new Set(entry.scenes.map(scene => scene.level))].sort();
+      const featured = entry.representative;
+      const seriesFilter = featured.anime.replace(" (Demon Slayer)", "");
+      const slug = entry.title.startsWith("Re:Zero") ? "rezero" : `series-${index % 5}`;
+      return `
+        <article class="anime-library-card ${slug}" style="--series-accent: ${featured.themeColor};">
+          <div class="anime-library-art">
+            <span class="anime-library-number">${String(index + 1).padStart(2, "0")}</span>
+            <span class="anime-library-symbol" aria-hidden="true">${featured.animeEmoji}</span>
+            <span class="anime-library-japanese" aria-hidden="true">${entry.title.startsWith("Re:Zero") ? "零から" : "物語"}</span>
+            <span class="anime-library-art-caption">KISE JAPAN · ANIME ARCHIVE</span>
+          </div>
+          <div class="anime-library-card-body">
+            <div class="anime-library-card-meta"><span>${entry.scenes.length} ${entry.scenes.length === 1 ? "sessão" : "sessões"}</span><span>${levels.join(" · ")}</span></div>
+            <h3>${entry.title}</h3>
+            <p class="anime-library-character"><span>${featured.animeEmoji}</span>${featured.character}</p>
+            <p class="anime-library-summary">${featured.role}</p>
+            <div class="anime-library-card-footer">
+              <span>${levels.map(level => `<i>${level}</i>`).join("")}</span>
+              <button type="button" data-anime-name="${seriesFilter}" aria-label="Explorar sessões de ${entry.title}">Explorar <span aria-hidden="true">↗</span></button>
+            </div>
+          </div>
+        </article>
+      `;
+    }).join("");
+  }
+
   switchJlptLevel(levelKey) {
     this.currentJlptLevel = levelKey;
     document.querySelectorAll(".jlpt-level-pill").forEach(pill => {
       pill.classList.toggle("active", pill.getAttribute("data-level") === levelKey);
     });
     this.renderJlptLevel(levelKey);
+    this.updateJlptRoute(levelKey);
+  }
+
+  updateJlptRoute(levelKey) {
+    const levels = ["n5", "n4", "n3", "n2", "n1"];
+    const activeIndex = levels.indexOf(levelKey);
+    const route = document.querySelector(".jlpt-route-steps");
+    if (activeIndex < 0 || !route) return;
+
+    route.querySelectorAll("[data-route-level]").forEach((step, index) => {
+      step.classList.toggle("is-passed", index < activeIndex);
+      step.classList.toggle("is-current", index === activeIndex);
+      if (index === activeIndex) step.setAttribute("aria-current", "step");
+      else step.removeAttribute("aria-current");
+    });
+    route.querySelectorAll("i").forEach((connector, index) => {
+      connector.classList.toggle("is-passed", index < activeIndex);
+    });
   }
 
   /**
@@ -1279,6 +1786,11 @@ class JapaneseAdvancedController {
         s.portuguese.toLowerCase().includes(q) ||
         s.romaji.toLowerCase().includes(q)
       );
+    }
+
+    const sessionCount = document.getElementById("listeningSessionCount");
+    if (sessionCount) {
+      sessionCount.textContent = `${scenes.length.toString().padStart(2, "0")} ${scenes.length === 1 ? "SESSÃO DISPONÍVEL" : "SESSÕES DISPONÍVEIS"}`;
     }
 
     if (scenes.length === 0) {
@@ -1318,10 +1830,17 @@ class JapaneseAdvancedController {
             </div>
           </div>
 
+          ${scene.originalStudy ? `
+            <div class="scene-original-note">
+              <span aria-hidden="true">✦</span>
+              <span>Exercício original de japonês — não é uma fala oficial do anime.</span>
+            </div>
+          ` : ""}
+
           <!-- Janela do Player de Áudio & Shadowing Cinematográfico -->
           <div class="scene-audio-card-frame" style="background: ${scene.videoPosterBg};">
             <div class="scene-cine-overlay">
-              <span class="scene-cinematic-badge">🎙️ ESTÚDIO DE ÁUDIO & SHADOWING</span>
+              <span class="scene-cinematic-badge">🎧 LISTENING LAB <span aria-hidden="true">•</span> ${scene.level}</span>
               <div class="scene-quote-display">
                 <div class="scene-jp-main" title="${scene.furigana}">${scene.japanese}</div>
                 <div class="scene-furigana-sub" style="${furiganaStyle}">${scene.furigana}</div>
@@ -1348,20 +1867,20 @@ class JapaneseAdvancedController {
 
           <!-- Tradução e Significado -->
           <div class="scene-trans-box" style="${transStyle}" onclick="this.style.opacity='1'; this.style.filter='none';" title="Clique para revelar caso esteja oculto">
-            <div class="scene-trans-label">🇧🇷 Significado em Português:</div>
+            <div class="scene-trans-label">O sentido da frase</div>
             <div class="scene-trans-text">"${scene.portuguese}"</div>
           </div>
 
           <!-- Contexto da Cena -->
           <div class="scene-context-note">
-            <strong>Contexto na Obra:</strong> ${scene.context}
+            <strong>Contexto:</strong> ${scene.context}
           </div>
 
           <!-- Decomposição Gramatical JLPT Accordion -->
           <div class="scene-grammar-accordion">
             <details>
               <summary class="scene-grammar-summary">
-                <span>📚 Decomposição Gramatical & Vocabulário JLPT</span>
+                <span>📚 Palavras e estruturas desta frase</span>
                 <span class="chevron">▼</span>
               </summary>
               <div class="scene-grammar-body">
@@ -1463,14 +1982,14 @@ class JapaneseAdvancedController {
   /**
    * Renderiza a Trilha de Nível JLPT Selecionada (N5 a N1)
    */
-  renderJlptLevel(levelKey) {
+  renderJlptLevel(levelKey, containerId = "jlptLevelContent") {
     const levelData = ADVANCED_DATA.jlpt[levelKey];
-    const container = document.getElementById("jlptLevelContent");
+    const container = document.getElementById(containerId);
     if (!levelData || !container) return;
 
     container.innerHTML = `
       <!-- Banner de Visão Geral do Nível -->
-      <div class="jlpt-overview-banner" style="border-left: 5px solid ${levelData.color};">
+      <div class="jlpt-overview-banner" style="--jlpt-accent: ${levelData.color}; border-left: 5px solid ${levelData.color};">
         <div class="jlpt-ob-header">
           <div>
             <span class="jlpt-badge-pill" style="background: ${levelData.color};">${levelData.badge}</span>
@@ -1494,15 +2013,22 @@ class JapaneseAdvancedController {
         <p class="jlpt-level-desc">${levelData.stats.summary}</p>
       </div>
 
-      <!-- Seção 1: Gramáticas-Chave do Nível (8 Gramáticas Completas) -->
+      <div class="jlpt-study-counts" aria-label="Conteúdo de revisão deste nível">
+        <div><strong>${levelData.grammar.length}</strong><span>pontos de gramática</span></div>
+        <div><strong>${levelData.kanji.length}</strong><span>kanji para revisar</span></div>
+        <div><strong>${levelData.vocab.length}</strong><span>palavras e expressões</span></div>
+      </div>
+
+      <!-- Seção 1: Gramática-chave do nível -->
       <div class="jlpt-content-section">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
-          <h3 class="jlpt-sec-title" style="margin-bottom: 0;">📖 8 Gramáticas Fundamentais do ${levelKey.toUpperCase()}</h3>
+          <h3 class="jlpt-sec-title" style="margin-bottom: 0;">📖 Gramática essencial · ${levelKey.toUpperCase()}</h3>
           <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">Toque em qualquer exemplo para ouvir a pronúncia 🔊</span>
         </div>
         <div class="jlpt-grammar-cards-grid">
-          ${levelData.grammar.map(g => `
-            <div class="jlpt-grammar-card">
+          ${levelData.grammar.map((g, index) => `
+            <div class="jlpt-grammar-card" style="--jlpt-accent: ${levelData.color};">
+              <div class="jg-index"><span>${String(index + 1).padStart(2, "0")}</span><i></i>${levelKey.toUpperCase()} · GRAMÁTICA</div>
               <div class="jg-pattern">${g.pattern}</div>
               <div class="jg-meaning">${g.meaning}</div>
               <p class="jg-expl">${g.explanation}</p>
@@ -1519,9 +2045,9 @@ class JapaneseAdvancedController {
         </div>
       </div>
 
-      <!-- Seção 2: Kanjis Notáveis do Nível (8 Kanjis) -->
+      <!-- Seção 2: Kanji para revisão -->
       <div class="jlpt-content-section" style="margin-top: 2.5rem;">
-        <h3 class="jlpt-sec-title">🈴 8 Kanjis Notáveis do ${levelKey.toUpperCase()}</h3>
+        <h3 class="jlpt-sec-title">🈴 Kanji em contexto · ${levelKey.toUpperCase()}</h3>
         <div class="jlpt-kanji-cards-grid">
           ${levelData.kanji.map(k => `
             <div class="jlpt-kanji-card" onclick="(window.app || window.japaneseApp).speakJapanese('${k.char}')">
@@ -1537,9 +2063,9 @@ class JapaneseAdvancedController {
         </div>
       </div>
 
-      <!-- Seção 3: Vocabulário Selecionado com Áudio (8 Palavras) -->
+      <!-- Seção 3: Vocabulário com áudio -->
       <div class="jlpt-content-section" style="margin-top: 2.5rem;">
-        <h3 class="jlpt-sec-title">💡 Vocabulário & Expressões Típicas do ${levelKey.toUpperCase()}</h3>
+        <h3 class="jlpt-sec-title">💡 Vocabulário de revisão · ${levelKey.toUpperCase()}</h3>
         <div class="jlpt-vocab-chips-row">
           ${levelData.vocab.map(v => `
             <div class="jlpt-vocab-chip" onclick="(window.app || window.japaneseApp).speakJapanese('${v.jp}')" title="Clique para ouvir a pronúncia">
@@ -1551,7 +2077,520 @@ class JapaneseAdvancedController {
           `).join("")}
         </div>
       </div>
+      ${containerId === "cultureJlptContent" ? this.renderCultureSkillStudio(levelKey) : ""}
     `;
+    if (containerId === "cultureJlptContent") this.startCultureSkillPractice();
+  }
+
+  renderCultureSkillStudio(levelKey) {
+    const isBeginner = ["n5", "n4"].includes(levelKey);
+    return `
+      <section class="culture-skill-studio" aria-labelledby="cultureSkillTitle">
+        <div class="culture-skill-heading">
+          <div>
+            <span class="culture-section-kicker">LABORATÓRIO DE PRÁTICA · ${levelKey.toUpperCase()}</span>
+            <h2 id="cultureSkillTitle">${isBeginner ? "Vamos praticar passo a passo." : "Agora é sua vez."}</h2>
+            <p>${isBeginner ? "Ouça, leia a tradução e escolha a frase certa. Você pode usar as dicas e tentar quantas vezes precisar." : "Pratique sem alternativas: ouça, escreva de memória ou fale em japonês."}</p>
+          </div>
+          <span class="culture-skill-mark" lang="ja" aria-hidden="true">声</span>
+        </div>
+        <div class="culture-skill-modes" role="group" aria-label="Modo de prática JLPT">
+          <button type="button" class="culture-skill-mode active" aria-pressed="true" data-skill-mode="listen"><span>01</span><strong>${isBeginner ? "Escutar & escolher" : "Escutar & escrever"}</strong><small>${isBeginner ? "Reconheça a frase" : "Ditado japonês"}</small></button>
+          <button type="button" class="culture-skill-mode" aria-pressed="false" data-skill-mode="write"><span>02</span><strong>${isBeginner ? "Encontrar a frase" : "Escrever de memória"}</strong><small>Português → japonês</small></button>
+          <button type="button" class="culture-skill-mode" aria-pressed="false" data-skill-mode="speak"><span>03</span><strong>${isBeginner ? "Falar ou escolher" : "Falar em voz alta"}</strong><small>${isBeginner ? "Experimente no seu ritmo" : "Pronúncia reconhecida"}</small></button>
+        </div>
+        <div class="culture-skill-exercise">
+          <div class="culture-skill-topline"><span id="cultureSkillCategory">GRAMÁTICA · JLPT ${levelKey.toUpperCase()}</span><span id="cultureSkillCounter">1 / 6</span></div>
+          <div class="culture-skill-progress" role="progressbar" aria-label="Progresso da prática" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0"><span id="cultureSkillProgress"></span></div>
+          <div id="cultureSkillPrompt" class="culture-skill-prompt" aria-live="polite"></div>
+          <div id="cultureSkillChoices" class="culture-skill-choices" role="group" aria-label="Escolha uma resposta" hidden></div>
+          <div class="culture-skill-tools"><button type="button" class="culture-skill-tool" data-skill-action="play">🔊 Ouvir novamente</button><button type="button" class="culture-skill-tool" data-skill-action="hint">💡 Ver dica</button><span id="cultureSkillHint" hidden></span></div>
+          <form id="cultureSkillForm" class="culture-skill-form">
+            <label id="cultureSkillLabel" for="cultureSkillInput">Escreva o que ouviu em japonês</label>
+            <div class="culture-skill-input-row"><input id="cultureSkillInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Digite em japonês" required><button type="submit" class="culture-skill-submit">Conferir</button></div>
+          </form>
+          <div class="culture-speech-fallback" id="cultureSpeechFallback" hidden></div>
+          <button type="button" class="culture-speech-button" id="cultureSpeechButton" data-skill-action="speak" hidden>🎙️ Começar a falar</button>
+          <p id="cultureSkillFeedback" class="culture-skill-feedback" aria-live="polite"></p>
+          <div class="culture-skill-actions"><button type="button" id="cultureSkillReveal" class="culture-skill-reveal" data-skill-action="answer">Mostrar resposta</button><button type="button" id="cultureSkillNext" class="culture-skill-next" data-skill-action="next" hidden>Próximo exercício →</button></div>
+          <div id="cultureSkillResult" class="culture-skill-result" hidden><span lang="ja">よくできました</span><h3>Prática concluída</h3><p id="cultureSkillFinalScore"></p><button type="button" class="culture-skill-next" data-skill-action="restart">Treinar novamente</button></div>
+        </div>
+      </section>
+    `;
+  }
+
+  buildCultureSkillQuestions(levelKey) {
+    const level = ADVANCED_DATA.jlpt[levelKey];
+    const grammar = level.grammar.map(item => ({
+      category: "GRAMÁTICA",
+      japanese: item.exampleJp,
+      portuguese: item.examplePt,
+      romaji: item.exampleRomaji,
+      title: item.pattern,
+      answerChoices: level.grammar.map(candidate => candidate.exampleJp)
+    }));
+    const vocab = level.vocab.map(item => ({
+      category: "VOCABULÁRIO",
+      japanese: item.jp,
+      portuguese: item.pt,
+      romaji: item.romaji,
+      title: item.jp,
+      answerChoices: level.vocab.map(candidate => candidate.jp)
+    }));
+    const roundSize = levelKey === "n5" ? 5 : levelKey === "n4" ? 6 : 8;
+    const distractorCount = levelKey === "n5" ? 2 : 3;
+    return this.shuffleCultureItems([...grammar, ...vocab])
+      .slice(0, roundSize)
+      .map(question => ({
+        ...question,
+        options: this.shuffleCultureItems([
+          question.japanese,
+          ...this.shuffleCultureItems(question.answerChoices.filter(answer => answer !== question.japanese)).slice(0, distractorCount)
+        ])
+      }));
+  }
+
+  startCultureSkillPractice() {
+    this.stopCultureSpeechRecognition();
+    this.cultureSkillRounds = this.buildCultureSkillQuestions(this.cultureJlptLevel);
+    this.cultureSkillIndex = 0;
+    this.cultureSkillScore = 0;
+    this.cultureSkillAnswered = false;
+    this.renderCultureSkillQuestion();
+    if (this.cultureSkillMode === "listen") this.speakCultureSkillAnswer();
+  }
+
+  setCultureSkillMode(mode) {
+    if (!["listen", "write", "speak"].includes(mode)) return;
+    this.stopCultureSpeechRecognition();
+    this.cultureSkillMode = mode;
+    document.querySelectorAll("[data-skill-mode]").forEach(button => {
+      const selected = button.dataset.skillMode === mode;
+      button.classList.toggle("active", selected);
+      button.setAttribute("aria-pressed", String(selected));
+    });
+    this.renderCultureSkillQuestion();
+    if (mode === "listen") this.speakCultureSkillAnswer();
+  }
+
+  renderCultureSkillQuestion() {
+    const question = this.cultureSkillRounds[this.cultureSkillIndex];
+    if (!question) return;
+    this.cultureSkillAnswered = false;
+    const isListen = this.cultureSkillMode === "listen";
+    const isSpeak = this.cultureSkillMode === "speak";
+    const isBeginner = ["n5", "n4"].includes(this.cultureJlptLevel);
+    document.querySelectorAll("#cultureJlptContent [data-skill-mode]").forEach(button => {
+      const selected = button.dataset.skillMode === this.cultureSkillMode;
+      button.classList.toggle("active", selected);
+      button.setAttribute("aria-pressed", String(selected));
+    });
+    document.getElementById("cultureSkillCategory").textContent =
+      `${question.category} · JLPT ${this.cultureJlptLevel.toUpperCase()}`;
+    document.getElementById("cultureSkillCounter").textContent =
+      `${this.cultureSkillIndex + 1} / ${this.cultureSkillRounds.length}`;
+    document.querySelector(".culture-skill-progress").setAttribute("aria-valuemax", String(this.cultureSkillRounds.length));
+    document.getElementById("cultureSkillProgress").style.width =
+      `${(this.cultureSkillIndex / this.cultureSkillRounds.length) * 100}%`;
+    document.querySelector(".culture-skill-progress").setAttribute("aria-valuenow", String(this.cultureSkillIndex));
+
+    const prompt = document.getElementById("cultureSkillPrompt");
+    prompt.hidden = false;
+    prompt.replaceChildren();
+    const promptLabel = document.createElement("span");
+    promptLabel.className = "culture-skill-prompt-label";
+    promptLabel.textContent = isListen ? "OUÇA COM ATENÇÃO" : isSpeak ? "FALE EM JAPONÊS" : "PASSE PARA O JAPONÊS";
+    const promptText = document.createElement("strong");
+    promptText.textContent = isListen ? "Qual frase você ouviu?" : question.portuguese;
+    prompt.append(promptLabel, promptText);
+
+    const choices = document.getElementById("cultureSkillChoices");
+    choices.replaceChildren();
+    choices.hidden = !isBeginner;
+    if (isBeginner) {
+      question.options.forEach((option, index) => {
+        const choice = document.createElement("button");
+        choice.type = "button";
+        choice.className = "culture-skill-choice";
+        choice.dataset.skillChoice = option;
+        const letter = document.createElement("span");
+        letter.textContent = String.fromCharCode(65 + index);
+        const answer = document.createElement("strong");
+        answer.textContent = option;
+        choice.append(letter, answer);
+        choices.append(choice);
+      });
+    }
+    const input = document.getElementById("cultureSkillInput");
+    input.value = "";
+    input.disabled = false;
+    input.placeholder = "Digite em japonês";
+    document.getElementById("cultureSkillLabel").textContent =
+      isListen ? "Escreva o que ouviu em japonês" : "Sua resposta em japonês";
+    document.getElementById("cultureSkillHint").hidden = !isBeginner;
+    document.getElementById("cultureSkillHint").textContent = `Leitura: ${question.romaji}`;
+    const feedback = document.getElementById("cultureSkillFeedback");
+    feedback.hidden = false;
+    feedback.textContent = "";
+    feedback.className = "culture-skill-feedback";
+    document.getElementById("cultureSkillNext").hidden = true;
+    document.getElementById("cultureSkillReveal").hidden = false;
+    document.getElementById("cultureSkillResult").hidden = true;
+    document.getElementById("cultureSkillForm").hidden = isBeginner && !isSpeak;
+    document.querySelector(".culture-skill-tools").hidden = false;
+    document.querySelector(".culture-skill-actions").hidden = false;
+    document.getElementById("cultureSpeechButton").hidden = !isSpeak;
+    const fallback = document.getElementById("cultureSpeechFallback");
+    fallback.hidden = !isSpeak;
+    if (isSpeak) {
+      const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      fallback.textContent = Recognition
+        ? (isBeginner
+          ? "Tente falar a frase ou escolha uma opção abaixo."
+          : "Fale a frase em japonês ou digite sua tentativa abaixo.")
+        : (isBeginner
+          ? "O reconhecimento de voz não está disponível. Você pode ler em voz alta e escolher uma opção abaixo."
+          : "O reconhecimento de voz não está disponível neste navegador. Leia a frase em voz alta e digite sua tentativa abaixo.");
+      input.placeholder = "Digite sua tentativa, se preferir";
+    }
+  }
+
+  normalizeCultureSkillAnswer(answer) {
+    return answer.toLowerCase().replace(/[\s。、！？!?.,，．「」『』]/g, "");
+  }
+
+  speakCultureSkillAnswer() {
+    const question = this.cultureSkillRounds[this.cultureSkillIndex];
+    if (!question) return;
+    if (!("speechSynthesis" in window)) {
+      document.getElementById("cultureSkillFeedback").textContent = "A reprodução de áudio não está disponível neste navegador.";
+      return;
+    }
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(question.japanese);
+    utterance.lang = "ja-JP";
+    utterance.rate = 0.82;
+    const japaneseVoice = window.speechSynthesis.getVoices().find(voice => voice.lang.startsWith("ja"));
+    if (japaneseVoice) utterance.voice = japaneseVoice;
+    window.speechSynthesis.speak(utterance);
+  }
+
+  checkCultureSkillAnswer(answer) {
+    if (this.cultureSkillAnswered || !answer.trim()) return;
+    const question = this.cultureSkillRounds[this.cultureSkillIndex];
+    const correct = this.normalizeCultureSkillAnswer(answer) ===
+      this.normalizeCultureSkillAnswer(question.japanese);
+    this.cultureSkillAnswered = true;
+    if (correct) this.cultureSkillScore++;
+    const feedback = document.getElementById("cultureSkillFeedback");
+    feedback.className = `culture-skill-feedback ${correct ? "is-correct" : "is-incorrect"}`;
+    feedback.textContent = correct
+      ? "Isso mesmo! Você reconheceu a frase."
+      : `Quase. A resposta esperada é: ${question.japanese}`;
+    document.getElementById("cultureSkillInput").disabled = true;
+    document.querySelectorAll("#cultureSkillChoices [data-skill-choice]").forEach(button => {
+      button.disabled = true;
+      if (button.dataset.skillChoice === question.japanese) button.classList.add("is-correct");
+    });
+    document.getElementById("cultureSkillReveal").hidden = true;
+    document.getElementById("cultureSkillNext").hidden = false;
+    document.getElementById("cultureSkillProgress").style.width =
+      `${((this.cultureSkillIndex + 1) / this.cultureSkillRounds.length) * 100}%`;
+    document.querySelector(".culture-skill-progress").setAttribute("aria-valuenow", String(this.cultureSkillIndex + 1));
+    this.stopCultureSpeechRecognition();
+  }
+
+  handleCultureSkillChoice(button) {
+    if (this.cultureSkillAnswered || button.disabled) return;
+    const question = this.cultureSkillRounds[this.cultureSkillIndex];
+    if (this.normalizeCultureSkillAnswer(button.dataset.skillChoice) ===
+        this.normalizeCultureSkillAnswer(question.japanese)) {
+      this.checkCultureSkillAnswer(button.dataset.skillChoice);
+      return;
+    }
+    button.disabled = true;
+    button.classList.add("is-incorrect");
+    const feedback = document.getElementById("cultureSkillFeedback");
+    feedback.className = "culture-skill-feedback is-incorrect";
+    feedback.textContent = "Ainda não — tente outra opção. Você consegue!";
+  }
+
+  handleCultureSkillAction(action) {
+    if (action === "play") {
+      this.speakCultureSkillAnswer();
+    } else if (action === "hint") {
+      document.getElementById("cultureSkillHint").hidden = false;
+    } else if (action === "answer") {
+      if (!this.cultureSkillAnswered) {
+        this.cultureSkillAnswered = true;
+        document.getElementById("cultureSkillInput").disabled = true;
+        document.getElementById("cultureSkillReveal").hidden = true;
+        document.getElementById("cultureSkillNext").hidden = false;
+        document.querySelectorAll("#cultureSkillChoices [data-skill-choice]").forEach(button => {
+          button.disabled = true;
+          if (button.dataset.skillChoice === this.cultureSkillRounds[this.cultureSkillIndex].japanese) {
+            button.classList.add("is-correct");
+          }
+        });
+        const feedback = document.getElementById("cultureSkillFeedback");
+        feedback.className = "culture-skill-feedback";
+        feedback.textContent = `Resposta: ${this.cultureSkillRounds[this.cultureSkillIndex].japanese}`;
+      }
+    } else if (action === "next") {
+      this.cultureSkillIndex++;
+      if (this.cultureSkillIndex >= this.cultureSkillRounds.length) {
+        this.finishCultureSkillPractice();
+      } else {
+        this.renderCultureSkillQuestion();
+        if (this.cultureSkillMode === "listen") this.speakCultureSkillAnswer();
+      }
+    } else if (action === "restart") {
+      this.startCultureSkillPractice();
+    } else if (action === "speak") {
+      this.startCultureSpeechRecognition();
+    }
+  }
+
+  startCultureSpeechRecognition() {
+    const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!Recognition) return;
+    this.stopCultureSpeechRecognition();
+    const button = document.getElementById("cultureSpeechButton");
+    const feedback = document.getElementById("cultureSkillFeedback");
+    const recognition = new Recognition();
+    this.cultureSkillRecognition = recognition;
+    recognition.lang = "ja-JP";
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+    button.disabled = true;
+    button.textContent = "🎙️ Ouvindo...";
+    feedback.textContent = "Fale a frase em japonês.";
+    recognition.onresult = event => {
+      const spoken = event.results[0][0].transcript;
+      document.getElementById("cultureSkillInput").value = spoken;
+      this.checkCultureSkillAnswer(spoken);
+    };
+    recognition.onerror = event => {
+      feedback.className = "culture-skill-feedback is-incorrect";
+      feedback.textContent = event.error === "not-allowed"
+        ? "Permissão do microfone negada. Você ainda pode digitar sua resposta."
+        : "Não foi possível reconhecer a fala. Tente novamente ou digite sua resposta.";
+    };
+    recognition.onend = () => {
+      this.cultureSkillRecognition = null;
+      button.disabled = false;
+      button.textContent = "🎙️ Tentar falar novamente";
+    };
+    try {
+      recognition.start();
+    } catch (error) {
+      this.cultureSkillRecognition = null;
+      button.disabled = false;
+      button.textContent = "🎙️ Tentar falar novamente";
+      feedback.className = "culture-skill-feedback is-incorrect";
+      feedback.textContent = "O microfone não pôde ser iniciado. Digite sua resposta para continuar.";
+    }
+  }
+
+  stopCultureSpeechRecognition() {
+    if (!this.cultureSkillRecognition) return;
+    this.cultureSkillRecognition.onresult = null;
+    this.cultureSkillRecognition.onerror = null;
+    this.cultureSkillRecognition.onend = null;
+    this.cultureSkillRecognition.stop();
+    this.cultureSkillRecognition = null;
+    const button = document.getElementById("cultureSpeechButton");
+    if (button) {
+      button.disabled = false;
+      button.textContent = "🎙️ Começar a falar";
+    }
+  }
+
+  finishCultureSkillPractice() {
+    this.stopCultureSpeechRecognition();
+    document.getElementById("cultureSkillPrompt").hidden = true;
+    document.getElementById("cultureSkillChoices").hidden = true;
+    document.querySelector(".culture-skill-tools").hidden = true;
+    document.getElementById("cultureSkillForm").hidden = true;
+    document.getElementById("cultureSpeechFallback").hidden = true;
+    document.getElementById("cultureSpeechButton").hidden = true;
+    document.getElementById("cultureSkillFeedback").hidden = true;
+    document.querySelector(".culture-skill-actions").hidden = true;
+    document.getElementById("cultureSkillCounter").textContent =
+      `${this.cultureSkillRounds.length} / ${this.cultureSkillRounds.length}`;
+    document.getElementById("cultureSkillProgress").style.width = "100%";
+    document.querySelector(".culture-skill-progress").setAttribute("aria-valuenow", String(this.cultureSkillRounds.length));
+    document.getElementById("cultureSkillResult").hidden = false;
+    document.getElementById("cultureSkillFinalScore").textContent =
+      `Você acertou ${this.cultureSkillScore} de ${this.cultureSkillRounds.length}. Continue praticando para fixar as frases!`;
+  }
+
+  shuffleCultureItems(items) {
+    const shuffled = [...items];
+    for (let index = shuffled.length - 1; index > 0; index--) {
+      const swapIndex = Math.floor(Math.random() * (index + 1));
+      [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+    }
+    return shuffled;
+  }
+
+  buildCultureQuestionPool(levelKeys, questionType) {
+    const questions = [];
+    levelKeys.forEach(levelKey => {
+      const level = ADVANCED_DATA.jlpt[levelKey];
+      ["grammar", "kanji", "vocab"].filter(type => questionType === "mixed" || questionType === type).forEach(type => {
+        const items = level[type];
+        items.forEach(item => {
+          const values = items.map(candidate => {
+            if (type === "grammar") return candidate.meaning;
+            if (type === "kanji") return candidate.meaning;
+            return candidate.pt;
+          }).filter((value, index, collection) => value && collection.indexOf(value) === index);
+          const answer = type === "grammar" ? item.meaning : type === "kanji" ? item.meaning : item.pt;
+          const distractors = this.shuffleCultureItems(values.filter(value => value !== answer)).slice(0, 3);
+          if (distractors.length < 3) return;
+
+          let prompt;
+          let detail;
+          if (type === "grammar") {
+            prompt = item.pattern;
+            detail = `${item.exampleJp} · ${item.examplePt}`;
+          } else if (type === "kanji") {
+            prompt = item.char;
+            detail = `On: ${item.onyomi} · Kun: ${item.kunyomi} · Ex.: ${item.example}`;
+          } else {
+            prompt = item.jp;
+            detail = `${item.romaji} · Qual é o significado?`;
+          }
+
+          questions.push({
+            level: levelKey.toUpperCase(),
+            category: type === "grammar" ? "GRAMÁTICA" : type === "kanji" ? "KANJI" : "VOCABULÁRIO",
+            prompt,
+            detail,
+            answer,
+            explanation: type === "grammar"
+              ? `${item.pattern}: ${item.explanation}`
+              : type === "kanji"
+                ? `${item.char} significa “${item.meaning}”. Leituras e exemplo: ${item.onyomi} · ${item.kunyomi} · ${item.example}.`
+                : `${item.jp} (${item.romaji}) significa “${item.pt}”.`,
+            options: this.shuffleCultureItems([answer, ...distractors])
+          });
+        });
+      });
+    });
+    return questions;
+  }
+
+  startCultureQuiz() {
+    const levelSelect = document.getElementById("cultureActivityLevel");
+    this.cultureQuizLevel = levelSelect?.value || this.cultureQuizLevel || "all";
+    const levelKeys = this.cultureQuizLevel === "all"
+      ? ["n5", "n4", "n3", "n2", "n1"]
+      : [this.cultureQuizLevel];
+    const questionPool = this.buildCultureQuestionPool(levelKeys, this.cultureQuizType);
+    if (questionPool.length === 0) {
+      throw new Error("Não há perguntas suficientes para esta atividade JLPT.");
+    }
+
+    this.cultureQuizRounds = this.shuffleCultureItems(questionPool).slice(0, 10);
+    this.cultureQuizIndex = 0;
+    this.cultureQuizScore = 0;
+    this.cultureQuizLocked = false;
+    document.getElementById("cultureQuestion").hidden = false;
+    document.getElementById("cultureAnswerOptions").hidden = false;
+    document.getElementById("cultureQuizFeedback").textContent = "";
+    document.getElementById("cultureQuizNext").hidden = true;
+    document.getElementById("cultureQuizResult").hidden = true;
+    this.renderCultureQuizQuestion();
+  }
+
+  renderCultureQuizQuestion() {
+    const question = this.cultureQuizRounds[this.cultureQuizIndex];
+    if (!question) return;
+
+    const prompt = document.getElementById("cultureQuestion");
+    prompt.replaceChildren();
+    const category = document.createElement("span");
+    category.className = "culture-question-category";
+    category.textContent = `JLPT ${question.level} · ${question.category}`;
+    const title = document.createElement("strong");
+    title.className = "culture-question-prompt";
+    title.textContent = question.prompt;
+    if (question.category === "KANJI" || question.category === "VOCABULÁRIO") title.lang = "ja";
+    const detail = document.createElement("span");
+    detail.className = "culture-question-detail";
+    detail.textContent = question.detail;
+    prompt.append(category, title, detail);
+
+    document.getElementById("cultureQuizCounter").textContent = `${this.cultureQuizIndex + 1} / ${this.cultureQuizRounds.length}`;
+    const progress = (this.cultureQuizIndex / this.cultureQuizRounds.length) * 100;
+    document.getElementById("cultureQuizProgress").style.width = `${progress}%`;
+    document.querySelector(".culture-quiz-progress").setAttribute("aria-valuenow", String(this.cultureQuizIndex));
+    const feedback = document.getElementById("cultureQuizFeedback");
+    feedback.textContent = "";
+    feedback.className = "culture-quiz-feedback";
+    const options = document.getElementById("cultureAnswerOptions");
+    options.replaceChildren();
+    question.options.forEach(option => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "culture-answer-option";
+      button.textContent = option;
+      button.addEventListener("click", () => this.checkCultureQuizAnswer(option));
+      options.appendChild(button);
+    });
+    this.cultureQuizLocked = false;
+  }
+
+  checkCultureQuizAnswer(answer) {
+    if (this.cultureQuizLocked) return;
+    this.cultureQuizLocked = true;
+    const question = this.cultureQuizRounds[this.cultureQuizIndex];
+    const isCorrect = answer === question.answer;
+    if (isCorrect) this.cultureQuizScore++;
+
+    document.querySelectorAll(".culture-answer-option").forEach(button => {
+      button.disabled = true;
+      if (button.textContent === question.answer) button.classList.add("is-correct");
+      else if (button.textContent === answer) button.classList.add("is-incorrect");
+    });
+    const feedback = document.getElementById("cultureQuizFeedback");
+    feedback.textContent = `${isCorrect ? "Correto!" : `A resposta é: ${question.answer}.`} ${question.explanation}`;
+    feedback.classList.add(isCorrect ? "is-correct" : "is-incorrect");
+    document.getElementById("cultureQuizNext").hidden = false;
+    document.getElementById("cultureQuizNext").textContent =
+      this.cultureQuizIndex + 1 === this.cultureQuizRounds.length ? "Ver resultado →" : "Próxima pergunta →";
+  }
+
+  nextCultureQuizQuestion() {
+    this.cultureQuizIndex++;
+    if (this.cultureQuizIndex >= this.cultureQuizRounds.length) {
+      this.finishCultureQuiz();
+      return;
+    }
+    this.renderCultureQuizQuestion();
+  }
+
+  finishCultureQuiz() {
+    const levelState = this.getCultureStudyLevelState(this.cultureQuizLevel === "all" ? this.cultureJlptLevel : this.cultureQuizLevel);
+    if (this.cultureQuizScore > levelState.bestScore) {
+      this.cultureStudyProgress.xp += (this.cultureQuizScore - levelState.bestScore) * 10;
+      levelState.bestScore = this.cultureQuizScore;
+      this.saveCultureStudyProgress();
+      this.renderCultureStudyDashboard();
+    }
+    const progress = document.getElementById("cultureQuizProgress");
+    progress.style.width = "100%";
+    document.querySelector(".culture-quiz-progress").setAttribute("aria-valuenow", String(this.cultureQuizRounds.length));
+    document.getElementById("cultureQuizCounter").textContent = `${this.cultureQuizRounds.length} / ${this.cultureQuizRounds.length}`;
+    document.getElementById("cultureQuestion").hidden = true;
+    document.getElementById("cultureAnswerOptions").hidden = true;
+    document.getElementById("cultureQuizFeedback").textContent = "";
+    document.getElementById("cultureQuizNext").hidden = true;
+    document.getElementById("cultureQuizFinalScore").textContent =
+      `Você acertou ${this.cultureQuizScore} de ${this.cultureQuizRounds.length} questões.`;
+    document.getElementById("cultureQuizResult").hidden = false;
   }
 
   /**
