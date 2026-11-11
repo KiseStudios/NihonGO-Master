@@ -3557,6 +3557,138 @@ body {
   box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.2);
 }
 
+.advanced-learning-guide {
+  display: grid;
+  grid-template-columns: minmax(210px, 0.8fr) minmax(0, 1.8fr);
+  gap: 2rem;
+  align-items: center;
+  margin: 1.5rem 0 2rem;
+  padding: 1.5rem 1.75rem;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 20px;
+  background: linear-gradient(120deg, rgba(139, 92, 246, 0.08), var(--bg-card) 48%);
+}
+
+.advanced-learning-guide-heading {
+  border-right: 1px solid var(--border-color);
+  padding-right: 1.5rem;
+}
+
+.advanced-learning-guide-kicker,
+.advanced-content-kicker {
+  display: block;
+  color: #8b5cf6;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.advanced-learning-guide h3,
+.advanced-content-heading h3 {
+  margin: 0.35rem 0 0.4rem;
+  color: var(--text-main);
+  font-size: 1.2rem;
+}
+
+.advanced-learning-guide p,
+.advanced-content-heading p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.advanced-learning-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.advanced-learning-steps li {
+  display: flex;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+.advanced-learning-step-number {
+  flex: 0 0 auto;
+  color: #8b5cf6;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.advanced-learning-steps strong,
+.advanced-learning-steps span:last-child {
+  display: block;
+}
+
+.advanced-learning-steps strong {
+  margin-bottom: 0.2rem;
+  color: var(--text-main);
+  font-size: 0.9rem;
+}
+
+.advanced-learning-steps span:last-child {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.advanced-content-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 0 1rem;
+}
+
+.advanced-content-heading h3 {
+  margin-bottom: 0;
+  font-size: 1.35rem;
+}
+
+.yojijukugo-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.yojijukugo-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, #8b5cf6, var(--primary));
+  opacity: 0.85;
+}
+
+@media (max-width: 800px) {
+  .advanced-learning-guide {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .advanced-learning-guide-heading {
+    border-right: 0;
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 0 1rem;
+  }
+
+  .advanced-learning-steps {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  .advanced-content-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+}
+
 .yoji-header {
   display: flex;
   justify-content: space-between;
@@ -4617,14 +4749,25 @@ input:checked + .slider:before {
 }
 
 #adv-tab-listening .anime-scene-card {
+  position: relative;
+  overflow: hidden;
   gap: 0.9rem;
   padding: 1.15rem;
   border-radius: 18px;
   box-shadow: 0 8px 28px rgba(24, 24, 36, 0.055);
 }
 
+#adv-tab-listening .anime-scene-card::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  content: "";
+  background: linear-gradient(90deg, var(--theme-accent), color-mix(in srgb, var(--theme-accent) 35%, #fff));
+}
+
 #adv-tab-listening .scene-card-header {
   min-height: 28px;
+  padding-top: 0.15rem;
   align-items: flex-start;
 }
 
@@ -4694,6 +4837,12 @@ input:checked + .slider:before {
   padding: 0.55rem 0.65rem;
   border-radius: 9px;
   font-size: 0.76rem;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.14);
+}
+
+#adv-tab-listening .scene-audio-actions button:active {
+  transform: translateY(2px);
+  box-shadow: none;
 }
 
 #adv-tab-listening .scene-trans-box {
@@ -4735,9 +4884,66 @@ input:checked + .slider:before {
   flex: 1;
 }
 
+#adv-tab-listening .scene-task-hint {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid rgba(163, 53, 50, 0.16);
+  border-radius: 10px;
+  color: #74665e;
+  background: #fffaf7;
+  font-size: 0.72rem;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+#adv-tab-listening .scene-task-hint-label {
+  margin-right: 0.25rem;
+  color: #a33532;
+  font-size: 0.62rem;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+}
+
+#adv-tab-listening .scene-task-hint b {
+  display: inline-grid;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 0.18rem;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: #a33532;
+  font-size: 0.64rem;
+}
+
+#adv-tab-listening .scene-task-hint > span[aria-hidden="true"] {
+  color: #c6aaa0;
+}
+
 #adv-tab-listening .scene-trans-text {
   font-weight: 650;
   line-height: 1.55;
+}
+
+#adv-tab-listening .scene-trans-label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+#adv-tab-listening .scene-trans-label span {
+  display: inline-grid;
+  width: 1.15rem;
+  height: 1.15rem;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: #a33532;
+  font-size: 0.62rem;
+  font-weight: 850;
 }
 
 #adv-tab-listening .scene-grammar-summary {
@@ -4965,6 +5171,29 @@ input:checked + .slider:before {
   background:
     radial-gradient(ellipse at 78% 15%, color-mix(in srgb, var(--series-accent) 72%, white), transparent 34%),
     linear-gradient(130deg, color-mix(in srgb, var(--series-accent) 88%, #11131b), #171923 74%);
+}
+
+#adv-tab-anime .anime-library-cover {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.72;
+  filter: saturate(0.9);
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+#adv-tab-anime .anime-library-art.has-cover {
+  background:
+    linear-gradient(90deg, rgba(20, 18, 28, 0.92), rgba(20, 18, 28, 0.18) 72%),
+    linear-gradient(0deg, rgba(20, 18, 28, 0.7), transparent 55%);
+}
+
+#adv-tab-anime .anime-library-card:hover .anime-library-cover {
+  opacity: 0.86;
+  transform: scale(1.05);
 }
 
 #adv-tab-anime .anime-library-art::before,

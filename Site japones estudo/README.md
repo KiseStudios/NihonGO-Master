@@ -12,6 +12,16 @@ python3 'Site japones estudo/tools/serve.py' --bind 0.0.0.0 --port 4173
 
 Abra `http://127.0.0.1:4173`. Dentro desta pasta, o comando equivalente é `python3 tools/serve.py --bind 0.0.0.0 --port 4173`. O servidor usa a biblioteca padrão do Python; a aplicação também pode ser hospedada por um servidor estático comum.
 
+## Publicar no Cloudflare Pages
+
+Com o Wrangler autenticado, execute na raiz do repositório:
+
+```sh
+npm run deploy
+```
+
+O comando publica o conteúdo no projeto `kise-japan` e atualiza automaticamente o endereço `kise-japan.pages.dev` e qualquer domínio personalizado conectado a ele.
+
 ## Organização
 
 - `index.html`: palco da abertura com duas imagens, navegação, busca e telas de estudo.

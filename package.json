@@ -1,0 +1,7 @@
+{
+  "name": "nihongo-master",
+  "private": true,
+  "scripts": {
+    "deploy": "powershell -NoProfile -ExecutionPolicy Bypass -File tools/deploy-pages.ps1"
+  }
+}

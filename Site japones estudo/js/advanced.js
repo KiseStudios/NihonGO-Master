@@ -12,6 +12,24 @@
  * - Guia comparativo de Gírias de Anime vs. Japonês Real
  */
 
+const ANIME_COVER_URLS = {
+  "re-zero-starting-life-in-another-world": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx21355-wRVUrGxpvIQQ.jpg",
+  "naruto-shippuden": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx1735-kGfVm0YqCPcu.png",
+  "shingeki-no-kyojin-attack-on-titan": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx16498-buvcRTBx4NSm.jpg",
+  "kimetsu-no-yaiba": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx101922-WBsBl0ClmgYL.jpg",
+  "one-piece": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx21-ELSYx3yMPcKM.jpg",
+  "death-note": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx1535-kUgkcrfOrkUM.jpg",
+  "sousou-no-frieren": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx154587-qQTzQnEJJ3oB.jpg",
+  "hunter-x-hunter": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx136-gj0bbCpDNrKG.jpg",
+  "dragon-ball-z": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx813-ZhnFNOeCU5dQ.png",
+  "vinland-saga": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx101348-2fhDFPCuMNiz.jpg",
+  "neon-genesis-evangelion": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx30-AI1zr74Dh4ye.jpg",
+  "fullmetal-alchemist-brotherhood": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx5114-nSWCgQlmOMtj.jpg",
+  "bleach": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx269-d2GmRkJbMopq.png",
+  "jujutsu-kaisen": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx113415-LHBAeoZDIsnF.jpg",
+  "kimi-no-na-wa-your-name": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx21519-SUo3ZQuCbYhJ.png"
+};
+
 const ADVANCED_DATA = {
   // 1. Conteúdo estruturado por nível JLPT (N5 ao N1)
   jlpt: {
@@ -1707,10 +1725,10 @@ class JapaneseAdvancedController {
       const levels = [...new Set(entry.scenes.map(scene => scene.level))].sort();
       const featured = entry.representative;
       const seriesFilter = featured.anime.replace(" (Demon Slayer)", "");
-      const slug = entry.title.startsWith("Re:Zero") ? "rezero" : `series-${index % 5}`;
+      const slug = this.getAnimeCoverKey(entry.title);
       return `
         <article class="anime-library-card ${slug}" style="--series-accent: ${featured.themeColor};">
-          <div class="anime-library-art">
+          <div class="anime-library-art" data-cover-key="${slug}">
             <span class="anime-library-number">${String(index + 1).padStart(2, "0")}</span>
             <span class="anime-library-symbol" aria-hidden="true">${featured.animeEmoji}</span>
             <span class="anime-library-japanese" aria-hidden="true">${entry.title.startsWith("Re:Zero") ? "零から" : "物語"}</span>
@@ -1729,6 +1747,39 @@ class JapaneseAdvancedController {
         </article>
       `;
     }).join("");
+
+    this.applyAnimeLibraryCovers(entries);
+  }
+
+  applyAnimeLibraryCovers(entries) {
+    const container = document.getElementById("animeLibraryGrid");
+    if (!container) return;
+
+    for (const entry of entries) {
+      const card = [...container.querySelectorAll("[data-cover-key]")].find(
+        element => element.dataset.coverKey === this.getAnimeCoverKey(entry.title)
+      );
+      if (!card) continue;
+
+      const coverUrl = ANIME_COVER_URLS[this.getAnimeCoverKey(entry.title)];
+      if (!coverUrl) continue;
+
+      const image = document.createElement("img");
+      image.className = "anime-library-cover";
+      image.loading = "lazy";
+      image.alt = `Capa de ${entry.title}`;
+      image.src = coverUrl;
+      image.addEventListener("error", () => {
+        console.warn(`Não foi possível carregar a capa de ${entry.title}.`);
+        image.remove();
+      }, { once: true });
+      card.prepend(image);
+      card.classList.add("has-cover");
+    }
+  }
+
+  getAnimeCoverKey(title) {
+    return title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   }
 
   switchJlptLevel(levelKey) {
@@ -1837,6 +1888,15 @@ class JapaneseAdvancedController {
             </div>
           ` : ""}
 
+          <div class="scene-task-hint" aria-label="Ordem recomendada para estudar">
+            <span class="scene-task-hint-label">COMO ESTUDAR</span>
+            <span><b>1</b> Ouça</span>
+            <span aria-hidden="true">→</span>
+            <span><b>2</b> Repita</span>
+            <span aria-hidden="true">→</span>
+            <span><b>3</b> Confira o sentido</span>
+          </div>
+
           <!-- Janela do Player de Áudio & Shadowing Cinematográfico -->
           <div class="scene-audio-card-frame" style="background: ${scene.videoPosterBg};">
             <div class="scene-cine-overlay">
@@ -1867,7 +1927,7 @@ class JapaneseAdvancedController {
 
           <!-- Tradução e Significado -->
           <div class="scene-trans-box" style="${transStyle}" onclick="this.style.opacity='1'; this.style.filter='none';" title="Clique para revelar caso esteja oculto">
-            <div class="scene-trans-label">O sentido da frase</div>
+            <div class="scene-trans-label"><span>3</span> Confira o sentido</div>
             <div class="scene-trans-text">"${scene.portuguese}"</div>
           </div>
 

@@ -199,6 +199,15 @@ button:hover .ed-arrow {
   left: -24.58%;
   top: -25.32%;
 }
+.brand-logo-image--light {
+  display: none;
+}
+body.has-hero-experience .editorial-nav.is-hero-clear .brand-logo-image--dark {
+  display: none;
+}
+body.has-hero-experience .editorial-nav.is-hero-clear .brand-logo-image--light {
+  display: block;
+}
 [data-theme="dark"] .ed-brand::before {
   /* A tipografia preta da logo precisa de uma superfície clara no tema escuro. */
   content: "";
@@ -2560,21 +2569,20 @@ button:hover .ed-arrow {
 /* Header surfaces stay independent of the photograph and preserve native menus. */
 body:has(.editorial-home.active) .editorial-nav .ed-nav-inner { height: 92px; }
 body.has-hero-experience .editorial-nav { transition: background-color .25s ease, color .25s ease, border-color .25s ease; }
-body.has-hero-experience .editorial-nav.is-hero-clear {
+body.has-hero-experience .editorial-nav:is(.is-hero-clear, .is-hero-solid) {
   background: transparent;
   color: var(--hero-white, #f7f4eb);
-  border-bottom-color: #f7f4eb24;
+  border-bottom-color: transparent;
   backdrop-filter: none;
 }
-body.has-hero-experience .editorial-nav.is-hero-clear .ed-nav-group summary span { color: #f7f4ebbd; }
-body.has-hero-experience .editorial-nav.is-hero-clear .ed-nav-actions button:last-child { border-color: #f7f4eb4d; }
-body.has-hero-experience .editorial-nav.is-hero-clear :is(.ed-menu .nav-item.active, .ed-nav-group[open] summary) { color: #f7f4eb; }
-body.has-hero-experience .editorial-nav.is-hero-solid {
-  background: #f8f5eee0;
-  color: #201b16;
-  border-bottom-color: #201b1624;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+body.has-hero-experience .editorial-nav:is(.is-hero-clear, .is-hero-solid) .ed-nav-group summary span { color: #f7f4ebbd; }
+body.has-hero-experience .editorial-nav:is(.is-hero-clear, .is-hero-solid) .ed-nav-actions button:last-child { border-color: #f7f4eb4d; }
+body.has-hero-experience .editorial-nav:is(.is-hero-clear, .is-hero-solid) :is(.ed-menu .nav-item.active, .ed-nav-group[open] summary) { color: #f7f4eb; }
+body.has-hero-experience .editorial-nav.is-hero-solid .brand-logo-image--dark {
+  display: none;
+}
+body.has-hero-experience .editorial-nav.is-hero-solid .brand-logo-image--light {
+  display: block;
 }
 body.has-hero-experience .editorial-nav :is(.ed-dropdown, .ed-menu.is-open) {
   background: #f8f5ee;
@@ -2586,6 +2594,27 @@ body.has-hero-experience .editorial-nav .ed-dropdown a span { color: #766c60; }
 body.has-hero-experience .editorial-nav :is(.ed-menu.is-open, .ed-dropdown) :is(a:hover, .nav-item:hover, summary:hover) { color: #b72920; }
 body.has-hero-experience .editorial-nav .ed-menu.is-open .ed-nav-group summary span { color: #766c60; }
 body.has-hero-experience .editorial-nav.is-hero-clear .ed-menu.is-open :is(.nav-item.active, .ed-nav-group[open] summary) { color: #b72920; }
+body.has-hero-experience:not(:has(.editorial-home.active)) .editorial-nav {
+  background: var(--ed-paper);
+  color: var(--ed-ink);
+  border-bottom-color: var(--ed-line);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+body.has-hero-experience:not(:has(.editorial-home.active)) .editorial-nav .brand-logo-image--dark {
+  display: block;
+}
+body.has-hero-experience:not(:has(.editorial-home.active)) .editorial-nav .brand-logo-image--light {
+  display: none;
+}
+body.has-hero-experience:not(:has(.editorial-home.active)) .editorial-nav .ed-nav-actions button:last-child {
+  border-color: var(--ed-line);
+}
+body.has-hero-experience:not(:has(.editorial-home.active)) .editorial-nav .ed-menu .nav-item.active {
+  color: var(--ed-red);
+  background: none;
+  box-shadow: none;
+}
 
 @media (hover: hover) and (pointer: fine) and (min-width: 701px) and (prefers-reduced-motion: no-preference) {
   .js .hero-experience:not(.is-static) .hero-cursor {
@@ -2670,6 +2699,8 @@ body.has-hero-experience .editorial-nav.is-hero-clear .ed-menu.is-open :is(.nav-
   .hero-experience .hero-cta { min-height: 48px; font-size: 10px; }
   .hero-experience .hero-copy--origin .hero-cta:first-child { min-height: 50px; padding: 13px 17px; }
   .hero-experience .hero-edition { top: calc(var(--hero-nav-height) + 21px); font-size: 7px; letter-spacing: .1em; }
+  /* The eyebrow already identifies this scene; avoid a second label colliding with it. */
+  .hero-experience .hero-edition { display: none; }
   .hero-experience .hero-edition > span:last-child { display: none; }
   .hero-experience .hero-progress { gap: 9px; }
   .hero-experience .hero-progress-track { height: 80px; }
