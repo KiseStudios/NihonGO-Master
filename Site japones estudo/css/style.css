@@ -40,7 +40,7 @@
 }
 
 /* Modo Escuro */
-[data-theme="dark"] {
+:is([data-theme="dark"], [data-theme="kyoto"]) {
   --bg-primary: #0b0f19;
   --bg-secondary: #111827;
   --bg-card: #1f2937;
@@ -3137,7 +3137,7 @@ body {
   color: #92400e;
 }
 
-[data-theme="dark"] .slang-alert-box {
+:is([data-theme="dark"], [data-theme="kyoto"]) .slang-alert-box {
   background: rgba(245, 158, 11, 0.12);
   border-color: rgba(245, 158, 11, 0.35);
   color: #fef3c7;
@@ -3489,7 +3489,7 @@ body {
   gap: 1rem;
 }
 
-[data-theme="dark"] .yt-direct-callout-box {
+:is([data-theme="dark"], [data-theme="kyoto"]) .yt-direct-callout-box {
   background: rgba(225, 29, 72, 0.12);
   border-color: rgba(225, 29, 72, 0.3);
 }
@@ -6507,7 +6507,7 @@ input:checked + .slider:before {
   font-size: 0.65rem;
 }
 
-[data-theme="dark"] .culture-xp-badge { color: #a8d2b2; }
+:is([data-theme="dark"], [data-theme="kyoto"]) .culture-xp-badge { color: #a8d2b2; }
 
 .culture-xp-badge > span {
   font-family: var(--font-jp);

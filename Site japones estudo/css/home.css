@@ -10,7 +10,7 @@
   --ed-jp: "Noto Serif JP", "Yu Mincho", serif;
   --ed-gutter: clamp(24px, 4.5vw, 100px);
 }
-[data-theme="dark"] {
+:is([data-theme="dark"], [data-theme="kyoto"]) {
   --ed-paper: #171c23;
   --ed-white: #1f252c;
   --ed-ink: #f7f4ee;
@@ -208,7 +208,7 @@ body.has-hero-experience .editorial-nav.is-hero-clear .brand-logo-image--dark {
 body.has-hero-experience .editorial-nav.is-hero-clear .brand-logo-image--light {
   display: block;
 }
-[data-theme="dark"] .ed-brand::before {
+:is([data-theme="dark"], [data-theme="kyoto"]) .ed-brand::before {
   /* A tipografia preta da logo precisa de uma superfície clara no tema escuro. */
   content: "";
   position: absolute;
@@ -218,7 +218,7 @@ body.has-hero-experience .editorial-nav.is-hero-clear .brand-logo-image--light {
 }
 /* No hero, a versão branca da logo já tem contraste suficiente e deve ficar
    diretamente sobre a fotografia, sem a placa clara do header interno. */
-[data-theme="dark"] body.has-hero-experience:has(.editorial-home.active) .editorial-nav:is(.is-hero-clear, .is-hero-solid) .ed-brand::before {
+:is([data-theme="dark"], [data-theme="kyoto"]) body.has-hero-experience:has(.editorial-home.active) .editorial-nav:is(.is-hero-clear, .is-hero-solid) .ed-brand::before {
   display: none;
 }
 .ed-menu {
