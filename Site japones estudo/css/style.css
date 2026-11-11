@@ -6326,6 +6326,45 @@ input:checked + .slider:before {
   box-shadow: var(--shadow-sm);
 }
 
+/* Estados selecionados padronizados: contraste neutro em todas as abas. */
+:is(.adv-tab-btn, .tab-pill, .culture-subtab).active {
+  background: #111827;
+  border-color: #111827;
+  color: #ffffff;
+  box-shadow: var(--shadow-sm);
+}
+
+html[data-theme="dark"] .adv-tab-btn.active,
+html[data-theme="dark"] .tab-pill.active,
+html[data-theme="dark"] .culture-subtab.active,
+html[data-theme="kyoto"] .adv-tab-btn.active,
+html[data-theme="kyoto"] .tab-pill.active,
+html[data-theme="kyoto"] .culture-subtab.active {
+  background-color: #ffffff !important;
+  background-image: none !important;
+  border-color: #ffffff !important;
+  color: #111827 !important;
+}
+
+#screen-advanced .adv-tab-btn.active {
+  background-color: #111827;
+  background-image: none;
+  border-color: #111827;
+  color: #ffffff;
+}
+
+html[data-theme="dark"] #screen-advanced .adv-tab-btn.active,
+html[data-theme="kyoto"] #screen-advanced .adv-tab-btn.active {
+  background-color: #ffffff !important;
+  background-image: none !important;
+  border-color: #ffffff !important;
+  color: #111827 !important;
+}
+
+:is(.culture-subtab).active > span:first-child {
+  color: inherit;
+}
+
 .culture-study-hero {
   position: relative;
   display: flex;
